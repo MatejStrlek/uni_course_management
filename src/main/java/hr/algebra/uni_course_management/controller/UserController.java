@@ -1,5 +1,6 @@
 package hr.algebra.uni_course_management.controller;
 
+import hr.algebra.uni_course_management.model.User;
 import hr.algebra.uni_course_management.model.UserRole;
 import hr.algebra.uni_course_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
 
 @Controller
 public class UserController {
@@ -31,7 +34,11 @@ public class UserController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard() {
+    public String dashboard(Principal principal, Model model) {
+        if (principal != null) {
+            User currentUser = userService.getCurrentUser(principal.getName());
+            model.addAttribute("currentUser", currentUser);
+        }
         return "dashboard";
     }
 
@@ -44,10 +51,12 @@ public class UserController {
     public String registerUser(
             @RequestParam String username,
             @RequestParam String password,
+            @RequestParam String firstName,
+            @RequestParam String lastName,
             @RequestParam String role,
             Model model) {
         try {
-            userService.registerUser(username, password, UserRole.valueOf(role.toUpperCase()));
+            userService.registerUser(username, password, firstName, lastName, UserRole.valueOf(role.toUpperCase()));
             return "redirect:/login";
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());

@@ -23,13 +23,13 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(String username, String password, UserRole role) {
+    public void registerUser(String username, String password, String firstName, String lastName, UserRole role) {
         if (userRepository.findByUsername(username).isPresent()) {
             throw new IllegalArgumentException("Username already exists: " + username);
         }
 
         String encodedPassword = passwordEncoder.encode(password);
-        User user = new User(username, encodedPassword, role);
+        User user = new User(username, encodedPassword, firstName, lastName, role);
         userRepository.save(user);
     }
 

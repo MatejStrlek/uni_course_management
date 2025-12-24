@@ -14,7 +14,7 @@
         <a class="navbar-brand" href="#">University Course Management</a>
         <div class="d-flex align-items-center">
                 <span class="navbar-text text-white me-3">
-                    Welcome, <strong sec:authentication="name"></strong>
+                    Welcome, <span th:text="${currentUser.firstName}"></span>
                 </span>
             <form th:action="@{/logout}" method="post" class="d-inline">
                 <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
@@ -31,8 +31,10 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">User Information</h5>
-                    <p><strong>Username:</strong> <span sec:authentication="name"></span></p>
-                    <p><strong>Role:</strong> <span sec:authentication="principal.authorities"></span></p>
+                    <p><strong>First name:</strong> <span th:text="${currentUser.firstName}"></span></p>
+                    <p><strong>Last Name:</strong> <span th:text="${currentUser.lastName}"></span></p>
+                    <p><strong>Username:</strong> <span th:text="${currentUser.username}"></span></p>
+                    <p><strong>Role:</strong> <span th:text="${currentUser.role}"></span></p>
                 </div>
             </div>
         </div>

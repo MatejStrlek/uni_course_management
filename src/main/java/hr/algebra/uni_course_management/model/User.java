@@ -31,6 +31,14 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @NotBlank(message = "First name is required")
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
     @Column(name = "role_user", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
@@ -51,9 +59,15 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public User(String username, String password, UserRole role) {
+    public User(String username, String password, String firstName, String lastName, UserRole role) {
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 }
