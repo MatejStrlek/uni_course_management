@@ -3,10 +3,7 @@ package hr.algebra.uni_course_management.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -70,7 +67,6 @@ public class Course {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
-
     }
 
     public Course(String courseCode, String courseName, String description, Integer credits) {

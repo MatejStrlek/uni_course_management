@@ -8,3 +8,20 @@ CREATE TABLE IF NOT EXISTS app_user (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS course (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    course_code VARCHAR(20) UNIQUE NOT NULL,
+    course_name VARCHAR(200) NOT NULL,
+    description TEXT,
+    credits INT NOT NULL,
+    max_students INT,
+    enrolled_students INT DEFAULT 0,
+    semester VARCHAR(20),
+    academic_year VARCHAR(20),
+    is_active BOOLEAN DEFAULT TRUE,
+    professor_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (professor_id) REFERENCES app_user(id)
+);

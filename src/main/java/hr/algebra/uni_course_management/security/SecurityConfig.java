@@ -29,8 +29,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/login", "/public/**", "/h2-console/**").permitAll()
-                        .requestMatchers("/admin/**", "/register").hasRole("ADMIN")
+                        .requestMatchers("/login", "/dashboard").permitAll()
+                        .requestMatchers("/admin/**", "/register", "/h2-console/**").hasRole("ADMIN")
                         .requestMatchers("/professor/**").hasRole("PROFESSOR")
                         .requestMatchers("/student/**").hasRole("STUDENT")
                         .anyRequest().authenticated()
