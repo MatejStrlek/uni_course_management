@@ -77,7 +77,10 @@ public class ProfessorCourseController {
         User professor = userService.getCurrentUser(principal.getName());
         Course course = courseService.getCourseById(courseId);
 
-        // TODO: Ensure the professor owns the course
+        if (!course.getProfessor().getId().equals(professor.getId())) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
 
         String csvData = gradeExportService.exportGradesCsv(courseId);
         response.setContentType("text/csv");
