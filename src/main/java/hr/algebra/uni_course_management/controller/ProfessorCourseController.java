@@ -3,10 +3,8 @@ package hr.algebra.uni_course_management.controller;
 import hr.algebra.uni_course_management.model.Course;
 import hr.algebra.uni_course_management.model.Enrollment;
 import hr.algebra.uni_course_management.model.User;
-import hr.algebra.uni_course_management.service.CourseService;
-import hr.algebra.uni_course_management.service.EnrollmentService;
-import hr.algebra.uni_course_management.service.GradeService;
-import hr.algebra.uni_course_management.service.UserService;
+import hr.algebra.uni_course_management.service.*;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +22,7 @@ public class ProfessorCourseController {
     private final CourseService courseService;
     private final EnrollmentService enrollmentService;
     private final GradeService gradeService;
+    private final GradeExportService gradeExportService;
 
     @GetMapping
     public String professorCourses(Model model, Principal principal) {
@@ -71,5 +70,23 @@ public class ProfessorCourseController {
         gradeService.assignGrade(enrollmentId, gradeValue);
         redirectAttributes.addFlashAttribute("success", "Grade assigned successfully.");
         return "redirect:/professor/courses/" + courseId + "/students";
+    }
+
+    @GetMapping("/{courseId}/export-grades")
+    public void exportCourseGrades(@PathVariable Long courseId, HttpServletResponse response, Principal principal) {
+        User professor = userService.getCurrentUser(principal.getName());
+        Course course = courseService.getCourseById(courseId);
+
+        // TODO: Ensure the professor owns the course
+
+        String csvData = gradeExportService.exportGradesCsv(courseId);
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"course_" + courseId + "_grades.csv\"");
+        try {
+            response.getWriter().write(csvData);
+            response.getWriter().flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

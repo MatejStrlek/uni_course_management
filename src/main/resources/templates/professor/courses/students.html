@@ -24,6 +24,10 @@
                     <i class="fas fa-users text-primary"></i>
                     <span th:text="${course.courseName}">Course Name</span> - Grading
                 </h2>
+                <a th:href="@{/professor/courses/{courseId}/export-grades(courseId=${course.id})}"
+                   class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-file-csv"></i> Export CSV
+                </a>
                 <span class="badge bg-secondary fs-6" th:text="${#lists.size(enrollments)} + ' students'">
                     0 students
                 </span>
