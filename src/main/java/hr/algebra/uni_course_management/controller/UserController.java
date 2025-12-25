@@ -3,7 +3,7 @@ package hr.algebra.uni_course_management.controller;
 import hr.algebra.uni_course_management.model.User;
 import hr.algebra.uni_course_management.model.UserRole;
 import hr.algebra.uni_course_management.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String redirectToLogin() {

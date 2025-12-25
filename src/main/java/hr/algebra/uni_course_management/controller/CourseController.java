@@ -5,7 +5,7 @@ import hr.algebra.uni_course_management.model.Semester;
 import hr.algebra.uni_course_management.repository.UserRepository;
 import hr.algebra.uni_course_management.service.CourseService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,11 +13,17 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/courses")
+@RequiredArgsConstructor
 public class CourseController {
-    @Autowired
-    private CourseService courseService;
-    @Autowired
-    private UserRepository userRepository;
+    private final CourseService courseService;
+    private final UserRepository userRepository;
+
+    private static final String ADMIN_COURSES_EDIT = "admin/courses/edit";
+    private static final String ADMIN_COURSES_CREATE = "admin/courses/create";
+    private static final String SEMESTERS = "semesters";
+    private static final String PROFESSORS = "professors";
+    private static final String PROFESSOR = "PROFESSOR";
+
 
     @GetMapping
     public String getCourses(Model model) {
@@ -28,14 +34,14 @@ public class CourseController {
     @GetMapping("/create")
     public String createCourseForm(Model model) {
         model.addAttribute("course", new Course());
-        model.addAttribute("semesters", Semester.values());
-        model.addAttribute("professors",
+        model.addAttribute(SEMESTERS, Semester.values());
+        model.addAttribute(PROFESSORS,
                 userRepository
                 .findAll()
                 .stream()
-                .filter(user -> user.getRole().name().equals("PROFESSOR"))
+                .filter(user -> user.getRole().name().equals(PROFESSOR))
         );
-        return "admin/courses/create";
+        return ADMIN_COURSES_CREATE;
     }
 
     @PostMapping("/create")
@@ -43,14 +49,14 @@ public class CourseController {
                                BindingResult result,
                                Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("semesters", Semester.values());
-            model.addAttribute("professors",
+            model.addAttribute(SEMESTERS, Semester.values());
+            model.addAttribute(PROFESSORS,
                     userRepository
                     .findAll()
                     .stream()
-                    .filter(user -> user.getRole().name().equals("PROFESSOR"))
+                    .filter(user -> user.getRole().name().equals(PROFESSOR))
             );
-            return "admin/courses/create";
+            return ADMIN_COURSES_CREATE;
         }
 
         try {
@@ -58,8 +64,8 @@ public class CourseController {
             return "redirect:/admin/courses?success=created";
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", "Error creating course: " + e.getMessage());
-            model.addAttribute("semesters", Semester.values());
-            model.addAttribute("professors",
+            model.addAttribute(SEMESTERS, Semester.values());
+            model.addAttribute(PROFESSORS,
                     userRepository
                     .findAll()
                     .stream()
@@ -67,10 +73,10 @@ public class CourseController {
                             user
                                     .getRole()
                                     .name()
-                                    .equals("PROFESSOR"))
+                                    .equals(PROFESSOR))
                             .toList()
             );
-            return "admin/courses/create";
+            return ADMIN_COURSES_CREATE;
         }
     }
 
@@ -78,14 +84,14 @@ public class CourseController {
     public String editCourseForm(@PathVariable Long id, Model model) {
         Course course = courseService.getCourseById(id);
         model.addAttribute("course", course);
-        model.addAttribute("semesters", Semester.values());
-        model.addAttribute("professors",
+        model.addAttribute(SEMESTERS, Semester.values());
+        model.addAttribute(PROFESSORS,
                 userRepository
                 .findAll()
                 .stream()
-                .filter(user -> user.getRole().name().equals("PROFESSOR"))
+                .filter(user -> user.getRole().name().equals(PROFESSOR))
         );
-        return "admin/courses/edit";
+        return ADMIN_COURSES_EDIT;
     }
 
     @PostMapping("/edit/{id}")
@@ -94,14 +100,14 @@ public class CourseController {
                              BindingResult result,
                              Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("semesters", Semester.values());
-            model.addAttribute("professors",
+            model.addAttribute(SEMESTERS, Semester.values());
+            model.addAttribute(PROFESSORS,
                     userRepository
                     .findAll()
                     .stream()
-                    .filter(user -> user.getRole().name().equals("PROFESSOR"))
+                    .filter(user -> user.getRole().name().equals(PROFESSOR))
             );
-            return "admin/courses/edit";
+            return ADMIN_COURSES_EDIT;
         }
 
         try {
@@ -109,8 +115,8 @@ public class CourseController {
             return "redirect:/admin/courses?success=updated";
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", "Error updating course: " + e.getMessage());
-            model.addAttribute("semesters", Semester.values());
-            model.addAttribute("professors",
+            model.addAttribute(SEMESTERS, Semester.values());
+            model.addAttribute(PROFESSORS,
                     userRepository
                     .findAll()
                     .stream()
@@ -118,10 +124,10 @@ public class CourseController {
                             user
                                     .getRole()
                                     .name()
-                                    .equals("PROFESSOR"))
+                                    .equals(PROFESSOR))
                             .toList()
             );
-            return "admin/courses/edit";
+            return ADMIN_COURSES_EDIT;
         }
     }
 

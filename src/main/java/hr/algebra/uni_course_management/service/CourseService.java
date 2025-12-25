@@ -2,8 +2,7 @@ package hr.algebra.uni_course_management.service;
 
 import hr.algebra.uni_course_management.model.Course;
 import hr.algebra.uni_course_management.repository.CourseRepository;
-import hr.algebra.uni_course_management.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,11 +10,9 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CourseService {
-    @Autowired
-    private CourseRepository courseRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final CourseRepository courseRepository;
 
     public List<Course> getAllCourses() {
         return (List<Course>) courseRepository.findAll();
@@ -41,14 +38,14 @@ public class CourseService {
         return courseRepository.searchByName(courseName);
     }
 
-    public Course createCourse(Course course) {
+    public void createCourse(Course course) {
         if (courseRepository.existsByCourseCode(course.getCourseCode())) {
             throw new IllegalArgumentException("Course with code " + course.getCourseCode() + " already exists.");
         }
-        return courseRepository.save(course);
+        courseRepository.save(course);
     }
 
-    public Course updateCourse(Long id, Course updatedCourse) {
+    public void updateCourse(Long id, Course updatedCourse) {
         Course existingCourse = getCourseById(id);
         existingCourse.setCourseName(updatedCourse.getCourseName());
         existingCourse.setDescription(updatedCourse.getDescription());
@@ -58,7 +55,7 @@ public class CourseService {
         existingCourse.setAcademicYear(updatedCourse.getAcademicYear());
         existingCourse.setIsActive(updatedCourse.getIsActive());
         existingCourse.setProfessor(updatedCourse.getProfessor());
-        return courseRepository.save(existingCourse);
+        courseRepository.save(existingCourse);
     }
 
     public void deleteCourse(Long id) {

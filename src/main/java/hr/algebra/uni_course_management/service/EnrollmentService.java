@@ -20,6 +20,8 @@ public class EnrollmentService {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
+    private static final String STUDENT_NOT_FOUND = "Student not found";
+
     public EnrollmentService(EnrollmentRepository enrollmentRepository,
                              CourseRepository courseRepository,
                              UserRepository userRepository) {
@@ -30,7 +32,7 @@ public class EnrollmentService {
 
     public void enrollStudent(Long studentId, Long courseId) {
         User student = this.userRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+                .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
         Course course = this.courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Course not found"));
 
@@ -53,7 +55,7 @@ public class EnrollmentService {
 
     public List<Enrollment> getEnrollmentsForStudent(Long studentId) {
         User student = userRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+                .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
         return enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED);
     }
 
@@ -64,7 +66,7 @@ public class EnrollmentService {
 
     public void dropStudent(Long studentId, Long courseId) {
         User student = userRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+                .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Course not found"));
 

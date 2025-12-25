@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/professor/courses")
@@ -49,8 +48,13 @@ public class ProfessorCourseController {
         }
 
         List<Enrollment> activeEnrollments = enrollmentService.getActiveEnrollmentsForCourse(courseId);
-        List<Enrollment> enrollmentsWithGrades = activeEnrollments.stream()
-                .peek(enr -> enr.setTempGrade(gradeService.getGradeForEnrollment(enr.getId()))).toList();
+        List<Enrollment> enrollmentsWithGrades = activeEnrollments
+                .stream()
+                .map(enr -> {
+                    enr.setTempGrade(gradeService.getGradeForEnrollment(enr.getId()));
+                    return enr;
+                })
+                .toList();
 
         model.addAttribute("course", course);
         model.addAttribute("enrollments", enrollmentsWithGrades);
