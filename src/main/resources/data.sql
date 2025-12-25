@@ -9,9 +9,9 @@ VALUES
     ('sivanovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Sara', 'Ivanovic', 'STUDENT'),
     ('dmarinkovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'David', 'Marinkovic', 'STUDENT'),
     ('lpetrovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Lena', 'Petrovic', 'STUDENT'),
-    ('sivanovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Sara', 'Ivanovic', 'STUDENT'),
-    ('dmarinkovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'David', 'Marinkovic', 'STUDENT'),
-    ('lpetrovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Lena', 'Petrovic', 'STUDENT'),
+    ('mstojanovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Marko', 'Stojanovic', 'STUDENT'),
+    ('njakovljevic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Nina', 'Jakovljevic', 'STUDENT'),
+    ('tmitrovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Tina', 'Mitrovic', 'STUDENT'),
     ('mgalic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Matej', 'Galic', 'STUDENT');
 
 INSERT INTO course (course_code, course_name, description, credits, max_students, semester, academic_year, professor_id)

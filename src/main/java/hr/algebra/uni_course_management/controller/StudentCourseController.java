@@ -7,6 +7,7 @@ import hr.algebra.uni_course_management.model.User;
 import hr.algebra.uni_course_management.service.CourseService;
 import hr.algebra.uni_course_management.service.EnrollmentService;
 import hr.algebra.uni_course_management.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,18 +22,11 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/student/courses")
+@RequiredArgsConstructor
 public class StudentCourseController {
     private final CourseService courseService;
     private final EnrollmentService enrollmentService;
     private final UserService userService;
-
-    public StudentCourseController(CourseService courseService,
-                                   EnrollmentService enrollmentService,
-                                   UserService userService) {
-        this.courseService = courseService;
-        this.enrollmentService = enrollmentService;
-        this.userService = userService;
-    }
 
     @GetMapping
     public String listAvailableCourses(Model model, Principal principal) {
@@ -71,5 +65,22 @@ public class StudentCourseController {
         model.addAttribute("enrollments",
                 enrollmentService.getEnrollmentsForStudent(currentUser.getId()));
         return "student/courses/my_courses";
+    }
+
+    @GetMapping("/grades")
+    public String viewGrades(Model model, Principal principal) {
+        User currentUser = userService.getCurrentUser(principal.getName());
+        List<Enrollment> enrollments = enrollmentService.getEnrollmentsForStudent(currentUser.getId());
+
+        long gradedCount = enrollments.stream()
+                .filter(e -> e.getTempGrade() != null)
+                .count();
+        long pendingCount = enrollments.size() - gradedCount;
+
+        model.addAttribute("enrollments", enrollments);
+        model.addAttribute("gradedCount", gradedCount);
+        model.addAttribute("pendingCount", pendingCount);
+
+        return "student/grades/list";
     }
 }

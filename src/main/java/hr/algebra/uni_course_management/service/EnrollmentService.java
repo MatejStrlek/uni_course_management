@@ -6,8 +6,10 @@ import hr.algebra.uni_course_management.model.EnrollmentStatus;
 import hr.algebra.uni_course_management.model.User;
 import hr.algebra.uni_course_management.repository.CourseRepository;
 import hr.algebra.uni_course_management.repository.EnrollmentRepository;
+import hr.algebra.uni_course_management.repository.GradeRepository;
 import hr.algebra.uni_course_management.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,20 +17,14 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class EnrollmentService {
     private final EnrollmentRepository enrollmentRepository;
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
+    private final GradeRepository gradeRepository;
 
     private static final String STUDENT_NOT_FOUND = "Student not found";
-
-    public EnrollmentService(EnrollmentRepository enrollmentRepository,
-                             CourseRepository courseRepository,
-                             UserRepository userRepository) {
-        this.enrollmentRepository = enrollmentRepository;
-        this.courseRepository = courseRepository;
-        this.userRepository = userRepository;
-    }
 
     public void enrollStudent(Long studentId, Long courseId) {
         User student = this.userRepository.findById(studentId)
@@ -56,7 +52,11 @@ public class EnrollmentService {
     public List<Enrollment> getEnrollmentsForStudent(Long studentId) {
         User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
-        return enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED);
+        List<Enrollment> enrollments = enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED);
+        enrollments.forEach(enrollment -> gradeRepository.findByEnrollmentId(enrollment.getId())
+                .ifPresent(enrollment::setTempGrade));
+
+        return enrollments;
     }
 
     public List<Enrollment> getActiveEnrollmentsForCourse(Long courseId) {
