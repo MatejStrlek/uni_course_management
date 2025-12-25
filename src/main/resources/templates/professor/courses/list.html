@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Courses</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/professor/courses">
+            <i class="fas fa-graduation-cap"></i> Professor Dashboard
+        </a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2><i class="fas fa-list text-primary"></i> Your Courses</h2>
+
+            <!-- Flash messages -->
+            <div th:if="${session.success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i>
+                <span th:text="${session.success}">Success!</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle"></i>
+                Access denied
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th><i class="fas fa-book"></i> Course</th>
+                                <th><i class="fas fa-tag"></i> Code</th>
+                                <th><i class="fas fa-calendar"></i> Semester</th>
+                                <th><i class="fas fa-users"></i> Students</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="course : ${courses}" class="align-middle">
+                                <td>
+                                    <strong th:text="${course.courseName}">Course Name</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary" th:text="${course.courseCode}">CODE</span>
+                                </td>
+                                <td th:text="${course.semester}">Semester</td>
+                                <td class="text-center">
+                                    <span class="badge bg-info" th:text="${course.enrolledStudents}">0</span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/professor/courses/{id}/students(id=${course.id})}"
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fas fa-edit"></i> Grade Students
+                                    </a>
+                                </td>
+                            </tr>
+                            <!-- Empty state -->
+                            <tr th:if="${courses.isEmpty()}">
+                                <td colspan="5" class="text-center text-muted py-4">
+                                    <i class="fas fa-inbox fa-3x mb-3 opacity-75"></i>
+                                    <p>No courses assigned yet</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

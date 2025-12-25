@@ -12,13 +12,18 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">University Course Management</a>
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-book-half"></i> University Course Management
+        </a>
         <div class="d-flex align-items-center">
-                <span class="navbar-text text-white me-3">
-                    Welcome, <span th:text="${currentUser.firstName}"></span>
-                </span>
+            <span class="navbar-text text-white me-3">
+                Welcome, <span th:text="${currentUser.firstName + ' ' + currentUser.lastName}"></span>
+                (<span th:text="${currentUser.role}"></span>)
+            </span>
             <form th:action="@{/logout}" method="post" class="d-inline">
-                <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+                <button class="btn btn-outline-light btn-sm" type="submit">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </button>
             </form>
         </div>
     </div>
@@ -31,117 +36,222 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <h1 class="mb-4">Dashboard</h1>
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="mb-0">
+                <i class="bi bi-speedometer2 text-primary"></i> Dashboard
+            </h1>
+            <p class="text-muted">Quick access to all your features</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <span class="badge bg-light text-dark fs-6">
+                <i class="bi bi-person"></i> <span th:text="${currentUser.username}"></span>
+            </span>
+        </div>
+    </div>
 
-    <div class="row">
+    <!-- User Information Card -->
+    <div class="row mb-4">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">User Information</h5>
-                    <p><strong>First name:</strong> <span th:text="${currentUser.firstName}"></span></p>
-                    <p><strong>Last Name:</strong> <span th:text="${currentUser.lastName}"></span></p>
-                    <p><strong>Username:</strong> <span th:text="${currentUser.username}"></span></p>
-                    <p><strong>Role:</strong> <span th:text="${currentUser.role}"></span></p>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5 class="card-title mb-1">
+                                <i class="bi bi-person-circle text-primary"></i>
+                                <span th:text="${currentUser.firstName + ' ' + currentUser.lastName}"></span>
+                            </h5>
+                            <p class="text-muted mb-1">
+                                <span th:text="${currentUser.username}"></span> |
+                                <span class="badge bg-secondary" th:text="${currentUser.role}"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <span class="text-muted">
+                                Role: <strong th:text="${currentUser.role}"></strong>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Student Dashboard -->
-    <div sec:authorize="hasRole('STUDENT')" class="row mt-4">
-        <div class="col-md-12">
-            <div class="alert alert-info">
-                <h3>Student Dashboard</h3>
-                <p>Welcome to the student portal!</p>
-                <ul>
-                    <li>
-                        <a href="/student/courses">Browse available courses</a>
-                    </li>
-                    <li>
-                        <a href="/student/courses/my-courses">View your enrolled courses</a>
-                    </li>
-                    <li>
-                        <a href="/student/grades">Check your grades</a>
-                    </li>
-                    <li>
-                        <a href="/student/schedule">View your schedule</a>
-                    </li>
-                </ul>
+    <!-- STUDENT DASHBOARD -->
+    <div sec:authorize="hasRole('STUDENT')" class="row mb-4">
+        <div class="col-12">
+            <div class="card border-start border-primary border-4 bg-light">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center">
+                            <i class="bi bi-person-student display-4 text-primary"></i>
+                        </div>
+                        <div class="col-md-10">
+                            <h3 class="card-title mb-2">Student Portal</h3>
+                            <div class="row g-2">
+                                <div class="col-md-3">
+                                    <a href="/student/courses" class="btn btn-primary w-100">
+                                        <i class="bi bi-book"></i> Browse Courses
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="/student/courses/my-courses" class="btn btn-outline-primary w-100">
+                                        <i class="bi bi-check-circle"></i> My Courses
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="/student/grades" class="btn btn-success w-100">
+                                        <i class="bi bi-star"></i> My Grades
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="/student/schedule" class="btn btn-info w-100">
+                                        <i class="bi bi-calendar-event"></i> Schedule
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Professor Dashboard -->
-    <div sec:authorize="hasRole('PROFESSOR')" class="row mt-4">
-        <div class="col-md-12">
-            <div class="alert alert-success">
-                <h3>Professor Dashboard</h3>
-                <p>Welcome to the professor portal!</p>
-                <ul>
-                    <li>Manage your courses</li>
-                    <li>Enter student grades</li>
-                    <li>View course schedules</li>
-                </ul>
+    <!-- PROFESSOR DASHBOARD -->
+    <div sec:authorize="hasRole('PROFESSOR')" class="row mb-4">
+        <div class="col-12">
+            <div class="card border-start border-success border-4 bg-light">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center">
+                            <i class="bi bi-person-briefcase display-4 text-success"></i>
+                        </div>
+                        <div class="col-md-10">
+                            <h3 class="card-title mb-2">Professor Portal</h3>
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <a href="/professor/courses" class="btn btn-success w-100">
+                                        <i class="bi bi-book"></i> My Courses
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="/professor/courses" class="btn btn-outline-success w-100">
+                                        <i class="bi bi-star"></i> Enter Grades
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="/professor/schedule" class="btn btn-warning w-100">
+                                        <i class="bi bi-calendar-check"></i> My Schedule
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Admin Dashboard -->
-    <!-- Admin Dashboard -->
-    <div sec:authorize="hasRole('ADMIN')" class="row mt-4">
-        <div class="col-md-12">
-            <div class="alert alert-warning">
-                <h3>Admin Dashboard</h3>
-                <p>Welcome to the admin portal!</p>
+    <!-- ADMIN DASHBOARD -->
+    <div sec:authorize="hasRole('ADMIN')" class="row mb-4">
+        <div class="col-12">
+            <div class="card border-start border-warning border-4 bg-light">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center">
+                            <i class="bi bi-gear-wide-connected display-4 text-warning"></i>
+                        </div>
+                        <div class="col-md-10">
+                            <h3 class="card-title mb-3">Admin Control Panel</h3>
+                            <div class="row g-3">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-people display-6 text-primary"></i>
+                                            <h5 class="card-title mt-2">Users</h5>
+                                            <p class="card-text text-muted">Manage users & roles</p>
+                                            <a href="/admin/users" class="btn btn-primary">Manage</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-book display-6 text-success"></i>
+                                            <h5 class="card-title mt-2">Courses</h5>
+                                            <p class="card-text text-muted">CRUD operations</p>
+                                            <a href="/admin/courses" class="btn btn-success">Manage</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-file-earmark-bar-graph display-6 text-info"></i>
+                                            <h5 class="card-title mt-2">Reports</h5>
+                                            <p class="card-text text-muted">Analytics & stats</p>
+                                            <a href="/admin/reports" class="btn btn-info">View Reports</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-sliders display-6 text-warning"></i>
+                                            <h5 class="card-title mt-2">Settings</h5>
+                                            <p class="card-text text-muted">System config</p>
+                                            <a href="/admin/settings" class="btn btn-warning">Configure</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="row">
-                <div class="col-md-3 mb-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="bi bi-person-plus fs-1 text-primary"></i>
-                            <h5 class="card-title mt-2">Users</h5>
-                            <p class="card-text">Manage system users</p>
-                            <a href="/register" class="btn btn-primary">Manage Users</a>
-                        </div>
-                    </div>
+    <!-- Quick Stats (All Roles) -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm bg-primary text-white">
+                <div class="card-body">
+                    <i class="bi bi-book display-6 opacity-75"></i>
+                    <h3 class="mb-0">Active Courses</h3>
+                    <p class="fs-6 opacity-75">Available now</p>
                 </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="bi bi-book fs-1 text-success"></i>
-                            <h5 class="card-title mt-2">Courses</h5>
-                            <p class="card-text">Manage courses</p>
-                            <a href="/admin/courses" class="btn btn-success">Manage Courses</a>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm bg-success text-white">
+                <div class="card-body">
+                    <i class="bi bi-star display-6 opacity-75"></i>
+                    <h3 class="mb-0">Your Average</h3>
+                    <p class="fs-6 opacity-75">Grade score</p>
                 </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="bi bi-file-earmark-text fs-1 text-info"></i>
-                            <h5 class="card-title mt-2">Reports</h5>
-                            <p class="card-text">View system reports</p>
-                            <a href="/admin/reports" class="btn btn-info">View Reports</a>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm bg-info text-white">
+                <div class="card-body">
+                    <i class="bi bi-people display-6 opacity-75"></i>
+                    <h3 class="mb-0">Enrolled</h3>
+                    <p class="fs-6 opacity-75">Students/Courses</p>
                 </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="bi bi-gear fs-1 text-warning"></i>
-                            <h5 class="card-title mt-2">Settings</h5>
-                            <p class="card-text">System configuration</p>
-                            <a href="/admin/settings" class="btn btn-warning">Configure</a>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm bg-warning text-white">
+                <div class="card-body">
+                    <i class="bi bi-clock display-6 opacity-75"></i>
+                    <h3 class="mb-0">Next Class</h3>
+                    <p class="fs-6 opacity-75">In 2 hours</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

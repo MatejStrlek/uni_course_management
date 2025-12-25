@@ -29,4 +29,7 @@ public class Enrollment {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private EnrollmentStatus status;
+
+    @Transient
+    private Grade tempGrade;
 }

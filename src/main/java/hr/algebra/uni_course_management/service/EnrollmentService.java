@@ -57,10 +57,9 @@ public class EnrollmentService {
         return enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED);
     }
 
-    public List<Enrollment> getEnrollmentsForCourse(Long courseId) {
-        Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
-        return enrollmentRepository.findByCourse(course);
+    public List<Enrollment> getActiveEnrollmentsForCourse(Long courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow();
+        return enrollmentRepository.findByCourseAndStatus(course, EnrollmentStatus.ENROLLED);
     }
 
     public void dropStudent(Long studentId, Long courseId) {

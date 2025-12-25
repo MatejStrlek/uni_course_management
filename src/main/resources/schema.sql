@@ -36,3 +36,11 @@ CREATE TABLE IF NOT EXISTS enrollment (
     CONSTRAINT fk_enr_course FOREIGN KEY (course_id) REFERENCES course(id),
     CONSTRAINT uq_enr_student_course UNIQUE (student_id, course_id)
 );
+
+CREATE TABLE IF NOT EXISTS grade (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    enrollment_id BIGINT NOT NULL UNIQUE,
+    grade_value INTEGER NOT NULL CHECK (grade_value BETWEEN 1 AND 5),
+    graded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (enrollment_id) REFERENCES ENROLLMENT(id)
+);
