@@ -25,3 +25,14 @@ CREATE TABLE IF NOT EXISTS course (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (professor_id) REFERENCES app_user(id)
 );
+
+CREATE TABLE IF NOT EXISTS enrollment (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    student_id INT NOT NULL,
+    course_id INT NOT NULL,
+    enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    CONSTRAINT fk_enr_student FOREIGN KEY (student_id) REFERENCES app_user(id),
+    CONSTRAINT fk_enr_course FOREIGN KEY (course_id) REFERENCES course(id),
+    CONSTRAINT uq_enr_student_course UNIQUE (student_id, course_id)
+);

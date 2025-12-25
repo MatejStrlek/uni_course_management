@@ -26,7 +26,7 @@ public class CourseService {
     }
 
     public Course getCourseById(Long id) {
-        return courseRepository.findById(String.valueOf(id)).orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + id));
+        return courseRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + id));
     }
 
     public Course getCourseByCode(String courseCode) {
