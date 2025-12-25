@@ -68,10 +68,15 @@ public class EnrollmentService {
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Course not found"));
-        Enrollment enrollment = enrollmentRepository.findByStudentAndCourse(student, course)
-                .orElseThrow(() -> new IllegalArgumentException("Enrollment not found"));
 
-        enrollment.setStatus(EnrollmentStatus.DROPPED);
-        enrollmentRepository.save(enrollment);
+        Optional<Enrollment> enrollment = enrollmentRepository
+                .findByStudentAndCourseAndStatus(student, course, EnrollmentStatus.ENROLLED);
+
+        if (enrollment.isPresent()) {
+            enrollment.get().setStatus(EnrollmentStatus.DROPPED);
+            enrollmentRepository.save(enrollment.get());
+        } else {
+            throw new IllegalStateException("No active enrollment found");
+        }
     }
 }

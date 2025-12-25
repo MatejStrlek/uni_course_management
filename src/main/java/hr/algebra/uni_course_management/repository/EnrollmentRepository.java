@@ -15,6 +15,7 @@ public interface EnrollmentRepository extends CrudRepository<Enrollment, Long> {
     List<Enrollment> findByStudent(User student);
     List<Enrollment> findByCourse(Course course);
     Optional<Enrollment> findByStudentAndCourse(User student, Course course);
+    Optional<Enrollment> findByStudentAndCourseAndStatus(User student, Course course, EnrollmentStatus status);
     boolean existsByStudentAndCourse(User student, Course course);
     List<Enrollment> findByStudentAndStatus(User student, EnrollmentStatus status);
     boolean existsByStudentAndCourseAndStatus(User student, Course course, EnrollmentStatus status);
