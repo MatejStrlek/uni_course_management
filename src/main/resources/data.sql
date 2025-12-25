@@ -31,3 +31,20 @@ VALUES
     ('PHY201', 'Electromagnetism', 'Study of electric and magnetic fields and their interactions.', 6, 60, 'SUMMER', '2024/2025', 4),
     ('ENG201', 'Creative Writing', 'Techniques and practice of creative writing.', 4, 50, 'WINTER', '2024/2025', 4),
     ('HIST201', 'Modern History', 'Examination of modern historical events and trends.', 4, 70, 'WINTER', '2024/2025', 4);
+
+INSERT INTO enrollment (student_id, course_id, status)
+VALUES
+    (7, 1, 'ENROLLED'),
+    (8, 1, 'ENROLLED'),
+    (9, 2, 'ENROLLED'),
+    (10, 2, 'ENROLLED'),
+    (11, 3, 'ENROLLED'),
+    (12, 3, 'ENROLLED'),
+    (13, 4, 'ENROLLED'),
+    (7, 5, 'ENROLLED'),
+    (8, 6, 'ENROLLED'),
+    (9, 7, 'ENROLLED'),
+    (10, 8, 'ENROLLED'),
+    (11, 9, 'ENROLLED'),
+    (12, 10, 'ENROLLED'),
+    (13, 11, 'ENROLLED');

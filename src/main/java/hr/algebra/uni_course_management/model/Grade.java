@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "grade")
@@ -26,5 +26,5 @@ public class Grade {
     @Column(name = "grade_value", nullable = false)
     private Integer gradeValue;
 
-    private LocalDate gradedAt = LocalDate.now();
+    private LocalDateTime gradedAt = LocalDateTime.now();
 }
