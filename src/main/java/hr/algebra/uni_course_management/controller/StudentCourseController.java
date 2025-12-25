@@ -62,8 +62,13 @@ public class StudentCourseController {
     @GetMapping("/my-courses")
     public String myCourses(Model model, Principal principal) {
         User currentUser = userService.getCurrentUser(principal.getName());
-        model.addAttribute("enrollments",
-                enrollmentService.getEnrollmentsForStudent(currentUser.getId()));
+        List<Enrollment> allEnrollments = enrollmentService.getEnrollmentsForStudent(currentUser.getId());
+
+        List<Enrollment> activeEnrollments = allEnrollments.stream()
+                .filter(e -> e.getCourse().getIsActive())
+                .toList();
+
+        model.addAttribute("enrollments", activeEnrollments);
         return "student/courses/my_courses";
     }
 
@@ -72,12 +77,16 @@ public class StudentCourseController {
         User currentUser = userService.getCurrentUser(principal.getName());
         List<Enrollment> enrollments = enrollmentService.getEnrollmentsForStudent(currentUser.getId());
 
-        long gradedCount = enrollments.stream()
+        List<Enrollment> activeEnrollments = enrollments.stream()
+                .filter(e -> e.getCourse().getIsActive())
+                .toList();
+
+        long gradedCount = activeEnrollments.stream()
                 .filter(e -> e.getTempGrade() != null)
                 .count();
-        long pendingCount = enrollments.size() - gradedCount;
+        long pendingCount = activeEnrollments.size() - gradedCount;
 
-        model.addAttribute("enrollments", enrollments);
+        model.addAttribute("enrollments", activeEnrollments);
         model.addAttribute("gradedCount", gradedCount);
         model.addAttribute("pendingCount", pendingCount);
 

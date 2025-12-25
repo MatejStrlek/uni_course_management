@@ -12,10 +12,8 @@ import java.util.Optional;
 public interface CourseRepository extends CrudRepository<Course, Long> {
     Optional<Course> findByCourseCode(String courseCode);
     List<Course> findByIsActiveTrue();
-    List<Course> findByProfessorId(Long professorId);
-
+    List<Course> findByProfessorIdAndIsActiveTrue(Long professorId);
     @Query("SELECT c FROM Course c WHERE c.isActive = true AND c.courseName LIKE %?1%")
     List<Course> searchByName(String keyword);
-
     boolean existsByCourseCode(String courseCode);
 }

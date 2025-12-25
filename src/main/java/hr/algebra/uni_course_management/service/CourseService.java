@@ -31,7 +31,7 @@ public class CourseService {
     }
 
     public List<Course> getCoursesByProfessorId(Long professorId) {
-        return courseRepository.findByProfessorId(professorId);
+        return courseRepository.findByProfessorIdAndIsActiveTrue(professorId);
     }
 
     public List<Course> searchCoursesByName(String courseName) {

@@ -25,12 +25,17 @@ public class EnrollmentService {
     private final GradeRepository gradeRepository;
 
     private static final String STUDENT_NOT_FOUND = "Student not found";
+    private static final String COURSE_NOT_FOUND = "Course not found";
 
     public void enrollStudent(Long studentId, Long courseId) {
         User student = this.userRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
         Course course = this.courseRepository.findById(courseId)
-                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
+                .orElseThrow(() -> new IllegalArgumentException(COURSE_NOT_FOUND));
+
+        if (!course.getIsActive()) {
+            throw new IllegalStateException("Cannot enroll in inactive course");
+        }
 
         Optional<Enrollment> existing = this.enrollmentRepository.findByStudentAndCourse(student, course);
 
@@ -68,7 +73,7 @@ public class EnrollmentService {
         User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
+                .orElseThrow(() -> new IllegalArgumentException(COURSE_NOT_FOUND));
 
         Optional<Enrollment> enrollment = enrollmentRepository
                 .findByStudentAndCourseAndStatus(student, course, EnrollmentStatus.ENROLLED);
