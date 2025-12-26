@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminUserController {
     private final UserService userService;
+    private static final String ROLES = "roles";
 
     @GetMapping
     public String viewUsers(@RequestParam(required = false) String role, Model model) {
@@ -28,7 +29,7 @@ public class AdminUserController {
 
         model.addAttribute("users", users);
         model.addAttribute("selectedRole", role);
-        model.addAttribute("roles", UserRole.values());
+        model.addAttribute(ROLES, UserRole.values());
         return "admin/users/list";
     }
 
@@ -36,7 +37,7 @@ public class AdminUserController {
     public String editUserForm(@PathVariable Long id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        model.addAttribute("roles", UserRole.values());
+        model.addAttribute(ROLES, UserRole.values());
         return "admin/users/edit";
     }
 
@@ -54,7 +55,7 @@ public class AdminUserController {
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("user", userService.getUserById(id));
-            model.addAttribute("roles", UserRole.values());
+            model.addAttribute(ROLES, UserRole.values());
             return "redirect:/admin/users/edit/";
         }
     }
