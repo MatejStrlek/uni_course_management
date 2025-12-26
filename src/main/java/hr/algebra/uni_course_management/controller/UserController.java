@@ -42,28 +42,4 @@ public class UserController {
         }
         return "dashboard";
     }
-
-    @GetMapping("/register")
-    public String showRegistrationForm() {
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String registerUser(
-            @RequestParam String username,
-            @RequestParam String password,
-            @RequestParam String firstName,
-            @RequestParam String lastName,
-            @RequestParam String role,
-            RedirectAttributes redirectAttributes,
-            Model model) {
-        try {
-            userService.registerUser(username, password, firstName, lastName, UserRole.valueOf(role.toUpperCase()));
-            redirectAttributes.addFlashAttribute("successMessage", "User '" + username + "' created successfully!");
-            return "redirect:/dashboard";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "redirect:/register?error=" + e.getMessage();
-        }
-    }
 }
