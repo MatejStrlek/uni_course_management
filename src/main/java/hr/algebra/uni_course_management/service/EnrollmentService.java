@@ -66,7 +66,11 @@ public class EnrollmentService {
 
     public List<Enrollment> getActiveEnrollmentsForCourse(Long courseId) {
         Course course = courseRepository.findById(courseId).orElseThrow();
-        return enrollmentRepository.findByCourseAndStatus(course, EnrollmentStatus.ENROLLED);
+        return enrollmentRepository
+                .findByCourseAndStatus(course, EnrollmentStatus.ENROLLED)
+                .stream()
+                .filter(enrollment -> enrollment.getStudent().isActive())
+                .toList();
     }
 
     public void dropStudent(Long studentId, Long courseId) {
