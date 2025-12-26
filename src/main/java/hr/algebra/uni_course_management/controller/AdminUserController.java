@@ -48,7 +48,7 @@ public class AdminUserController {
             Model model) {
         try {
             userService.updateUser(id, user.getUsername(), user.getFirstName(),
-                    user.getLastName(), user.getRole(), user.getPassword());
+                    user.getLastName(), user.getRole(), user.getPassword(), user.getIsActive());
             redirectAttributes.addFlashAttribute("successMessage", "User '" + user.getUsername() + "' updated successfully!");
             return "redirect:/admin/users";
         } catch (IllegalArgumentException e) {
@@ -69,22 +69,6 @@ public class AdminUserController {
             redirectAttributes.addFlashAttribute("successMessage", "User '" + user.getUsername() + "' deleted successfully!");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-        }
-        return "redirect:/admin/users";
-    }
-
-    @PostMapping("/toggle-status/{id}")
-    public String toggleUserStatus(
-            @PathVariable Long id,
-            RedirectAttributes redirectAttributes) {
-        try {
-            User user = userService.getUserById(id);
-            userService.toggleUserStatus(id);
-            String status = user.isActive() ? "activated" : "deactivated";
-            redirectAttributes.addFlashAttribute("successMessage", "User '" + user.getUsername() + "' " + status + " successfully!");
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-
         }
         return "redirect:/admin/users";
     }

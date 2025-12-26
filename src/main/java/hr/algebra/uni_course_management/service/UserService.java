@@ -59,7 +59,8 @@ public class UserService {
             String firstName,
             String lastName,
             UserRole role,
-            String password) {
+            String password,
+            boolean isActive) {
         User existingUser = getUserById(id);
 
         if (!existingUser.getUsername().equals(username) && userRepository.findByUsername(username).isPresent()) {
@@ -72,6 +73,7 @@ public class UserService {
         existingUser.setFirstName(firstName);
         existingUser.setLastName(lastName);
         existingUser.setRole(role);
+        existingUser.setIsActive(isActive);
 
         if (password != null && !password.isEmpty()) {
             String encodedPassword = passwordEncoder.encode(password);
@@ -83,11 +85,5 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
-    }
-
-    public void toggleUserStatus(Long id) {
-        User user = getUserById(id);
-        user.setActive(!user.isActive());
-        userRepository.save(user);
     }
 }

@@ -84,13 +84,12 @@
                                     <span class="badge"
                                           th:classappend="${user.role.name() == 'ADMIN'} ? 'bg-danger' : (${user.role.name() == 'PROFESSOR'} ? 'bg-primary' : 'bg-success')"
                                           th:text="${user.role}">
-
                                     </span>
                         </td>
                         <td>
                                     <span class="badge"
-                                          th:classappend="${user.active} ? 'bg-success' : 'bg-secondary'"
-                                          th:text="${user.active ? 'Active' : 'Inactive'}">
+                                          th:classappend="${user.isActive} ? 'bg-success' : 'bg-secondary'"
+                                          th:text="${user.isActive ? 'Active' : 'Inactive'}">
                                     </span>
                         </td>
                         <td>
@@ -99,14 +98,6 @@
                                    class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>
-
-                                <form th:action="@{/admin/users/toggle-status/{id}(id=${user.id})}"
-                                      method="post" style="display:inline;">
-                                    <button type="submit" class="btn btn-sm btn-info">
-                                        <i th:class="${user.active ? 'bi bi-dash-circle' : 'bi bi-check-circle'}"></i>
-                                        <span th:text="${user.active ? 'Disable' : 'Enable'}"></span>
-                                    </button>
-                                </form>
 
                                 <form th:action="@{/admin/users/delete/{id}(id=${user.id})}"
                                       method="post"
@@ -120,7 +111,7 @@
                         </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(users)}">
-                        <td colspan="6" class="text-center text-muted">No users found</td>
+                        <td colspan="5" class="text-center text-muted">No users found</td>
                     </tr>
                     </tbody>
                 </table>

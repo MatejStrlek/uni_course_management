@@ -33,7 +33,7 @@ public class EnrollmentService {
         Course course = this.courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException(COURSE_NOT_FOUND));
 
-        if (!course.getIsActive()) {
+        if (Boolean.FALSE.equals(course.getIsActive())) {
             throw new IllegalStateException("Cannot enroll in inactive course");
         }
 
@@ -69,7 +69,7 @@ public class EnrollmentService {
         return enrollmentRepository
                 .findByCourseAndStatus(course, EnrollmentStatus.ENROLLED)
                 .stream()
-                .filter(enrollment -> enrollment.getStudent().isActive())
+                .filter(enrollment -> enrollment.getStudent().getIsActive())
                 .toList();
     }
 

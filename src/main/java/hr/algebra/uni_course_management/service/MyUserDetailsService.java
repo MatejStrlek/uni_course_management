@@ -20,7 +20,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-        if (!user.isActive()) {
+        if (Boolean.FALSE.equals(user.getIsActive())) {
             throw new DisabledException("User account is disabled");
         }
 
@@ -28,7 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
                 .roles(user.getRole().name())
-                .disabled(!user.isActive())
+                .disabled(!user.getIsActive())
                 .build();
     }
 }
