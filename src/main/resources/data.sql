@@ -49,6 +49,15 @@ VALUES
     (12, 10, 'ENROLLED'),
     (13, 11, 'ENROLLED');
 
+INSERT INTO grade (enrollment_id, grade_value)
+VALUES
+    (1, 5),
+    (2, 4),
+    (3, 3),
+    (4, 1),
+    (5, 4),
+    (6, 3);
+
 INSERT INTO schedule_entry (course_id, day_of_week, start_time, end_time, room)
 VALUES
     (1, 'MONDAY', '09:00', '11:00', 'Room 101'),
