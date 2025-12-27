@@ -48,3 +48,13 @@ VALUES
     (11, 9, 'ENROLLED'),
     (12, 10, 'ENROLLED'),
     (13, 11, 'ENROLLED');
+
+INSERT INTO schedule_entry (course_id, day_of_week, start_time, end_time, room)
+VALUES
+    (1, 'MONDAY', '09:00', '11:00', 'Room 101'),
+    (1, 'WEDNESDAY', '09:00', '11:00', 'Room 101'),
+    (2, 'TUESDAY', '10:00', '12:00', 'Room 102'),
+    (2, 'THURSDAY', '10:00', '12:00', 'Room 102'),
+    (3, 'MONDAY', '11:00', '13:00', 'Lab 1'),
+    (3, 'WEDNESDAY', '11:00', '13:00', 'Lab 1'),
+    (4, 'TUESDAY', '13:00', '15:00', 'Room 201');

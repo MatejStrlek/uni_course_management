@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Schedule Entry</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/dashboard">University CMS</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/admin/dashboard">Admin Dashboard</a>
+            <a class="nav-link" href="/admin/users">Users</a>
+            <a class="nav-link" href="/admin/courses">Courses</a>
+            <a class="nav-link active" href="/admin/schedule">Schedule</a>
+            <a class="nav-link" href="/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h4><i class="bi bi-pencil-square"></i> Edit Schedule Entry</h4>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/admin/schedule/edit/{id}(id=${scheduleEntry.id})}"
+                          th:object="${scheduleEntry}"
+                          method="post">
+
+                        <div class="mb-3">
+                            <label for="courseId" class="form-label">Course *</label>
+                            <select class="form-select" id="courseId" name="courseId" required>
+                                <option th:each="c : ${courses}"
+                                        th:value="${c.id}"
+                                        th:text="${c.courseCode + ' - ' + c.courseName}"
+                                        th:selected="${c.id == selectedCourseId}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dayOfWeek" class="form-label">Day of Week *</label>
+                            <select class="form-select" id="dayOfWeek" th:field="*{dayOfWeek}" required>
+                                <option th:each="d : ${daysOfWeek}"
+                                        th:value="${d}"
+                                        th:text="${d}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="startTime" class="form-label">Start Time *</label>
+                                <input type="time"
+                                       class="form-control"
+                                       id="startTime"
+                                       name="startTime"
+                                       th:value="${#temporals.format(scheduleEntry.startTime, 'HH:mm')}"
+                                       required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="endTime" class="form-label">End Time *</label>
+                                <input type="time"
+                                       class="form-control"
+                                       id="endTime"
+                                       name="endTime"
+                                       th:value="${#temporals.format(scheduleEntry.endTime, 'HH:mm')}"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="room" class="form-label">Room</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="room"
+                                   th:field="*{room}">
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="/admin/schedule" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-warning">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

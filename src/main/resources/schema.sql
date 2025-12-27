@@ -39,9 +39,20 @@ CREATE TABLE IF NOT EXISTS enrollment (
 );
 
 CREATE TABLE IF NOT EXISTS grade (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    enrollment_id BIGINT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    enrollment_id INT NOT NULL UNIQUE,
     grade_value INTEGER NOT NULL CHECK (grade_value BETWEEN 1 AND 5),
     graded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (enrollment_id) REFERENCES ENROLLMENT(id)
+);
+
+CREATE TABLE schedule_entry (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    course_id INT NOT NULL,
+    day_of_week VARCHAR(20) NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    room VARCHAR(100),
+    CONSTRAINT fk_schedule_course
+    FOREIGN KEY (course_id) REFERENCES course(id)
 );
