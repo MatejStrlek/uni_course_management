@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">My Schedule</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/dashboard">University CMS</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link active" th:href="${selfLink}" th:text="${navLabel}">My Schedule</a>
+            <a class="nav-link" href="/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2><i class="bi bi-calendar-week"></i> <span th:text="${pageTitle}">Schedule</span></h2>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Course</th>
+                        <th>Room</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row : ${scheduleRows}">
+                        <td th:text="${row.dayOfWeek}"></td>
+                        <td th:text="${row.startTime + ' - ' + row.endTime}"></td>
+                        <td th:text="${row.courseCode + ' - ' + row.courseName}"></td>
+                        <td th:text="${row.room}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(scheduleRows)}">
+                        <td colspan="4" class="text-center text-muted">
+                            No schedule entries found.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

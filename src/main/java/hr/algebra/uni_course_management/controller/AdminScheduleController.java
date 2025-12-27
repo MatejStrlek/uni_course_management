@@ -2,7 +2,7 @@ package hr.algebra.uni_course_management.controller;
 
 import hr.algebra.uni_course_management.model.ScheduleEntry;
 import hr.algebra.uni_course_management.service.CourseService;
-import hr.algebra.uni_course_management.service.ScheduleService;
+import hr.algebra.uni_course_management.service.AdminScheduleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,12 +17,12 @@ import java.time.DayOfWeek;
 @RequestMapping("/admin/schedule")
 @RequiredArgsConstructor
 public class AdminScheduleController {
-    private final ScheduleService scheduleService;
+    private final AdminScheduleService adminScheduleService;
     private final CourseService courseService;
 
     @GetMapping
     public String listSchedule(Model model) {
-        model.addAttribute("scheduleEntries", scheduleService.findAllScheduleEntriesSorted());
+        model.addAttribute("scheduleEntries", adminScheduleService.findAllScheduleEntriesSorted());
         return "admin/schedule/list";
     }
 
@@ -47,14 +47,14 @@ public class AdminScheduleController {
             model.addAttribute("daysOfWeek", DayOfWeek.values());
             return "admin/schedule/create";
         }
-        scheduleService.createScheduleEntry(courseId, scheduleEntry);
+        adminScheduleService.createScheduleEntry(courseId, scheduleEntry);
         redirectAttributes.addFlashAttribute("successMessage", "Schedule entry created successfully.");
         return "redirect:/admin/schedule";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        ScheduleEntry scheduleEntry = scheduleService.getScheduleEntryById(id);
+        ScheduleEntry scheduleEntry = adminScheduleService.getScheduleEntryById(id);
         model.addAttribute("courses", courseService.getAllCourses());
         model.addAttribute("scheduleEntry", scheduleEntry);
         model.addAttribute("daysOfWeek", DayOfWeek.values());
@@ -77,14 +77,14 @@ public class AdminScheduleController {
             model.addAttribute("selectedCourseId", courseId);
             return "admin/schedule/edit";
         }
-        scheduleService.updateScheduleEntry(id, courseId, scheduleEntry);
+        adminScheduleService.updateScheduleEntry(id, courseId, scheduleEntry);
         redirectAttributes.addFlashAttribute("successMessage", "Schedule entry updated successfully.");
         return "redirect:/admin/schedule";
     }
 
     @PostMapping("/delete/{id}")
     public String deleteScheduleEntry(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        scheduleService.deleteScheduleEntry(id);
+        adminScheduleService.deleteScheduleEntry(id);
         redirectAttributes.addFlashAttribute("successMessage", "Schedule entry deleted successfully.");
         return "redirect:/admin/schedule";
     }

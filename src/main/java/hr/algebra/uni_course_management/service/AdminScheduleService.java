@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ScheduleService {
+public class AdminScheduleService {
     private final ScheduleEntryRepository scheduleEntryRepository;
     private final CourseRepository courseRepository;
 
