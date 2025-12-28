@@ -83,8 +83,9 @@ public class ProfessorCourseController {
         }
 
         String csvData = gradeExportService.exportGradesCsv(courseId);
+        String courseCode = course.getCourseCode().replaceAll("\\s+", "_");
         response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; filename=\"course_" + courseId + "_grades.csv\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"course_" + courseCode + "_grades.csv\"");
         try {
             response.getWriter().write(csvData);
             response.getWriter().flush();

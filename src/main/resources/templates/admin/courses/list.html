@@ -87,6 +87,11 @@
                             <span th:unless="${course.isActive}" class="badge bg-secondary">Inactive</span>
                         </td>
                         <td>
+                            <a th:href="@{/admin/courses/{id}/export-grades(id=${course.id})}"
+                               class="btn btn-sm btn-success"
+                               title="Export Grades CSV">
+                                <i class="bi bi-download"></i>
+                            </a>
                             <a th:href="@{/admin/courses/edit/{id}(id=${course.id})}"
                                class="btn btn-sm btn-warning">Edit</a>
                             <form th:action="@{/admin/courses/delete/{id}(id=${course.id})}"

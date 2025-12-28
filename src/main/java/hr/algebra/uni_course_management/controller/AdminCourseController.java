@@ -4,6 +4,8 @@ import hr.algebra.uni_course_management.model.Course;
 import hr.algebra.uni_course_management.model.Semester;
 import hr.algebra.uni_course_management.repository.UserRepository;
 import hr.algebra.uni_course_management.service.CourseService;
+import hr.algebra.uni_course_management.service.GradeExportService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admin/courses")
 @RequiredArgsConstructor
-public class CourseController {
+public class AdminCourseController {
     private final CourseService courseService;
     private final UserRepository userRepository;
+    private final GradeExportService gradeExportService;
 
     private static final String ADMIN_COURSES_EDIT = "admin/courses/edit";
     private static final String ADMIN_COURSES_CREATE = "admin/courses/create";
@@ -134,5 +137,21 @@ public class CourseController {
     public String deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);
         return "redirect:/admin/courses?success=deleted";
+    }
+
+    @GetMapping("/{courseId}/export-grades")
+    public String exportCourseGrades(@PathVariable Long courseId, HttpServletResponse response) {
+        String csvData = gradeExportService.exportGradesCsv(courseId);
+        Course course = courseService.getCourseById(courseId);
+        String courseCode = course.getCourseCode().replaceAll("\\s+", "_");
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"course_" + courseCode + "_grades.csv\"");
+        try {
+            response.getWriter().write(csvData);
+            response.getWriter().flush();
+        } catch (Exception e) {
+            return "redirect:/admin/courses?error=export_failed";
+        }
+        return null;
     }
 }
