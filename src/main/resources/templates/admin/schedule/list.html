@@ -73,19 +73,17 @@
                         <td th:text="${entry.startTime + ' - ' + entry.endTime}"></td>
                         <td th:text="${entry.room}"></td>
                         <td>
-                            <div class="btn-group">
-                                <a th:href="@{/admin/schedule/edit/{id}(id=${entry.id})}"
-                                   class="btn btn-sm btn-warning">
-                                    <i class="bi bi-pencil"></i> Edit
-                                </a>
-                                <form th:action="@{/admin/schedule/delete/{id}(id=${entry.id})}"
-                                      method="post"
-                                      onsubmit="return confirm('Delete this schedule entry?');">
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </button>
-                                </form>
-                            </div>
+                            <a th:href="@{/admin/schedule/edit/{id}(id=${entry.id})}"
+                               class="btn btn-sm btn-warning">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <form th:action="@{/admin/schedule/delete/{id}(id=${entry.id})}"
+                                  method="post" class="d-inline"
+                                  onsubmit="return confirm('Delete this schedule entry?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i> Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(scheduleEntries)}">

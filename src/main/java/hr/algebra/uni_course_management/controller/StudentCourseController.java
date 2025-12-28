@@ -69,7 +69,7 @@ public class StudentCourseController {
                 .toList();
 
         model.addAttribute("enrollments", activeEnrollments);
-        return "student/courses/my_courses";
+        return "student/courses/my_enrollments";
     }
 
     @GetMapping("/grades")
