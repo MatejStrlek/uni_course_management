@@ -31,11 +31,11 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                                .loginPage(LOGIN)
-                                .loginProcessingUrl(LOGIN)
-                                .defaultSuccessUrl("/dashboard", true)
-                                .failureUrl("/login?error=true")
-                                .permitAll())
+                        .loginPage(LOGIN)
+                        .loginProcessingUrl(LOGIN)
+                        .defaultSuccessUrl("/dashboard", true)
+                        .failureUrl("/login?error=true")
+                        .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")

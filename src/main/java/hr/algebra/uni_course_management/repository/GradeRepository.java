@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface GradeRepository extends JpaRepository<Grade, Long> {
     Optional<Grade> findByEnrollmentId(Long enrollmentId);
+
     @Query("SELECT g FROM Grade g WHERE g.enrollment.course.id = :courseId")
     List<Grade> getGradesForCourse(@Param("courseId") Long courseId);
 }

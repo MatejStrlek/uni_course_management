@@ -13,7 +13,10 @@ import java.util.Optional;
 @Repository
 public interface EnrollmentRepository extends CrudRepository<Enrollment, Long> {
     List<Enrollment> findByCourseAndStatus(Course course, EnrollmentStatus status);
+
     Optional<Enrollment> findByStudentAndCourse(User student, Course course);
+
     Optional<Enrollment> findByStudentAndCourseAndStatus(User student, Course course, EnrollmentStatus status);
+
     List<Enrollment> findByStudentAndStatus(User student, EnrollmentStatus status);
 }

@@ -24,7 +24,6 @@ public class CourseController {
     private static final String PROFESSORS = "professors";
     private static final String PROFESSOR = "PROFESSOR";
 
-
     @GetMapping
     public String getCourses(Model model) {
         model.addAttribute("courses", courseService.getAllCourses());
@@ -37,9 +36,9 @@ public class CourseController {
         model.addAttribute(SEMESTERS, Semester.values());
         model.addAttribute(PROFESSORS,
                 userRepository
-                .findAll()
-                .stream()
-                .filter(user -> user.getRole().name().equals(PROFESSOR))
+                        .findAll()
+                        .stream()
+                        .filter(user -> user.getRole().name().equals(PROFESSOR))
         );
         return ADMIN_COURSES_CREATE;
     }
@@ -52,9 +51,9 @@ public class CourseController {
             model.addAttribute(SEMESTERS, Semester.values());
             model.addAttribute(PROFESSORS,
                     userRepository
-                    .findAll()
-                    .stream()
-                    .filter(user -> user.getRole().name().equals(PROFESSOR))
+                            .findAll()
+                            .stream()
+                            .filter(user -> user.getRole().name().equals(PROFESSOR))
             );
             return ADMIN_COURSES_CREATE;
         }
@@ -67,13 +66,13 @@ public class CourseController {
             model.addAttribute(SEMESTERS, Semester.values());
             model.addAttribute(PROFESSORS,
                     userRepository
-                    .findAll()
-                    .stream()
-                    .filter(user ->
-                            user
-                                    .getRole()
-                                    .name()
-                                    .equals(PROFESSOR))
+                            .findAll()
+                            .stream()
+                            .filter(user ->
+                                    user
+                                            .getRole()
+                                            .name()
+                                            .equals(PROFESSOR))
                             .toList()
             );
             return ADMIN_COURSES_CREATE;
@@ -87,9 +86,9 @@ public class CourseController {
         model.addAttribute(SEMESTERS, Semester.values());
         model.addAttribute(PROFESSORS,
                 userRepository
-                .findAll()
-                .stream()
-                .filter(user -> user.getRole().name().equals(PROFESSOR))
+                        .findAll()
+                        .stream()
+                        .filter(user -> user.getRole().name().equals(PROFESSOR))
         );
         return ADMIN_COURSES_EDIT;
     }
@@ -103,9 +102,9 @@ public class CourseController {
             model.addAttribute(SEMESTERS, Semester.values());
             model.addAttribute(PROFESSORS,
                     userRepository
-                    .findAll()
-                    .stream()
-                    .filter(user -> user.getRole().name().equals(PROFESSOR))
+                            .findAll()
+                            .stream()
+                            .filter(user -> user.getRole().name().equals(PROFESSOR))
             );
             return ADMIN_COURSES_EDIT;
         }
@@ -118,13 +117,13 @@ public class CourseController {
             model.addAttribute(SEMESTERS, Semester.values());
             model.addAttribute(PROFESSORS,
                     userRepository
-                    .findAll()
-                    .stream()
-                    .filter(user ->
-                            user
-                                    .getRole()
-                                    .name()
-                                    .equals(PROFESSOR))
+                            .findAll()
+                            .stream()
+                            .filter(user ->
+                                    user
+                                            .getRole()
+                                            .name()
+                                            .equals(PROFESSOR))
                             .toList()
             );
             return ADMIN_COURSES_EDIT;
