@@ -81,6 +81,11 @@
                                     <span class="badge bg-info" th:text="${course.enrolledStudents}">0</span>
                                 </td>
                                 <td>
+                                    <a th:href="@{/professor/courses/{id}/content(id=${course.id})}"
+                                       class="btn btn-success btn-sm"
+                                       title="Manage Content">
+                                        <i class="fas fa-folder-open"></i> Content
+                                    </a>
                                     <a th:href="@{/professor/courses/{id}/students(id=${course.id})}"
                                        class="btn btn-primary btn-sm">
                                         <i class="fas fa-edit"></i> Grade Students

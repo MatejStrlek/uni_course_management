@@ -1,13 +1,13 @@
 package hr.algebra.uni_course_management.controller;
 
-import hr.algebra.uni_course_management.model.Course;
-import hr.algebra.uni_course_management.model.Enrollment;
-import hr.algebra.uni_course_management.model.User;
+import hr.algebra.uni_course_management.model.*;
 import hr.algebra.uni_course_management.service.*;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +23,7 @@ public class ProfessorCourseController {
     private final EnrollmentService enrollmentService;
     private final GradeService gradeService;
     private final GradeExportService gradeExportService;
+    private final CourseContentService courseContentService;
 
     @GetMapping
     public String professorCourses(Model model, Principal principal) {
@@ -92,5 +93,118 @@ public class ProfessorCourseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @GetMapping("/{courseId}/content")
+    public String viewCourseContent(@PathVariable Long courseId,
+                                    Model model,
+                                    Principal principal) {
+        User professor = userService.findByUsername(principal.getName());
+        List<CourseContent> contents = courseContentService.getAllCourseContents(courseId, professor.getId());
+        Course course = courseService.getCourseById(courseId);
+
+        model.addAttribute("contents", contents);
+        model.addAttribute("course", course);
+        model.addAttribute("contentTypes", ContentType.values());
+        return "professor/content/list";
+    }
+
+    @GetMapping("/{courseId}/content/create")
+    public String showCreateContentForm(@PathVariable Long courseId, Model model) {
+        CourseContent courseContent = new CourseContent();
+        Course course = courseService.getCourseById(courseId);
+
+        model.addAttribute("courseContent", courseContent);
+        model.addAttribute("course", course);
+        model.addAttribute("contentTypes", ContentType.values());
+        model.addAttribute("isEdit", false);
+
+        return "professor/content/create";
+    }
+
+    @PostMapping("/{courseId}/content/create")
+    public String createContent(@PathVariable Long courseId,
+                                @Valid @ModelAttribute("courseContent") CourseContent courseContent,
+                                BindingResult result,
+                                Principal principal,
+                                RedirectAttributes redirectAttributes,
+                                Model model) {
+        if (result.hasErrors()) {
+            Course course = courseService.getCourseById(courseId);
+            model.addAttribute("course", course);
+            model.addAttribute("contentTypes", ContentType.values());
+            model.addAttribute("isEdit", false);
+            return "professor/content/create";
+        }
+        User professor = userService.findByUsername(principal.getName());
+        courseContentService.createContent(courseId, courseContent, professor.getId());
+
+        redirectAttributes.addFlashAttribute("successMessage", "Content created successfully!");
+        return "redirect:/professor/courses/" + courseId + "/content";
+    }
+
+    @GetMapping("/{courseId}/content/{contentId}/edit")
+    public String showEditContentForm(@PathVariable Long courseId,
+                                      @PathVariable Long contentId,
+                                      Model model,
+                                      Principal principal) {
+        User professor = userService.findByUsername(principal.getName());
+        CourseContent courseContent = courseContentService.getContentById(contentId, professor.getId());
+        Course course = courseService.getCourseById(courseId);
+
+        model.addAttribute("courseContent", courseContent);
+        model.addAttribute("course", course);
+        model.addAttribute("contentTypes", ContentType.values());
+        model.addAttribute("isEdit", true);
+        return "professor/content/edit";
+    }
+
+    @PostMapping("/{courseId}/content/{contentId}/update")
+    public String updateContent(@PathVariable Long courseId,
+                                @PathVariable Long contentId,
+                                @Valid @ModelAttribute("courseContent") CourseContent courseContent,
+                                BindingResult result,
+                                Principal principal,
+                                RedirectAttributes redirectAttributes,
+                                Model model) {
+        if (result.hasErrors()) {
+            Course course = courseService.getCourseById(courseId);
+            model.addAttribute("course", course);
+            model.addAttribute("contentTypes", ContentType.values());
+            model.addAttribute("isEdit", true);
+            return "professor/content/edit";
+        }
+        User professor = userService.findByUsername(principal.getName());
+        courseContentService.updateContent(contentId, courseContent, professor.getId());
+
+        redirectAttributes.addFlashAttribute("successMessage", "Content updated successfully!");
+        return "redirect:/professor/courses/" + courseId + "/content";
+    }
+
+    @PostMapping("/{courseId}/content/{contentId}/delete")
+    public String deleteContent(@PathVariable Long courseId,
+                                @PathVariable Long contentId,
+                                Principal principal,
+                                RedirectAttributes redirectAttributes) {
+        User professor = userService.findByUsername(principal.getName());
+        courseContentService.deleteContent(contentId, professor.getId());
+
+        redirectAttributes.addFlashAttribute("successMessage", "Content deleted successfully!");
+        return "redirect:/professor/courses/" + courseId + "/content";
+    }
+
+    @PostMapping("/{courseId}/content/{contentId}/toggle-publish")
+    public String togglePublishStatus(@PathVariable Long courseId,
+                                      @PathVariable Long contentId,
+                                      Principal principal,
+                                      RedirectAttributes redirectAttributes) {
+        User professor = userService.findByUsername(principal.getName());
+        CourseContent content = courseContentService.togglePublishStatus(contentId, professor.getId());
+        String message = Boolean.TRUE.equals(content.getIsPublished())
+                ? "Content published successfully!"
+                : "Content unpublished successfully!";
+
+        redirectAttributes.addFlashAttribute("successMessage", message);
+        return "redirect:/professor/courses/" + courseId + "/content";
     }
 }

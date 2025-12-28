@@ -56,3 +56,22 @@ CREATE TABLE schedule_entry (
     CONSTRAINT fk_schedule_course
     FOREIGN KEY (course_id) REFERENCES course(id)
 );
+
+CREATE TABLE IF NOT EXISTS course_content (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    course_id BIGINT NOT NULL,
+    content_type VARCHAR(50) NOT NULL,
+    content_title VARCHAR(200) NOT NULL,
+    content_description TEXT,
+    content TEXT,
+    file_url VARCHAR(500),
+    file_name VARCHAR(255),
+    publish_date TIMESTAMP,
+    due_date TIMESTAMP,
+    is_published BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+
+    CONSTRAINT fk_content_course FOREIGN KEY (course_id)
+    REFERENCES course(id) ON DELETE CASCADE
+);
