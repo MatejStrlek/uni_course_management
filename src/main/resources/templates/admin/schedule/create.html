@@ -8,31 +8,45 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/dashboard">University CMS</a>
-        <div class="navbar-nav ms-auto">
-            <a class="nav-link" href="/admin/dashboard">Admin Dashboard</a>
-            <a class="nav-link" href="/admin/users">Users</a>
-            <a class="nav-link" href="/admin/courses">Courses</a>
-            <a class="nav-link active" href="/admin/schedule">Schedule</a>
-            <a class="nav-link" href="/logout">Logout</a>
+        <a class="navbar-brand" href="/dashboard">
+            <i class="bi bi-book-half me-1"></i>University Course Management
+        </a>
+        <div class="d-flex align-items-center ms-auto">
+            <div class="navbar-nav me-3">
+                <a class="nav-link" href="/admin/dashboard">
+                    <i class="bi bi-speedometer2 me-1"></i>Admin Dashboard
+                </a>
+                <a class="nav-link" href="/admin/users">
+                    <i class="bi bi-people me-1"></i>Users
+                </a>
+                <a class="nav-link" href="/admin/courses">
+                    <i class="bi bi-book me-1"></i>Courses
+                </a>
+                <a class="nav-link active" href="/admin/schedule">
+                    <i class="bi bi-calendar-week me-1"></i>Schedule
+                </a>
+            </div>
+            <form th:action="@{/logout}" method="post" class="d-inline">
+                <button class="btn btn-outline-light btn-sm" type="submit">
+                    <i class="bi bi-box-arrow-right me-1"></i>Logout
+                </button>
+            </form>
         </div>
     </div>
 </nav>
-
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h4><i class="bi bi-plus-circle"></i> Create Schedule Entry</h4>
+                    <h4><i class="bi bi-plus-circle"></i>Create Schedule Entry</h4>
                 </div>
                 <div class="card-body">
                     <form th:action="@{/admin/schedule/create}"
                           th:object="${scheduleEntry}"
                           method="post">
-
                         <div class="mb-3">
                             <label for="courseId" class="form-label">Course *</label>
                             <select class="form-select" id="courseId" name="courseId" required>
@@ -43,7 +57,6 @@
                                 </option>
                             </select>
                         </div>
-
                         <div class="mb-3">
                             <label for="dayOfWeek" class="form-label">Day of Week *</label>
                             <select class="form-select" id="dayOfWeek" th:field="*{dayOfWeek}" required>
@@ -54,7 +67,6 @@
                                 </option>
                             </select>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="startTime" class="form-label">Start Time *</label>
@@ -73,7 +85,6 @@
                                        required>
                             </div>
                         </div>
-
                         <div class="mb-3">
                             <label for="room" class="form-label">Room</label>
                             <input type="text"
@@ -81,7 +92,6 @@
                                    id="room"
                                    th:field="*{room}">
                         </div>
-
                         <div class="d-flex justify-content-between">
                             <a href="/admin/schedule" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-primary">Create</button>

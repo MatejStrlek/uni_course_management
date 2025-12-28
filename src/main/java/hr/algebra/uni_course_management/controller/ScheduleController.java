@@ -21,9 +21,7 @@ public class ScheduleController {
         User professor = userService.getCurrentUser(principal.getName());
         model.addAttribute("scheduleRows", scheduleViewService.getProfessorSchedule(professor.getId()));
         model.addAttribute("pageTitle", "Professor Schedule");
-        model.addAttribute("navLabel", "My Schedule");
-        model.addAttribute("selfLink", "/professor/schedule");
-        return "/schedule/list";
+        return "/professor/schedule/list";
     }
 
     @GetMapping("/student/schedule")
@@ -31,8 +29,6 @@ public class ScheduleController {
         User student = userService.getCurrentUser(principal.getName());
         model.addAttribute("scheduleRows", scheduleViewService.getStudentSchedule(student.getId()));
         model.addAttribute("pageTitle", "Student Schedule");
-        model.addAttribute("navLabel", "My Schedule");
-        model.addAttribute("selfLink", "/student/schedule");
-        return "/schedule/list";
+        return "/student/schedule/list";
     }
 }

@@ -9,21 +9,40 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand" href="/professor/courses">
-            <i class="fas fa-graduation-cap"></i> Professor Dashboard
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/dashboard">
+            <i class="bi bi-book-half me-2"></i>University Course Management
         </a>
-        <div class="navbar-nav ms-auto">
-            <a class="nav-link" href="/logout">Logout</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/professor/courses">
+                        <i class="bi bi-book me-1"></i>Courses
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/professor/schedule">
+                        <i class="bi bi-calendar-check me-1"></i>Schedule
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" method="post" class="d-inline ms-2">
+                        <button class="btn btn-outline-light btn-sm" type="submit">
+                            <i class="bi bi-box-arrow-right me-1"></i>Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
-
 <div class="container mt-4">
     <div class="row">
         <div class="col-12">
             <h2><i class="fas fa-list text-primary"></i> Your Courses</h2>
-
             <!-- Flash messages -->
             <div th:if="${session.success}" class="alert alert-success alert-dismissible fade show" role="alert">
                 <i class="fas fa-check-circle"></i>
@@ -35,7 +54,6 @@
                 Access denied
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
-
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="table-responsive">
