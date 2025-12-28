@@ -17,18 +17,20 @@ public class AdminScheduleService {
     private final ScheduleEntryRepository scheduleEntryRepository;
     private final CourseRepository courseRepository;
 
+    private static final String NOT_FOUND = " not found.";
+
     public List<ScheduleEntry> findAllScheduleEntriesSorted() {
         return scheduleEntryRepository.findAllByOrderByDayOfWeekAscStartTimeAsc();
     }
 
     public ScheduleEntry getScheduleEntryById(Long id) {
         return scheduleEntryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Schedule entry with ID " + id + " not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Schedule entry with ID " + id + NOT_FOUND));
     }
 
     public void createScheduleEntry(Long courseId, ScheduleEntry scheduleEntry) {
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new IllegalArgumentException("Course with ID " + courseId + " not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Course with ID " + courseId + NOT_FOUND));
         scheduleEntry.setCourse(course);
         scheduleEntryRepository.save(scheduleEntry);
     }
@@ -36,7 +38,7 @@ public class AdminScheduleService {
     public void updateScheduleEntry(Long id, Long courseId, ScheduleEntry updatedEntry) {
         ScheduleEntry existingEntry = getScheduleEntryById(id);
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new IllegalArgumentException("Course with ID " + courseId + " not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Course with ID " + courseId + NOT_FOUND));
 
         existingEntry.setCourse(course);
         existingEntry.setDayOfWeek(updatedEntry.getDayOfWeek());
@@ -49,7 +51,7 @@ public class AdminScheduleService {
 
     public void deleteScheduleEntry(Long id) {
         if (!scheduleEntryRepository.existsById(id)) {
-            throw new IllegalArgumentException("Schedule entry with ID " + id + " not found.");
+            throw new IllegalArgumentException("Schedule entry with ID " + id + NOT_FOUND);
         }
         scheduleEntryRepository.deleteById(id);
     }

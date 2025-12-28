@@ -26,16 +26,8 @@ public class CourseService {
         return courseRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + id));
     }
 
-    public Course getCourseByCode(String courseCode) {
-        return courseRepository.findByCourseCode(courseCode).orElseThrow(() -> new IllegalArgumentException("Invalid course code" + courseCode));
-    }
-
     public List<Course> getCoursesByProfessorId(Long professorId) {
         return courseRepository.findByProfessorIdAndIsActiveTrue(professorId);
-    }
-
-    public List<Course> searchCoursesByName(String courseName) {
-        return courseRepository.searchByName(courseName);
     }
 
     public void createCourse(Course course) {
@@ -61,11 +53,5 @@ public class CourseService {
     public void deleteCourse(Long id) {
         Course existingCourse = getCourseById(id);
         courseRepository.delete(existingCourse);
-    }
-
-    public void deactivateCourse(Long id) {
-        Course existingCourse = getCourseById(id);
-        existingCourse.setIsActive(false);
-        courseRepository.save(existingCourse);
     }
 }
