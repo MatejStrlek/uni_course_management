@@ -6,7 +6,6 @@ import hr.algebra.uni_course_management.model.CourseContent;
 import hr.algebra.uni_course_management.repository.CourseContentRepository;
 import hr.algebra.uni_course_management.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +15,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class CourseContentService {
     private final CourseContentRepository courseContentRepository;
     private final CourseRepository courseRepository;
