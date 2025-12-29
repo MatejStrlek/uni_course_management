@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Course Content</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/dashboard">
+            <i class="bi bi-book-half me-1"></i>University Course Management
+        </a>
+        <div class="d-flex align-items-center ms-auto">
+            <div class="navbar-nav me-3">
+                <a class="nav-link" href="/admin/dashboard">
+                    <i class="bi bi-speedometer2 me-1"></i>Admin Dashboard
+                </a>
+                <a class="nav-link" href="/admin/users">
+                    <i class="bi bi-people me-1"></i>Users
+                </a>
+                <a class="nav-link active" href="/admin/courses">
+                    <i class="bi bi-book me-1"></i>Courses
+                </a>
+                <a class="nav-link" href="/admin/schedule">
+                    <i class="bi bi-calendar-week me-1"></i>Schedule
+                </a>
+            </div>
+            <form th:action="@{/logout}" method="post" class="d-inline">
+                <button class="btn btn-outline-light btn-sm" type="submit">
+                    <i class="bi bi-box-arrow-right me-1"></i>Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="d-flex align-items-center">
+                <div class="bg-primary text-white p-3 rounded me-3">
+                    <i class="fas fa-book fa-2x"></i>
+                </div>
+                <div>
+                    <h2 class="mb-1" th:text="${course.courseName}">Course Name</h2>
+                    <p class="text-muted mb-0">
+                        <span class="badge bg-info fs-6" th:text="${course.courseCode}">CODE</span>
+                        <span class="ms-2" th:text="${course.description}">Description</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-end">
+            <a th:href="@{/admin/courses/{courseId}/content/create(courseId=${course.id})}"
+               class="btn btn-success">
+                <i class="fas fa-plus me-1"></i>Add New Content
+            </a>
+            <a th:href="@{/admin/courses}" class="btn btn-outline-secondary ms-2">
+                <i class="fas fa-arrow-left me-1"></i>Back to Courses
+            </a>
+        </div>
+    </div>
+    <div class="row mb-4 g-3">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-eye fa-2x text-success mb-2"></i>
+                    <h3 class="text-success" th:text="${publishedCount ?: 0}">0</h3>
+                    <p class="mb-0 text-muted">Published</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-eye-slash fa-2x text-warning mb-2"></i>
+                    <h3 class="text-warning" th:text="${draftCount ?: 0}">0</h3>
+                    <p class="mb-0 text-muted">Drafts</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-file-alt fa-2x text-primary mb-2"></i>
+                    <h3 class="text-primary" th:text="${contents.size()}">0</h3>
+                    <p class="mb-0 text-muted">Total</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-clock fa-2x text-info mb-2"></i>
+                    <h3 class="text-info">24h</h3>
+                    <p class="mb-0 text-muted">Avg Creation</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow-lg">
+        <div class="card-header bg-dark text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>Content Management
+                </h5>
+                <div class="d-flex gap-2">
+                    <select class="form-select form-select-sm" onchange="filterTable(this.value)">
+                        <option value="all">All Content</option>
+                        <option value="published">Published Only</option>
+                        <option value="draft">Drafts Only</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div th:if="${contents.isEmpty()}" class="text-center py-5 bg-light">
+                <i class="fas fa-inbox fa-4x text-muted mb-4 opacity-50"></i>
+                <h4 class="text-muted mb-3">No content found</h4>
+                <p class="text-muted mb-4">Get started by creating your first piece of course material.</p>
+                <a th:href="@{/admin/courses/{courseId}/content/create(courseId=${course.id})}"
+                   class="btn btn-success btn-lg">
+                    <i class="fas fa-plus me-2"></i>Create Content
+                </a>
+            </div>
+            <div th:if="${!contents.isEmpty()}" class="table-responsive">
+                <table class="table mb-0 align-middle">
+                    <thead class="table-primary">
+                    <tr>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${contents.isEmpty()}">
+                        <td colspan="6" class="text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                            No content found.
+                            <a th:href="@{/admin/courses/{courseId}/content/create(courseId=${course.id})}"
+                               class="btn btn-success btn-sm mt-2">
+                                <i class="fas fa-plus"></i> Create Content
+                            </a>
+                        </td>
+                    </tr>
+                    <tr th:each="content : ${contents}">
+                        <td>
+            <span th:if="${content.isPublished}" class="badge bg-success">
+                <i class="fas fa-eye me-1"></i>Published
+            </span>
+                            <span th:unless="${content.isPublished}" class="badge bg-warning text-dark">
+                <i class="fas fa-eye-slash me-1"></i>Draft
+            </span>
+                        </td>
+                        <td>
+            <span th:switch="${content.contentType.name()}">
+                <span th:case="'LECTURE'" class="badge bg-success">Lecture</span>
+                <span th:case="'ASSIGNMENT'" class="badge bg-warning text-dark">Assignment</span>
+                <span th:case="'QUIZ'" class="badge bg-danger">Quiz</span>
+                <span th:case="'READING_MATERIAL'" class="badge bg-primary">Reading</span>
+                <span th:case="'ANNOUNCEMENT'" class="badge bg-info">Announcement</span>
+            </span>
+                        </td>
+                        <td><strong th:text="${content.contentTitle}">Title</strong></td>
+                        <td th:text="${content.contentDescription}">Description</td>
+                        <td th:text="${#temporals.format(content.createdAt, 'MMM dd')}">Date</td>
+                        <td>
+                            <form th:action="@{/admin/courses/{courseId}/content/{contentId}/toggle(courseId=${course.id}, contentId=${content.id})}"
+                                  method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary me-1"
+                                        th:title="${content.isPublished} ? 'Unpublish' : 'Publish'">
+                                    <i th:class="${content.isPublished} ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                                </button>
+                            </form>
+                            <a th:href="@{/admin/courses/{courseId}/content/{contentId}/edit(courseId=${course.id}, contentId=${content.id})}"
+                               class="btn btn-sm btn-warning me-1">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form th:action="@{/admin/courses/{courseId}/content/{contentId}/delete(courseId=${course.id}, contentId=${content.id})}"
+                                  method="post" class="d-inline"
+                                  onsubmit="return confirm('Delete permanently?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function filterTable(status) {
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const statusBadge = row.querySelector('.badge');
+            if (status === 'all' ||
+                (status === 'published' && statusBadge?.textContent.includes('Published')) ||
+                (status === 'draft' && statusBadge?.textContent.includes('Draft'))) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>
+</body>
+</html>

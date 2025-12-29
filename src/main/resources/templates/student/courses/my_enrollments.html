@@ -65,7 +65,7 @@
                         <th>Professor</th>
                         <th>Enrolled At</th>
                         <th>Status</th>
-                        <th class="text-end">Actions</th>
+                        <th class="text-center">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -86,14 +86,14 @@
                             <div class="d-flex gap-1 justify-content-end">
                                 <a th:href="@{/student/courses/{courseId}/content(courseId=${enr.course.id})}"
                                    class="btn btn-sm btn-outline-primary">
-                                    <i class="fas fa-book-open me-1"></i>Content
+                                    <i class="fas bi-bookmark-dash me-1"></i>Content
                                 </a>
                                 <form th:action="@{/student/courses/drop/{courseId}(courseId=${enr.course.id})}"
                                       method="post"
                                       onsubmit="return confirm('Are you sure you want to drop this course?');"
                                       style="margin: 0;">
                                     <button type="submit" class="btn btn-sm btn-outline-danger">
-                                        <i class="fas fa-trash me-1"></i>Drop
+                                        <i class="fas bi-trash me-1"></i>Drop
                                     </button>
                                 </form>
                             </div>

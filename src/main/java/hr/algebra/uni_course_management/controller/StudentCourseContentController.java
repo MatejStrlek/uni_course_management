@@ -38,7 +38,7 @@ public class StudentCourseContentController {
                               @PathVariable Long contentId,
                               Model model) {
         Course course = courseService.getCourseById(courseId);
-        CourseContent content = courseContentService.getContentByIdForStudent(contentId);
+        CourseContent content = courseContentService.getContentById(contentId);
 
         if (content == null || !content.getIsPublished()) {
             model.addAttribute("errorMessage", "Content not found or not published.");

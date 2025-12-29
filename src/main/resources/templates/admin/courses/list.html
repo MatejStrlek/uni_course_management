@@ -93,6 +93,10 @@
                                class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i> Edit
                             </a>
+                            <a th:href="@{/admin/courses/{id}/content(id=${course.id})}"
+                               class="btn btn-sm btn-info">
+                                <i class="bi bi-book"></i> Content
+                            </a>
                             <form th:action="@{/admin/courses/delete/{id}(id=${course.id})}"
                                   method="post"
                                   class="d-inline"

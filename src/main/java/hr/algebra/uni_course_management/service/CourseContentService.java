@@ -19,8 +19,7 @@ public class CourseContentService {
     private final CourseContentRepository courseContentRepository;
     private final CourseRepository courseRepository;
 
-    public List<CourseContent> getAllCourseContents(Long courseId, Long professorId) {
-        validateProfessorOwnership(courseId, professorId);
+    public List<CourseContent> getAllCourseContents(Long courseId) {
         return courseContentRepository.findByCourseId(courseId);
     }
 
@@ -28,44 +27,29 @@ public class CourseContentService {
         return courseContentRepository.findByCourseIdAndIsPublishedTrue(courseId);
     }
 
-    public List<CourseContent> getContentsByType(Long courseId, ContentType type, Long professorId) {
-        validateProfessorOwnership(courseId, professorId);
+    public List<CourseContent> getContentsByType(Long courseId, ContentType type) {
         return courseContentRepository.findByCourseIdAndContentType(courseId, type);
     }
 
-    public CourseContent getContentByIdForProfessor(Long contentId, Long professorId) {
-        CourseContent content = courseContentRepository.findById(contentId)
-                .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
-
-        validateProfessorOwnership(content.getCourse().getId(), professorId);
-        return content;
-    }
-
-    public CourseContent getContentByIdForStudent(Long contentId) {
+    public CourseContent getContentById(Long contentId) {
         return courseContentRepository.findById(contentId)
                 .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
     }
 
-    public void createContent(Long courseId, CourseContent content, Long professorId) {
-        validateProfessorOwnership(courseId, professorId);
-
+    public void createContent(Long courseId, CourseContent content) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found with id: " + courseId));
-
         content.setCourse(course);
 
         if (Boolean.TRUE.equals(content.getIsPublished()) && content.getPublishDate() == null) {
             content.setPublishDate(LocalDateTime.now());
         }
-
         courseContentRepository.save(content);
     }
 
-    public void updateContent(Long contentId, CourseContent updatedContent, Long professorId) {
+    public void updateContent(Long contentId, CourseContent updatedContent) {
         CourseContent existingContent = courseContentRepository.findById(contentId)
                 .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
-
-        validateProfessorOwnership(existingContent.getCourse().getId(), professorId);
 
         existingContent.setContentTitle(updatedContent.getContentTitle());
         existingContent.setContentDescription(updatedContent.getContentDescription());
@@ -84,18 +68,15 @@ public class CourseContentService {
         courseContentRepository.save(existingContent);
     }
 
-    public void deleteContent(Long contentId, Long professorId) {
+    public void deleteContent(Long contentId) {
         CourseContent content = courseContentRepository.findById(contentId)
                 .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
-        validateProfessorOwnership(content.getCourse().getId(), professorId);
         courseContentRepository.delete(content);
     }
 
-    public CourseContent togglePublishStatus(Long contentId, Long professorId) {
+    public CourseContent togglePublishStatus(Long contentId) {
         CourseContent content = courseContentRepository.findById(contentId)
                 .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
-
-        validateProfessorOwnership(content.getCourse().getId(), professorId);
 
         boolean newStatus = !Boolean.TRUE.equals(content.getIsPublished());
         content.setIsPublished(newStatus);
@@ -113,14 +94,5 @@ public class CourseContentService {
 
     public Long getContentCount(Long courseId) {
         return courseContentRepository.countByCourseId(courseId);
-    }
-
-    private void validateProfessorOwnership(Long courseId, Long professorId) {
-        Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course not found with id: " + courseId));
-
-        if (course.getProfessor() == null || !course.getProfessor().getId().equals(professorId)) {
-            throw new RuntimeException("You are not authorized to access this course content");
-        }
     }
 }
