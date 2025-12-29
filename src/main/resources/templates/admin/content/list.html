@@ -169,7 +169,7 @@
                         </td>
                         <td><strong th:text="${content.contentTitle}">Title</strong></td>
                         <td th:text="${content.contentDescription}">Description</td>
-                        <td th:text="${#temporals.format(content.createdAt, 'MMM dd')}">Date</td>
+                        <td th:text="${#temporals.format(content.createdAt, 'MMM dd, yyyy HH:mm')}">Dec 29, 2025 22:55</td>
                         <td>
                             <form th:action="@{/admin/courses/{courseId}/content/{contentId}/toggle(courseId=${course.id}, contentId=${content.id})}"
                                   method="post" class="d-inline">
