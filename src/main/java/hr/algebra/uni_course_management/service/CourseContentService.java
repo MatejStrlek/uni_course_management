@@ -33,12 +33,17 @@ public class CourseContentService {
         return courseContentRepository.findByCourseIdAndContentType(courseId, type);
     }
 
-    public CourseContent getContentById(Long contentId, Long professorId) {
+    public CourseContent getContentByIdForProfessor(Long contentId, Long professorId) {
         CourseContent content = courseContentRepository.findById(contentId)
                 .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
 
         validateProfessorOwnership(content.getCourse().getId(), professorId);
         return content;
+    }
+
+    public CourseContent getContentByIdForStudent(Long contentId) {
+        return courseContentRepository.findById(contentId)
+                .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
     }
 
     public void createContent(Long courseId, CourseContent content, Long professorId) {

@@ -80,7 +80,7 @@ public class ProfessorCourseContentController {
                                       Model model,
                                       Principal principal) {
         User professor = userService.findByUsername(principal.getName());
-        CourseContent courseContent = courseContentService.getContentById(contentId, professor.getId());
+        CourseContent courseContent = courseContentService.getContentByIdForProfessor(contentId, professor.getId());
         Course course = courseService.getCourseById(courseId);
 
         model.addAttribute("courseContent", courseContent);
