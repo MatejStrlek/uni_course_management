@@ -35,6 +35,8 @@ public class UserController {
     public String dashboard(Principal principal, Model model) {
         if (principal != null) {
             User currentUser = userService.getCurrentUser(principal.getName());
+            String primaryRole = currentUser.getRole().name();
+            model.addAttribute("primaryRole", primaryRole);
             model.addAttribute("currentUser", currentUser);
         }
         return "dashboard";
