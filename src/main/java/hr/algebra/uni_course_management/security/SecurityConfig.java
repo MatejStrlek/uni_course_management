@@ -2,6 +2,8 @@ package hr.algebra.uni_course_management.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -43,5 +45,13 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll());
         return http.build();
+    }
+
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        var roleHierarchy = new RoleHierarchyImpl();
+        String hierarchy = "ROLE_ADMIN > ROLE_PROFESSOR \n ROLE_ADMIN > ROLE_STUDENT";
+        roleHierarchy.setHierarchy(hierarchy);
+        return roleHierarchy;
     }
 }

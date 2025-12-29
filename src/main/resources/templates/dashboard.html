@@ -65,7 +65,7 @@
         </div>
     </div>
     <!-- STUDENT DASHBOARD -->
-    <div sec:authorize="hasRole('STUDENT')" class="row mb-4">
+    <div th:if="${primaryRole == 'STUDENT'}" class="row mb-4">
         <div class="col-12">
             <div class="card border-start border-primary border-4 bg-light">
                 <div class="card-body">
@@ -104,7 +104,7 @@
         </div>
     </div>
     <!-- PROFESSOR DASHBOARD -->
-    <div sec:authorize="hasRole('PROFESSOR')" class="row mb-4">
+    <div th:if="${primaryRole == 'PROFESSOR'}" class="row mb-4">
         <div class="col-12">
             <div class="card border-start border-success border-4 bg-light">
                 <div class="card-body">
@@ -138,7 +138,7 @@
         </div>
     </div>
     <!-- ADMIN DASHBOARD -->
-    <div sec:authorize="hasRole('ADMIN')" class="row mb-4">
+    <div th:if="${primaryRole == 'ADMIN'}" class="row mb-4">
         <div class="col-12">
             <div class="card border-start border-warning border-4 bg-light">
                 <div class="card-body">
