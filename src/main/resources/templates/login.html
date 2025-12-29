@@ -23,7 +23,6 @@
         <div class="card login-card">
             <div class="card-body p-5">
                 <h3 class="text-center mb-4">University Login</h3>
-                <!-- Error Message -->
                 <div th:if="${param.error}" class="alert alert-danger" role="alert">
                     <div th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null and
                                  session.SPRING_SECURITY_LAST_EXCEPTION.message == 'User account is disabled'}">
@@ -34,15 +33,12 @@
                         Invalid username or password!
                     </div>
                 </div>
-                <!-- Logout Message -->
                 <div th:if="${param.logout}" class="alert alert-success" role="alert">
                     You have been successfully logged out.
                 </div>
-                <!-- Success Message -->
                 <div th:if="${message}" class="alert alert-success" role="alert">
                     <span th:text="${message}"></span>
                 </div>
-                <!-- Login Form -->
                 <form th:action="@{/login}" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>

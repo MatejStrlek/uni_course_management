@@ -46,7 +46,6 @@
     </div>
 </nav>
 <div class="container mt-4">
-    <!-- Course Header -->
     <div class="card mb-4">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
@@ -63,11 +62,9 @@
             </div>
         </div>
     </div>
-    <!-- Messages -->
     <div th:if="${errorMessage}" class="alert alert-warning" th:text="${errorMessage}">
         Error message
     </div>
-    <!-- Content List -->
     <div class="card shadow-sm">
         <div class="card-header bg-info text-white">
             <h4 class="mb-0">
@@ -96,12 +93,18 @@
                     <tr th:each="content : ${contents}">
                         <td>
                                 <span th:switch="${content.contentType.name()}">
-                                    <span th:case="'LECTURE'" class="badge bg-success" th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="'ASSIGNMENT'" class="badge bg-warning text-dark" th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="'QUIZ'" class="badge bg-danger" th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="'READING_MATERIAL'" class="badge bg-primary" th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="'ANNOUNCEMENT'" class="badge bg-info text-white" th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="*" class="badge bg-secondary" th:text="${content.contentType.displayName}"></span>
+                                    <span th:case="'LECTURE'" class="badge bg-success"
+                                          th:text="${content.contentType.displayName}"></span>
+                                    <span th:case="'ASSIGNMENT'" class="badge bg-warning text-dark"
+                                          th:text="${content.contentType.displayName}"></span>
+                                    <span th:case="'QUIZ'" class="badge bg-danger"
+                                          th:text="${content.contentType.displayName}"></span>
+                                    <span th:case="'READING_MATERIAL'" class="badge bg-primary"
+                                          th:text="${content.contentType.displayName}"></span>
+                                    <span th:case="'ANNOUNCEMENT'" class="badge bg-info text-white"
+                                          th:text="${content.contentType.displayName}"></span>
+                                    <span th:case="*" class="badge bg-secondary"
+                                          th:text="${content.contentType.displayName}"></span>
                                 </span>
                         </td>
                         <td>
@@ -111,7 +114,8 @@
                             <span th:text="${content.contentDescription}">Description</span>
                         </td>
                         <td>
-                            <small class="text-muted" th:text="${#temporals.format(content.publishDate, 'MMM dd, yyyy')}">Date</small>
+                            <small class="text-muted"
+                                   th:text="${#temporals.format(content.publishDate, 'MMM dd, yyyy')}">Date</small>
                         </td>
                         <td>
                                 <span th:if="${content.dueDate}" class="badge bg-danger">

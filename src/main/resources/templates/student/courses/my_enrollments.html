@@ -45,7 +45,6 @@
     </div>
 </nav>
 <div class="container mt-4">
-    <!-- Success / error messages -->
     <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show" role="alert">
         <span th:if="${param.success[0] == 'dropped'}">Successfully dropped course.</span>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>

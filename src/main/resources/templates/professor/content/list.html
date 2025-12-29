@@ -41,7 +41,6 @@
     </div>
 </nav>
 <div class="container mt-4">
-    <!-- Course Header -->
     <div class="row mb-4">
         <div class="col-12">
             <nav aria-label="breadcrumb">
@@ -72,7 +71,6 @@
             </div>
         </div>
     </div>
-    <!-- Flash messages -->
     <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
         <i class="fas fa-check-circle me-2"></i>
         <span th:text="${successMessage}">Success!</span>
@@ -83,7 +81,6 @@
         <span th:text="${errorMessage}">Error!</span>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
-    <!-- Content Table -->
     <div class="card shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
@@ -171,7 +168,6 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                            <!-- Delete Confirmation Modal -->
                             <div class="modal fade" th:id="'deleteModal' + ${content.id}" tabindex="-1">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -198,7 +194,6 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- Empty state -->
                     <tr th:if="${contents.isEmpty()}">
                         <td colspan="6" class="text-center text-muted py-5">
                             <i class="fas fa-inbox fa-3x mb-3 opacity-75"></i>

@@ -51,7 +51,6 @@
     </div>
 </nav>
 <div class="container mt-4 mb-5">
-    <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -81,7 +80,6 @@
                     </small>
                 </div>
                 <div class="card-body p-4">
-                    <!-- Info Bar -->
                     <div class="alert alert-info d-flex justify-content-between align-items-center" role="alert">
                         <div>
                             <i class="fas fa-info-circle me-2"></i>
@@ -99,7 +97,6 @@
                             </span>
                         </div>
                     </div>
-                    <!-- Error/Success Messages -->
                     <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
                         <i class="fas fa-exclamation-triangle me-2"></i>
                         <span th:text="${errorMessage}">Error!</span>
@@ -110,7 +107,6 @@
                           method="post">
                         <div class="row">
                             <div class="col-lg-8">
-                                <!-- Title -->
                                 <div class="mb-3">
                                     <label for="title" class="form-label required">Title</label>
                                     <input type="text"
@@ -125,7 +121,6 @@
                                         Title error
                                     </div>
                                 </div>
-                                <!-- Content Type -->
                                 <div class="mb-3">
                                     <label for="contentType" class="form-label required">Content Type</label>
                                     <select class="form-select form-select-lg"
@@ -143,7 +138,6 @@
                                         Content type error
                                     </div>
                                 </div>
-                                <!-- Description -->
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Short Description</label>
                                     <textarea class="form-control"
@@ -156,7 +150,6 @@
                                         <i class="fas fa-info-circle"></i> Brief overview visible to students
                                     </small>
                                 </div>
-                                <!-- Main Content -->
                                 <div class="mb-3">
                                     <label for="contentText" class="form-label">Content</label>
                                     <textarea class="form-control"
@@ -170,13 +163,11 @@
                                 </div>
                             </div>
                             <div class="col-lg-4">
-                                <!-- Sidebar Settings -->
                                 <div class="card bg-light mb-3">
                                     <div class="card-header">
                                         <i class="fas fa-cog"></i> Publishing
                                     </div>
                                     <div class="card-body">
-                                        <!-- Current Status Display -->
                                         <div class="mb-3 p-2 rounded"
                                              th:classappend="${courseContent.isPublished} ? 'bg-success bg-opacity-10' : 'bg-secondary bg-opacity-10'">
                                             <small class="text-muted d-block mb-1">Current Status:</small>
@@ -187,7 +178,6 @@
                                                 </small>
                                             </span>
                                         </div>
-                                        <!-- Publish Toggle -->
                                         <div class="mb-3">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input"
@@ -202,7 +192,6 @@
                                                 Toggle to change visibility
                                             </small>
                                         </div>
-                                        <!-- Due Date -->
                                         <div class="mb-0">
                                             <label for="dueDate" class="form-label">
                                                 <i class="fas fa-calendar-times"></i> Due Date
@@ -217,13 +206,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- File Attachments -->
                                 <div class="card bg-light mb-3">
                                     <div class="card-header">
                                         <i class="fas fa-paperclip"></i> Attachments
                                     </div>
                                     <div class="card-body">
-                                        <!-- File URL -->
                                         <div class="mb-3">
                                             <label for="fileUrl" class="form-label">
                                                 <i class="fas fa-link"></i> File URL
@@ -237,7 +224,6 @@
                                                 Link to external resource
                                             </small>
                                         </div>
-                                        <!-- File Name -->
                                         <div class="mb-0">
                                             <label for="fileName" class="form-label">
                                                 <i class="fas fa-file"></i> Display Name
@@ -253,7 +239,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Metadata Card -->
                                 <div class="card bg-secondary bg-opacity-10">
                                     <div class="card-body">
                                         <h6 class="card-title">
@@ -274,7 +259,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Form Actions -->
                         <hr class="my-4">
                         <div class="d-flex justify-content-between align-items-center">
                             <a th:href="@{/professor/courses/{id}/content(id=${course.id})}"

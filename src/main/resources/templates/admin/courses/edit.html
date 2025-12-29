@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Course - University Course Management</title>
+    <title>Edit Course</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
@@ -44,11 +44,9 @@
                     <h4 class="mb-0">Edit Course</h4>
                 </div>
                 <div class="card-body">
-                    <!-- Error Message -->
                     <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
                         <span th:text="${errorMessage}"></span>
                     </div>
-                    <!-- Course Form -->
                     <form th:action="@{/admin/courses/edit/{id}(id=${course.id})}"
                           th:object="${course}"
                           method="post">

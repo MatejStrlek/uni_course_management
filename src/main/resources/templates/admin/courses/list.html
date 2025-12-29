@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Courses - University Course Management</title>
+    <title>Manage Courses</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
@@ -47,14 +47,12 @@
             </a>
         </div>
     </div>
-    <!-- Success Messages -->
     <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show" role="alert">
         <span th:if="${param.success[0] == 'created'}">Course created successfully!</span>
         <span th:if="${param.success[0] == 'updated'}">Course updated successfully!</span>
         <span th:if="${param.success[0] == 'deleted'}">Course deleted successfully!</span>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
-    <!-- Courses Table -->
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
