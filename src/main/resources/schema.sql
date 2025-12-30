@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS enrollment (
     enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     status VARCHAR(20) NOT NULL,
     CONSTRAINT fk_enr_student FOREIGN KEY (student_id) REFERENCES app_user(id),
-    CONSTRAINT fk_enr_course FOREIGN KEY (course_id) REFERENCES course(id),
+    CONSTRAINT fk_enr_course FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE,
     CONSTRAINT uq_enr_student_course UNIQUE (student_id, course_id)
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS grade (
     enrollment_id INT NOT NULL UNIQUE,
     grade_value INTEGER NOT NULL CHECK (grade_value BETWEEN 1 AND 5),
     graded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (enrollment_id) REFERENCES ENROLLMENT(id)
+    FOREIGN KEY (enrollment_id) REFERENCES ENROLLMENT(id) ON DELETE CASCADE
 );
 
 CREATE TABLE schedule_entry (
@@ -53,8 +53,7 @@ CREATE TABLE schedule_entry (
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
     room VARCHAR(100),
-    CONSTRAINT fk_schedule_course
-    FOREIGN KEY (course_id) REFERENCES course(id)
+    CONSTRAINT fk_schedule_course FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS course_content (
@@ -71,7 +70,6 @@ CREATE TABLE IF NOT EXISTS course_content (
     is_published BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP,
-
     CONSTRAINT fk_content_course FOREIGN KEY (course_id)
     REFERENCES course(id) ON DELETE CASCADE
 );
