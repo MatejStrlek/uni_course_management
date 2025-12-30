@@ -39,6 +39,9 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
     @Column(name = "role_user", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
@@ -62,11 +65,12 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public User(String username, String password, String firstName, String lastName, UserRole role) {
+    public User(String username, String password, String firstName, String lastName, String email, UserRole role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.role = role;
     }
 

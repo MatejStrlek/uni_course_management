@@ -23,13 +23,17 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(String username, String password, String firstName, String lastName, UserRole role) {
+    public void registerUser(String username, String password, String firstName, String lastName, String email, UserRole role) {
         if (userRepository.findByUsername(username).isPresent()) {
             throw new IllegalArgumentException("Username already exists: " + username);
         }
 
+        if (userRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("Email already exists: " + email);
+        }
+
         String encodedPassword = passwordEncoder.encode(password);
-        User user = new User(username, encodedPassword, firstName, lastName, role);
+        User user = new User(username, encodedPassword, firstName, lastName, email, role);
         userRepository.save(user);
     }
 
@@ -63,6 +67,7 @@ public class UserService {
             String username,
             String firstName,
             String lastName,
+            String email,
             UserRole role,
             String password,
             boolean isActive) {
@@ -77,6 +82,7 @@ public class UserService {
 
         existingUser.setFirstName(firstName);
         existingUser.setLastName(lastName);
+        existingUser.setEmail(email);
         existingUser.setRole(role);
         existingUser.setIsActive(isActive);
 

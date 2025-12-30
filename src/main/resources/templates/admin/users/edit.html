@@ -78,6 +78,13 @@
                             </div>
                         </div>
                         <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" th:field="*{email}" class="form-control form-control-lg"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                                   id="email">
+                            <div class="invalid-feedback" th:errors="*{email}">Email error</div>
+                        </div>
+                        <div class="mb-3">
                             <label for="role" class="form-label">Role *</label>
                             <select class="form-select" id="role" th:field="*{role}" required>
                                 <option th:each="r : ${roles}"

@@ -49,14 +49,14 @@ public class AdminUserController {
             Model model) {
         try {
             userService.updateUser(id, user.getUsername(), user.getFirstName(),
-                    user.getLastName(), user.getRole(), user.getPassword(), user.getIsActive());
+                    user.getLastName(), user.getEmail(), user.getRole(), user.getPassword(), user.getIsActive());
             redirectAttributes.addFlashAttribute("successMessage", "User '" + user.getUsername() + "' updated successfully!");
             return "redirect:/admin/users";
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("user", userService.getUserById(id));
             model.addAttribute(ROLES, UserRole.values());
-            return "redirect:/admin/users/edit/";
+            return "redirect:/admin/users/edit/" + id;
         }
     }
 
@@ -85,16 +85,17 @@ public class AdminUserController {
             @RequestParam String password,
             @RequestParam String firstName,
             @RequestParam String lastName,
+            @RequestParam String email,
             @RequestParam String role,
             RedirectAttributes redirectAttributes,
             Model model) {
         try {
-            userService.registerUser(username, password, firstName, lastName, UserRole.valueOf(role.toUpperCase()));
+            userService.registerUser(username, password, firstName, lastName, email, UserRole.valueOf(role.toUpperCase()));
             redirectAttributes.addFlashAttribute("successMessage", "User '" + username + "' created successfully!");
             return "redirect:/dashboard";
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "redirect:/admin/users/register?error=" + e.getMessage();
+            return "redirect:/admin/users/register";
         }
     }
 }

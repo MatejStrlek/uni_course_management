@@ -1,18 +1,18 @@
-INSERT INTO app_user (username, password, first_name, last_name, role_user)
+INSERT INTO app_user (username, password, first_name, last_name, email, role_user)
 VALUES
-    ('admin', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Admin', 'Administrator' , 'ADMIN'),
-    ('mkrmpotic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Milica', 'Krmpotic', 'PROFESSOR'),
-    ('aradovan', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Ana', 'Radovan', 'PROFESSOR'),
-    ('iobad', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Ivan', 'Obad', 'PROFESSOR'),
-    ('lkrmpotic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Lara', 'Krmpotic', 'PROFESSOR'),
-    ('jpetrovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Jovan', 'Petrovic', 'PROFESSOR'),
-    ('sivanovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Sara', 'Ivanovic', 'STUDENT'),
-    ('dmarinkovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'David', 'Marinkovic', 'STUDENT'),
-    ('lpetrovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Lena', 'Petrovic', 'STUDENT'),
-    ('mstojanovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Marko', 'Stojanovic', 'STUDENT'),
-    ('njakovljevic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Nina', 'Jakovljevic', 'STUDENT'),
-    ('tmitrovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Tina', 'Mitrovic', 'STUDENT'),
-    ('mgalic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Matej', 'Galic', 'STUDENT');
+    ('admin', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Admin', 'Administrator', 'admin@uniapp.com', 'ADMIN'),
+    ('mkrmpotic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Milica', 'Krmpotic', 'mkrmpotic@uniapp.com', 'PROFESSOR'),
+    ('aradovan', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Ana', 'Radovan', 'aradovan@uniapp.com', 'PROFESSOR'),
+    ('iobad', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Ivan', 'Obad', 'iobad@uniapp.com', 'PROFESSOR'),
+    ('lkrmpotic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Lara', 'Krmpotic', 'lkrmpotic@uniapp.com', 'PROFESSOR'),
+    ('jpetrovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Jovan', 'Petrovic', 'jpetrovic@uniapp.com', 'PROFESSOR'),
+    ('sivanovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Sara', 'Ivanovic', 'sivanovic@uniapp.com', 'STUDENT'),
+    ('dmarinkovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'David', 'Marinkovic', 'dmarinkovic@uniapp.com', 'STUDENT'),
+    ('lpetrovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Lena', 'Petrovic', 'lpetrovic@uniapp.com', 'STUDENT'),
+    ('mstojanovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Marko', 'Stojanovic', 'mstojanovic@uniapp.com', 'STUDENT'),
+    ('njakovljevic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Nina', 'Jakovljevic', 'njakovljevic@uniapp.com', 'STUDENT'),
+    ('tmitrovic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Tina', 'Mitrovic', 'tmitrovic@uniapp.com', 'STUDENT'),
+    ('mgalic', '$2a$10$xszlj1pbFnz6kKreb3X9pugjNUg0MAcC1ff/NR43oKNthJYYcCRj6', 'Matej', 'Galic', 'mgalic1@algebra.hr', 'STUDENT');
 
 INSERT INTO course (course_code, course_name, description, credits, max_students, semester, academic_year, professor_id)
 VALUES
