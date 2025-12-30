@@ -1,5 +1,7 @@
 package hr.algebra.uni_course_management.security;
 
+import hr.algebra.uni_course_management.exception.CustomAccessDeniedHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -12,7 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final CustomAccessDeniedHandler accessDeniedHandler;
     private static final String LOGIN = "/login";
 
     @Bean
@@ -26,12 +30,14 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(LOGIN, "/dashboard", "/h2-console/**").permitAll()
+                        .requestMatchers(LOGIN, "/dashboard", "/h2-console/**", "/error/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/professor/**").hasRole("PROFESSOR")
                         .requestMatchers("/student/**").hasRole("STUDENT")
                         .anyRequest().authenticated()
                 )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler(accessDeniedHandler))
                 .formLogin(form -> form
                         .loginPage(LOGIN)
                         .loginProcessingUrl(LOGIN)
