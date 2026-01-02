@@ -6,20 +6,44 @@
     <title>Dashboard - University Course Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <i class="bi bi-book-half me-1"></i>University Course Management
+        <a class="navbar-brand" th:href="@{/}">
+            <i class="bi bi-book-half me-1"></i>
+            <span th:text="#{app.title}">University Course Management</span>
         </a>
         <div class="d-flex align-items-center">
             <span class="navbar-text text-white me-3">
-                Welcome, <span th:text="${currentUser.firstName}"></span>!
+                <span th:text="#{dashboard.welcome(${currentUser.firstName})}">
+                    Welcome, <span th:text="${currentUser.firstName}"></span>!
+                </span>
             </span>
+            <div class="dropdown me-3">
+                <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button"
+                        id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span th:class="${#locale.language == 'hr'} ? 'fi fi-hr me-1' : 'fi fi-gb me-1'"></span>
+                    <span th:text="${#locale.language == 'hr'} ? 'HR' : 'EN'">EN</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                    <li>
+                        <a class="dropdown-item" href="?lang=en">
+                            <span class="fi fi-gb me-2"></span>English
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="?lang=hr">
+                            <span class="fi fi-hr me-2"></span>Hrvatski
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <form th:action="@{/logout}" method="post" class="d-inline">
                 <button class="btn btn-outline-light btn-sm" type="submit">
-                    <i class="bi bi-box-arrow-right me-1"></i>Logout
+                    <i class="bi bi-box-arrow-right me-1"></i>
+                    <span th:text="#{nav.logout}">Logout</span>
                 </button>
             </form>
         </div>
@@ -33,9 +57,10 @@
     <div class="row mb-4">
         <div class="col-md-8">
             <h1 class="mb-0">
-                <i class="bi bi-speedometer2 text-primary"></i> Dashboard
+                <i class="bi bi-speedometer2 text-primary"></i>
+                <span th:text="#{dashboard.title}">Dashboard</span>
             </h1>
-            <p class="text-muted">Quick access to all your features</p>
+            <p class="text-muted" th:text="#{dashboard.subtitle}">Quick access to all your features</p>
         </div>
     </div>
     <div class="row mb-4">
@@ -55,7 +80,8 @@
                         </div>
                         <div class="col-md-4 text-end">
                             <span class="text-muted">
-                                Role: <strong th:text="${currentUser.role}"></strong>
+                                <span th:text="#{dashboard.user.role}">Role</span>:
+                                <strong th:text="${currentUser.role}"></strong>
                             </span>
                         </div>
                     </div>
@@ -73,26 +99,30 @@
                             <i class="bi bi-person-student display-4 text-primary"></i>
                         </div>
                         <div class="col-md-10">
-                            <h3 class="card-title mb-2">Student Portal</h3>
+                            <h3 class="card-title mb-2" th:text="#{dashboard.student.title}">Student Portal</h3>
                             <div class="row g-2">
                                 <div class="col-md-3">
                                     <a href="/student/courses" class="btn btn-primary w-100">
-                                        <i class="bi bi-book me-1"></i>Browse Courses
+                                        <i class="bi bi-book me-1"></i>
+                                        <span th:text="#{dashboard.student.browse}">Browse Courses</span>
                                     </a>
                                 </div>
                                 <div class="col-md-3">
                                     <a href="/student/courses/my-courses" class="btn btn-outline-primary w-100">
-                                        <i class="bi bi-check-circle me-1"></i>My Courses
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        <span th:text="#{dashboard.student.my_courses}">My Courses</span>
                                     </a>
                                 </div>
                                 <div class="col-md-3">
                                     <a th:href="@{/student/courses/grades}" class="btn btn-success w-100">
-                                        <i class="bi bi-star me-1"></i>View All Grades
+                                        <i class="bi bi-star me-1"></i>
+                                        <span th:text="#{dashboard.student.grades}">View Grades</span>
                                     </a>
                                 </div>
                                 <div class="col-md-3">
                                     <a href="/student/schedule" class="btn btn-info w-100">
-                                        <i class="bi bi-calendar-check me-1"></i>My Schedule
+                                        <i class="bi bi-calendar-check me-1"></i>
+                                        <span th:text="#{dashboard.student.schedule}">My Schedule</span>
                                     </a>
                                 </div>
                             </div>
@@ -112,21 +142,24 @@
                             <i class="bi bi-person-briefcase display-4 text-success"></i>
                         </div>
                         <div class="col-md-10">
-                            <h3 class="card-title mb-2">Professor Portal</h3>
+                            <h3 class="card-title mb-2" th:text="#{dashboard.professor.title}">Professor Portal</h3>
                             <div class="row g-2">
                                 <div class="col-md-4">
                                     <a href="/professor/courses" class="btn btn-success w-100">
-                                        <i class="bi bi-book me-1"></i>My Courses
+                                        <i class="bi bi-book me-1"></i>
+                                        <span th:text="#{dashboard.professor.my_courses}">My Courses</span>
                                     </a>
                                 </div>
                                 <div class="col-md-4">
                                     <a href="/professor/courses" class="btn btn-outline-success w-100">
-                                        <i class="bi bi-star me-1"></i>Enter Grades
+                                        <i class="bi bi-star me-1"></i>
+                                        <span th:text="#{dashboard.professor.grades}">Manage Grades</span>
                                     </a>
                                 </div>
                                 <div class="col-md-4">
                                     <a href="/professor/schedule" class="btn btn-warning w-100">
-                                        <i class="bi bi-calendar-check me-1"></i>My Schedule
+                                        <i class="bi bi-calendar-check me-1"></i>
+                                        <span th:text="#{dashboard.professor.schedule}">Course Schedule</span>
                                     </a>
                                 </div>
                             </div>
@@ -146,15 +179,25 @@
                             <i class="bi bi-gear-wide-connected display-4 text-warning"></i>
                         </div>
                         <div class="col-md-10">
-                            <h3 class="card-title mb-3">Admin Control Panel</h3>
+                            <h3 class="card-title mb-3" th:text="#{dashboard.admin.title}">
+                                Admin Control Panel
+                            </h3>
                             <div class="row g-3">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="card h-100 shadow-sm">
                                         <div class="card-body text-center">
                                             <i class="bi bi-speedometer2 display-6 text-danger"></i>
-                                            <h5 class="card-title mt-2">Dashboard</h5>
-                                            <p class="card-text text-muted">System statistics</p>
-                                            <a href="/admin/dashboard" class="btn btn-danger">Open</a>
+                                            <h5 class="card-title mt-2" th:text="#{dashboard.admin.dashboard}">
+                                                Dashboard
+                                            </h5>
+                                            <p class="card-text text-muted">
+                                                <span th:text="#{dashboard.admin.dashboard.desc}">
+                                                    System statistics
+                                                </span>
+                                            </p>
+                                            <a href="/admin/dashboard" class="btn btn-danger" th:text="#{btn.open}">
+                                                Open
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -162,9 +205,15 @@
                                     <div class="card h-100 shadow-sm">
                                         <div class="card-body text-center">
                                             <i class="bi bi-people display-6 text-primary"></i>
-                                            <h5 class="card-title mt-2">Users</h5>
-                                            <p class="card-text text-muted">Manage users & roles</p>
-                                            <a href="/admin/users" class="btn btn-primary">Manage</a>
+                                            <h5 class="card-title mt-2" th:text="#{dashboard.admin.users}">
+                                                Users
+                                            </h5>
+                                            <p class="card-text text-muted" th:text="#{dashboard.admin.users.desc}">
+                                                Manage users & roles
+                                            </p>
+                                            <a href="/admin/users" class="btn btn-primary" th:text="#{btn.manage}">
+                                                Manage
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -172,9 +221,15 @@
                                     <div class="card h-100 shadow-sm">
                                         <div class="card-body text-center">
                                             <i class="bi bi-book display-6 text-success"></i>
-                                            <h5 class="card-title mt-2">Courses</h5>
-                                            <p class="card-text text-muted">CRUD operations</p>
-                                            <a href="/admin/courses" class="btn btn-success">Manage</a>
+                                            <h5 class="card-title mt-2" th:text="#{dashboard.admin.courses}">
+                                                Courses
+                                            </h5>
+                                            <p class="card-text text-muted" th:text="#{dashboard.admin.courses.desc}">
+                                                CRUD operations
+                                            </p>
+                                            <a href="/admin/courses" class="btn btn-success" th:text="#{btn.manage}">
+                                                Manage
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -182,9 +237,15 @@
                                     <div class="card h-100 shadow-sm">
                                         <div class="card-body text-center">
                                             <i class="bi bi-calendar-week display-6 text-secondary"></i>
-                                            <h5 class="card-title mt-2">Schedules</h5>
-                                            <p class="card-text text-muted">Course time slots</p>
-                                            <a href="/admin/schedule" class="btn btn-secondary">Manage</a>
+                                            <h5 class="card-title mt-2" th:text="#{dashboard.admin.schedules}">
+                                                Schedules
+                                            </h5>
+                                            <p class="card-text text-muted" th:text="#{dashboard.admin.schedules.desc}">
+                                                Course time slots
+                                            </p>
+                                            <a href="/admin/schedule" class="btn btn-secondary" th:text="#{btn.manage}">
+                                                Manage
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -192,9 +253,15 @@
                                     <div class="card h-100 shadow-sm">
                                         <div class="card-body text-center">
                                             <i class="bi bi-file-earmark-bar-graph display-6 text-info"></i>
-                                            <h5 class="card-title mt-2">Reports</h5>
-                                            <p class="card-text text-muted">Analytics & stats</p>
-                                            <a href="/admin/reports" class="btn btn-info">View Reports</a>
+                                            <h5 class="card-title mt-2" th:text="#{dashboard.admin.reports}">
+                                                Reports
+                                            </h5>
+                                            <p class="card-text text-muted" th:text="#{dashboard.admin.reports.desc}">
+                                                Analytics & stats
+                                            </p>
+                                            <a href="/admin/reports" class="btn btn-info" th:text="#{btn.view_reports}">
+                                                View Reports
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -202,9 +269,15 @@
                                     <div class="card h-100 shadow-sm">
                                         <div class="card-body text-center">
                                             <i class="bi bi-sliders display-6 text-warning"></i>
-                                            <h5 class="card-title mt-2">Settings</h5>
-                                            <p class="card-text text-muted">System config</p>
-                                            <a href="/admin/settings" class="btn btn-warning">Configure</a>
+                                            <h5 class="card-title mt-2" th:text="#{dashboard.admin.settings}">
+                                                Settings
+                                            </h5>
+                                            <p class="card-text text-muted" th:text="#{dashboard.admin.settings.desc}">
+                                                System config
+                                            </p>
+                                            <a href="/admin/settings" class="btn btn-warning" th:text="#{btn.configure}">
+                                                Configure
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -221,8 +294,12 @@
             <div class="card text-center border-0 shadow-sm bg-primary text-white">
                 <div class="card-body">
                     <i class="bi bi-book display-6 opacity-75"></i>
-                    <h3 class="mb-0">Active Courses</h3>
-                    <p class="fs-6 opacity-75">Available now</p>
+                    <h3 class="mb-0" th:text="#{dashboard.stats.active_courses}">
+                        Active Courses
+                    </h3>
+                    <p class="fs-6 opacity-75" th:text="#{dashboard.stats.active_courses.desc}">
+                        Available now
+                    </p>
                 </div>
             </div>
         </div>
@@ -230,8 +307,12 @@
             <div class="card text-center border-0 shadow-sm bg-success text-white">
                 <div class="card-body">
                     <i class="bi bi-star display-6 opacity-75"></i>
-                    <h3 class="mb-0">Your Average</h3>
-                    <p class="fs-6 opacity-75">Grade score</p>
+                    <h3 class="mb-0" th:text="#{dashboard.stats.your_average}">
+                        Your Average
+                    </h3>
+                    <p class="fs-6 opacity-75" th:text="#{dashboard.stats.your_average.desc}">
+                        Grade score
+                    </p>
                 </div>
             </div>
         </div>
@@ -239,8 +320,12 @@
             <div class="card text-center border-0 shadow-sm bg-info text-white">
                 <div class="card-body">
                     <i class="bi bi-people display-6 opacity-75"></i>
-                    <h3 class="mb-0">Enrolled</h3>
-                    <p class="fs-6 opacity-75">Students/Courses</p>
+                    <h3 class="mb-0" th:text="#{dashboard.stats.total_enrolled}">
+                        Enrolled
+                    </h3>
+                    <p class="fs-6 opacity-75" th:text="#{dashboard.stats.total_enrolled.desc}">
+                        Students/Courses
+                    </p>
                 </div>
             </div>
         </div>
@@ -248,8 +333,12 @@
             <div class="card text-center border-0 shadow-sm bg-warning text-white">
                 <div class="card-body">
                     <i class="bi bi-clock display-6 opacity-75"></i>
-                    <h3 class="mb-0">Next Class</h3>
-                    <p class="fs-6 opacity-75">In 2 hours</p>
+                    <h3 class="mb-0" th:text="#{dashboard.stats.next_class}">
+                        Next Class
+                    </h3>
+                    <p class="fs-6 opacity-75" th:text="#{dashboard.stats.next_class.desc}">
+                        In 2 hours
+                    </p>
                 </div>
             </div>
         </div>
