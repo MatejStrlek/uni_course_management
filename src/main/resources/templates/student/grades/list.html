@@ -6,6 +6,7 @@
     <title>My Grades - Student</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
     <style>
         .grade-cell {
             font-size: 1.1rem;
@@ -16,7 +17,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="/dashboard">
-            <i class="bi bi-book-half me-2"></i>University Course Management
+            <i class="bi bi-book-half me-2"></i>
+            <span th:text="#{nav.dashboard}">University Course Management</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -24,24 +26,49 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="/student/courses">
-                        <i class="bi bi-book me-1"></i>Courses
+                    <a class="nav-link" th:href="@{/student/courses}">
+                        <i class="bi bi-book me-1"></i>
+                        <span th:text="#{nav.courses}">Courses</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/student/courses/my-courses">
-                        <i class="bi bi-check-circle me-1"></i>Enrollments
+                    <a class="nav-link" th:href="@{/student/courses/my-courses}">
+                        <i class="bi bi-check-circle me-1"></i>
+                        <span th:text="#{nav.enrollments}">Enrollments</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/student/courses/grades}">
+                        <i class="bi bi-123 me-1"></i>
+                        <span th:text="#{nav.grades}">Grades</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link active" href="/student/courses/grades">
-                        <i class="bi bi-123 me-1"></i>Grades
+                    <a class="nav-link" th:href="@{/student/schedule}">
+                        <i class="bi bi-calendar-week me-1"></i>
+                        <span th:text="#{nav.schedule}">Schedule</span>
                     </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light btn-sm dropdown-toggle me-2" type="button"
+                                id="languageDropdown" data-bs-toggle="dropdown">
+                            <span th:class="${#locale.language == 'hr'} ? 'fi fi-hr me-1' : 'fi fi-gb me-1'"></span>
+                            <span th:text="${#locale.language == 'hr'} ? 'HR' : 'EN'">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" th:href="@{''(lang='en')}" href="?lang=en">
+                                <span class="fi fi-gb me-2"></span>English</a></li>
+                            <li><a class="dropdown-item" th:href="@{''(lang='hr')}" href="?lang=hr">
+                                <span class="fi fi-hr me-2"></span>Hrvatski</a></li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <form th:action="@{/logout}" method="post" class="d-inline">
                         <button class="btn btn-outline-light btn-sm" type="submit">
-                            <i class="bi bi-box-arrow-right me-1"></i>Logout
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            <span th:text="#{nav.logout}">Logout</span>
                         </button>
                     </form>
                 </li>
@@ -51,7 +78,7 @@
 </nav>
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>My Grades</h2>
+        <h2 th:text="#{grades.title}">My Grades</h2>
     </div>
     <div class="card">
         <div class="card-body">
@@ -59,19 +86,19 @@
                 <table class="table table-hover align-middle">
                     <thead class="table-primary">
                     <tr>
-                        <th>Course Code</th>
-                        <th>Course Name</th>
-                        <th>Credits</th>
-                        <th>Professor</th>
-                        <th class="text-center">Grade</th>
-                        <th>Graded Date</th>
-                        <th class="text-center">Status</th>
+                        <th th:text="#{grades.course_code}">Course Code</th>
+                        <th th:text="#{grades.course_name}">Course Name</th>
+                        <th th:text="#{grades.credits}">Credits</th>
+                        <th th:text="#{grades.professor}">Professor</th>
+                        <th class="text-center" th:text="#{grades.grade}">Grade</th>
+                        <th th:text="#{grades.graded_date}">Graded Date</th>
+                        <th class="text-center" th:text="#{grades.status}">Status</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:if="${#lists.isEmpty(enrollments)}">
-                        <td colspan="7" class="text-center text-muted">
-                            You are not enrolled in any courses yet.
+                        <td colspan="7" class="text-center text-muted" th:text="#{grades.no_enrollments}">
+                            No enrollments found.
                         </td>
                     </tr>
                     <tr th:each="enrollment : ${enrollments}">
@@ -84,35 +111,35 @@
                             Dr. Smith
                         </td>
                         <td class="text-center grade-cell">
-                            <span th:if="${enrollment.tempGrade != null}"
-                                  th:text="${enrollment.tempGrade.gradeValue}"
-                                  th:class="${enrollment.tempGrade.gradeValue >= 2 ? 'grade-pass' : 'grade-fail'}">
-                                5
-                            </span>
-                            <span th:if="${enrollment.tempGrade == null}" class="text-muted">
-                                <em>Not graded</em>
-                            </span>
+                                <span th:if="${enrollment.tempGrade != null}"
+                                      th:text="${enrollment.tempGrade.gradeValue}"
+                                      th:class="${enrollment.tempGrade.gradeValue >= 2 ? 'grade-pass' : 'grade-fail'}">
+                                    5
+                                </span>
+                            <span th:if="${enrollment.tempGrade == null}" class="text-muted" th:text="#{grades.not_graded}">
+                                    <em>Not graded</em>
+                                </span>
                         </td>
                         <td>
-                            <span th:if="${enrollment.tempGrade != null}"
-                                  th:text="${#temporals.format(enrollment.tempGrade.gradedAt, 'yyyy-MM-dd HH:mm')}">
-                                2025-12-20 14:30
-                            </span>
+                                <span th:if="${enrollment.tempGrade != null}"
+                                      th:text="${#temporals.format(enrollment.tempGrade.gradedAt, 'yyyy-MM-dd HH:mm')}">
+                                    2025-12-20 14:30
+                                </span>
                             <span th:if="${enrollment.tempGrade == null}" class="text-muted">-</span>
                         </td>
                         <td class="text-center">
-                            <span th:if="${enrollment.tempGrade != null && enrollment.tempGrade.gradeValue >= 2}"
-                                  class="badge bg-success">
-                                Passed
-                            </span>
+                                <span th:if="${enrollment.tempGrade != null && enrollment.tempGrade.gradeValue >= 2}"
+                                      class="badge bg-success" th:text="#{grades.status.passed}">
+                                    Passed
+                                </span>
                             <span th:if="${enrollment.tempGrade != null && enrollment.tempGrade.gradeValue < 2}"
-                                  class="badge bg-danger">
-                                Failed
-                            </span>
+                                  class="badge bg-danger" th:text="#{grades.status.failed}">
+                                    Failed
+                                </span>
                             <span th:if="${enrollment.tempGrade == null}"
-                                  class="badge bg-warning text-dark">
-                                In Progress
-                            </span>
+                                  class="badge bg-warning text-dark" th:text="#{grades.status.in_progress}">
+                                    In Progress
+                                </span>
                         </td>
                     </tr>
                     </tbody>
@@ -122,7 +149,7 @@
                 <div class="col-md-4">
                     <div class="card bg-light">
                         <div class="card-body text-center">
-                            <h6 class="card-subtitle mb-2 text-muted">Total Courses</h6>
+                            <h6 class="card-subtitle mb-2 text-muted" th:text="#{grades.stats.total_courses}">Total Courses</h6>
                             <h3 class="card-title" th:text="${#lists.size(enrollments)}">0</h3>
                         </div>
                     </div>
@@ -130,7 +157,7 @@
                 <div class="col-md-4">
                     <div class="card bg-light">
                         <div class="card-body text-center">
-                            <h6 class="card-subtitle mb-2 text-muted">Graded</h6>
+                            <h6 class="card-subtitle mb-2 text-muted" th:text="#{grades.stats.graded}">Graded</h6>
                             <h3 class="card-title" th:text="${gradedCount}">0</h3>
                         </div>
                     </div>
@@ -138,12 +165,11 @@
                 <div class="col-md-4">
                     <div class="card bg-light">
                         <div class="card-body text-center">
-                            <h6 class="card-subtitle mb-2 text-muted">Pending</h6>
+                            <h6 class="card-subtitle mb-2 text-muted" th:text="#{grades.stats.pending}">Pending</h6>
                             <h3 class="card-title" th:text="${pendingCount}">0</h3>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>

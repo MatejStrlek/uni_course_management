@@ -7,12 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/dashboard">
-            <i class="bi bi-book-half me-2"></i>University Course Management
+        <a class="navbar-brand" th:href="@{/dashboard}">
+            <i class="bi bi-book-half me-2"></i>
+            <span th:text="#{nav.dashboard}">University Course Management</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -20,24 +22,49 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="/student/courses">
-                        <i class="bi bi-book me-1"></i>Courses
+                    <a class="nav-link" th:href="@{/student/courses}">
+                        <i class="bi bi-book me-1"></i>
+                        <span th:text="#{nav.courses}">Courses</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/student/courses/my-courses">
-                        <i class="bi bi-check-circle me-1"></i>Enrollments
+                    <a class="nav-link active" th:href="@{/student/courses/my-courses}">
+                        <i class="bi bi-check-circle me-1"></i>
+                        <span th:text="#{nav.enrollments}">Enrollments</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/student/courses/grades}">
+                        <i class="bi bi-123 me-1"></i>
+                        <span th:text="#{nav.grades}">Grades</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="/student/courses/grades">
-                        <i class="bi bi-123 me-1"></i>Grades
+                    <a class="nav-link" th:href="@{/student/schedule}">
+                        <i class="bi bi-calendar-week me-1"></i>
+                        <span th:text="#{nav.schedule}">Schedule</span>
                     </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light btn-sm dropdown-toggle me-2" type="button"
+                                id="languageDropdown" data-bs-toggle="dropdown">
+                            <span th:class="${#locale.language == 'hr'} ? 'fi fi-hr me-1' : 'fi fi-gb me-1'"></span>
+                            <span th:text="${#locale.language == 'hr'} ? 'HR' : 'EN'">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" th:href="@{''(lang='en')}">
+                                <span class="fi fi-gb me-2"></span>English</a></li>
+                            <li><a class="dropdown-item" th:href="@{''(lang='hr')}">
+                                <span class="fi fi-hr me-2"></span>Hrvatski</a></li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <form th:action="@{/logout}" method="post" class="d-inline">
                         <button class="btn btn-outline-light btn-sm" type="submit">
-                            <i class="bi bi-box-arrow-right me-1"></i>Logout
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            <span th:text="#{nav.logout}">Logout</span>
                         </button>
                     </form>
                 </li>
@@ -57,7 +84,8 @@
                     </p>
                 </div>
                 <a th:href="@{/student/courses/my-courses}" class="btn btn-outline-secondary">
-                    <i class="fas fa-arrow-left"></i> Back to My Courses
+                    <i class="fas fa-arrow-left"></i>
+                    <span th:text="#{course.back_to_courses}">Back to My Courses</span>
                 </a>
             </div>
         </div>
@@ -68,22 +96,25 @@
     <div class="card shadow-sm">
         <div class="card-header bg-info text-white">
             <h4 class="mb-0">
-                <i class="fas fa-book-open me-2"></i>Course Materials
+                <i class="fas fa-book-open me-2"></i>
+                <span th:text="#{course.materials.title}">Course Materials</span>
             </h4>
         </div>
         <div class="card-body p-0">
             <div th:if="${contents.isEmpty()}" class="text-center py-5">
                 <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                <h5 class="text-muted">No materials available yet</h5>
-                <p class="text-muted">Check back later for lecture notes, assignments, and announcements.</p>
+                <h5 class="text-muted" th:text="#{course.materials.no_materials}">No materials</h5>
+                <p class="text-muted" th:text="#{course.materials.no_materials.desc}">
+                    Check back later
+                </p>
             </div>
             <div th:if="${!contents.isEmpty()}" class="table-responsive">
                 <table class="table table-hover mb-0">
                     <thead class="table-light">
                     <tr>
-                        <th>Type</th>
-                        <th>Title</th>
-                        <th>Description</th>
+                        <th th:text="#{course.materials.type}">Type</th>
+                        <th th:text="#{courses.name}">Title</th>
+                        <th th:text="#{courses.description}">Description</th>
                         <th>Published</th>
                         <th>Due Date</th>
                         <th></th>
@@ -93,18 +124,12 @@
                     <tr th:each="content : ${contents}">
                         <td>
                                 <span th:switch="${content.contentType.name()}">
-                                    <span th:case="'LECTURE'" class="badge bg-success"
-                                          th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="'ASSIGNMENT'" class="badge bg-warning text-dark"
-                                          th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="'QUIZ'" class="badge bg-danger"
-                                          th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="'READING_MATERIAL'" class="badge bg-primary"
-                                          th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="'ANNOUNCEMENT'" class="badge bg-info text-white"
-                                          th:text="${content.contentType.displayName}"></span>
-                                    <span th:case="*" class="badge bg-secondary"
-                                          th:text="${content.contentType.displayName}"></span>
+                                    <span th:case="'LECTURE'" class="badge bg-success" th:text="#{course.materials.type.lecture}">Lecture</span>
+                                    <span th:case="'ASSIGNMENT'" class="badge bg-warning text-dark" th:text="#{course.materials.type.assignment}">Assignment</span>
+                                    <span th:case="'QUIZ'" class="badge bg-danger" th:text="#{course.materials.type.quiz}">Quiz</span>
+                                    <span th:case="'READING_MATERIAL'" class="badge bg-primary" th:text="#{course.materials.type.reading}">Reading</span>
+                                    <span th:case="'ANNOUNCEMENT'" class="badge bg-info text-white" th:text="#{course.materials.type.announcement}">Announcement</span>
+                                    <span th:case="*" class="badge bg-secondary" th:text="${content.contentType.displayName}">Other</span>
                                 </span>
                         </td>
                         <td>
@@ -114,19 +139,19 @@
                             <span th:text="${content.contentDescription}">Description</span>
                         </td>
                         <td>
-                            <small class="text-muted"
-                                   th:text="${#temporals.format(content.publishDate, 'MMM dd, yyyy')}">Date</small>
+                            <small class="text-muted" th:text="${#temporals.format(content.publishDate, 'MMM dd, yyyy')}">Date</small>
                         </td>
                         <td>
                                 <span th:if="${content.dueDate}" class="badge bg-danger">
                                     <i class="fas fa-clock me-1"></i>
-                                    <span th:text="${#temporals.format(content.dueDate, 'MMM dd, yyyy HH:mm')}">Due</span>
+                                    <span th:text="#{course.due}">Due</span>
+                                    <span class="ms-1" th:text="${#temporals.format(content.dueDate, 'MMM dd, yyyy HH:mm')}">date</span>
                                 </span>
                             <span th:unless="${content.dueDate}" class="text-muted">-</span>
                         </td>
-                        <td>
+                        <td class="text-end">
                             <a th:href="@{/student/courses/{courseId}/content/{contentId}(courseId=${course.id}, contentId=${content.id})}"
-                               class="btn btn-sm btn-outline-primary">
+                               class="btn btn-sm btn-outline-primary" th:text="#{course.materials.view}">
                                 <i class="fas fa-eye"></i> View
                             </a>
                         </td>

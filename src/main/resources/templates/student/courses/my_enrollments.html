@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Enrollments - Student</title>
+    <title th:text="#{enrollments.title}">My Enrollments - Student</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="/dashboard">
-            <i class="bi bi-book-half me-2"></i>University Course Management
+            <i class="bi bi-book-half me-2"></i>
+            <span th:text="#{nav.dashboard}">University Course Management</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -20,23 +22,48 @@
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
                     <a class="nav-link" href="/student/courses">
-                        <i class="bi bi-book me-1"></i>Courses
+                        <i class="bi bi-book me-1"></i>
+                        <span th:text="#{nav.courses}">Courses</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="/student/courses/my-courses">
-                        <i class="bi bi-check-circle me-1"></i>Enrollments
+                        <i class="bi bi-check-circle me-1"></i>
+                        <span th:text="#{nav.enrollments}">Enrollments</span>
                     </a>
                 </li>
                 <li>
                     <a class="nav-link" href="/student/courses/grades">
-                        <i class="bi bi-123 me-1"></i>Grades
+                        <i class="bi bi-123 me-1"></i>
+                        <span th:text="#{nav.grades}">Grades</span>
                     </a>
+                </li>
+                <li>
+                    <a class="nav-link" th:href="@{/student/schedule}">
+                        <i class="bi bi-calendar-week me-1"></i>
+                        <span th:text="#{nav.schedule}">Schedule</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light btn-sm dropdown-toggle me-2" type="button"
+                                id="languageDropdown" data-bs-toggle="dropdown">
+                            <span th:class="${#locale.language == 'hr'} ? 'fi fi-hr me-1' : 'fi fi-gb me-1'"></span>
+                            <span th:text="${#locale.language == 'hr'} ? 'HR' : 'EN'">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" th:href="@{''(lang='en')}">
+                                <span class="fi fi-gb me-2"></span>English</a></li>
+                            <li><a class="dropdown-item" th:href="@{''(lang='hr')}">
+                                <span class="fi fi-hr me-2"></span>Hrvatski</a></li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <form th:action="@{/logout}" method="post" class="d-inline">
                         <button class="btn btn-outline-light btn-sm" type="submit">
-                            <i class="bi bi-box-arrow-right me-1"></i>Logout
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            <span th:text="#{nav.logout}">Logout</span>
                         </button>
                     </form>
                 </li>
@@ -46,11 +73,11 @@
 </nav>
 <div class="container mt-4">
     <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show" role="alert">
-        <span th:if="${param.success[0] == 'dropped'}">Successfully dropped course.</span>
+        <span th:if="${param.success[0] == 'dropped'}" th:text="#{msg.dropped}">Successfully dropped course!</span>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>My Enrollments</h2>
+        <h2 th:text="#{enrollments.title}">My Enrollments</h2>
     </div>
     <div class="card">
         <div class="card-body">
@@ -58,20 +85,21 @@
                 <table class="table table-hover align-middle">
                     <thead class="table-primary">
                     <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Credits</th>
-                        <th>Semester</th>
-                        <th>Professor</th>
-                        <th>Enrolled At</th>
-                        <th>Status</th>
-                        <th class="text-center">Actions</th>
+                        <th th:text="#{enrollments.code}">Code</th>
+                        <th th:text="#{enrollments.name}">Name</th>
+                        <th th:text="#{enrollments.credits}">Credits</th>
+                        <th th:text="#{enrollments.semester}">Semester</th>
+                        <th th:text="#{enrollments.professor}">Professor</th>
+                        <th th:text="#{enrollments.enrolled_at}">Enrolled At</th>
+                        <th th:text="#{enrollments.status}">Status</th>
+                        <th class="text-center" th:text="#{enrollments.actions}">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:if="${#lists.isEmpty(enrollments)}">
-                        <td colspan="8" class="text-center text-muted">
-                            You are not enrolled in any courses yet.
+                        <td colspan="8" class="text-center text-muted"
+                            th:text="#{enrollments.no_enrollments}">
+                            No enrollments
                         </td>
                     </tr>
                     <tr th:each="enr : ${enrollments}">
@@ -82,21 +110,19 @@
                         <td th:text="${enr.course.professor != null ? enr.course.professor.fullName : 'Not assigned'}"></td>
                         <td th:text="${#temporals.format(enr.enrolledAt, 'yyyy-MM-dd HH:mm')}"></td>
                         <td th:text="${enr.status}"></td>
-                        <td class="text-end">
-                            <div class="d-flex gap-1 justify-content-end">
-                                <a th:href="@{/student/courses/{courseId}/content(courseId=${enr.course.id})}"
-                                   class="btn btn-sm btn-outline-primary">
-                                    <i class="fas bi-bookmark-dash me-1"></i>Content
-                                </a>
-                                <form th:action="@{/student/courses/drop/{courseId}(courseId=${enr.course.id})}"
-                                      method="post"
-                                      onsubmit="return confirm('Are you sure you want to drop this course?');"
-                                      style="margin: 0;">
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">
-                                        <i class="fas bi-trash me-1"></i>Drop
-                                    </button>
-                                </form>
-                            </div>
+                        <td class="d-flex gap-1 justify-content-center">
+                            <a th:href="@{/student/courses/{courseId}/content(courseId=${enr.course.id})}"
+                               class="btn btn-sm btn-outline-primary" th:text="#{enrollments.content}">
+                                <i class="bi bi-bookmark-dash me-1"></i>Content
+                            </a>
+                            <form th:action="@{/student/courses/drop/{courseId}(courseId=${enr.course.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('Are you sure you want to drop this course?');"
+                                  style="margin: 0;">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" th:text="#{enrollments.drop}">
+                                    <i class="bi bi-trash me-1"></i>Drop
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
