@@ -21,7 +21,7 @@
                     Welcome, <span th:text="${currentUser.firstName}"></span>!
                 </span>
             </span>
-            <div class="dropdown me-3">
+            <div class="dropdown me-2">
                 <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button"
                         id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <span th:class="${#locale.language == 'hr'} ? 'fi fi-hr me-1' : 'fi fi-gb me-1'"></span>
