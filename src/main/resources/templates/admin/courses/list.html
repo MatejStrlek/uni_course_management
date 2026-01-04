@@ -143,21 +143,21 @@
                         <td class="text-center">
                             <a th:href="@{/admin/courses/{id}/export-grades(id=${course.id})}"
                                class="btn btn-sm btn-success"
-                               th:attr="title=#{admin.courses.export_grades}"
-                               th:text="#{admin.courses.export_grades_btn}">
-                                <i class="bi bi-download"></i> Export Grades
+                               th:attr="title=#{admin.courses.export_grades}">
+                                <i class="bi bi-download"></i>
+                                <span th:text="#{admin.courses.export_grades_btn}">Export Grades</span>
                             </a>
                             <a th:href="@{/admin/courses/edit/{id}(id=${course.id})}"
                                class="btn btn-sm btn-warning"
-                               th:attr="title=#{admin.courses.edit}"
-                               th:text="#{admin.courses.edit_btn}">
-                                <i class="bi bi-pencil"></i> Edit
+                               th:attr="title=#{admin.courses.edit}">
+                                <i class="bi bi-pencil"></i>
+                                <span th:text="#{admin.courses.edit_btn}">Edit</span>
                             </a>
                             <a th:href="@{/admin/courses/{id}/content(id=${course.id})}"
                                class="btn btn-sm btn-info"
-                               th:attr="title=#{admin.courses.content}"
-                               th:text="#{admin.courses.content_btn}">
-                                <i class="bi bi-book"></i> Content
+                               th:attr="title=#{admin.courses.content}">
+                                <i class="bi bi-book"></i>
+                                <span th:text="#{admin.courses.content_btn}">Content</span>
                             </a>
                             <form th:action="@{/admin/courses/delete/{id}(id=${course.id})}"
                                   method="post"
