@@ -24,7 +24,7 @@ public class SchedulerService {
     // Runs every day at 7:00 AM
     // @Scheduled(cron = "0 0 7 * * ?")
     // for testing purposes, it runs every 2 minutes
-    @Scheduled(cron = "0 */2 * * * ?")
+    // @Scheduled(cron = "0 */2 * * * ?")
     public void sendDailyScheduleNotifications() {
         log.info("Sending Daily schedule notifications to users");
 
