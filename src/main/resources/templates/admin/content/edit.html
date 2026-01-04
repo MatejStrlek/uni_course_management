@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Content</title>
+    <title th:text="#{admin.course.content.edit_title}">Edit Content</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
     <style>
         .required::after { content: " *"; color: red; }
     </style>
@@ -13,44 +14,78 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/dashboard">
-            <i class="bi bi-book-half me-1"></i>University Course Management
+        <a class="navbar-brand" th:href="@{/dashboard}">
+            <i class="bi bi-book-half me-2"></i>
+            <span th:text="#{nav.dashboard}">University Course Management</span>
         </a>
-        <div class="d-flex align-items-center ms-auto">
-            <div class="navbar-nav me-3">
-                <a class="nav-link" href="/admin/dashboard">
-                    <i class="bi bi-speedometer2 me-1"></i>Admin Dashboard
-                </a>
-                <a class="nav-link" href="/admin/users">
-                    <i class="bi bi-people me-1"></i>Users
-                </a>
-                <a class="nav-link active" href="/admin/courses">
-                    <i class="bi bi-book me-1"></i>Courses
-                </a>
-                <a class="nav-link" href="/admin/schedule">
-                    <i class="bi bi-calendar-week me-1"></i>Schedule
-                </a>
-            </div>
-            <form th:action="@{/logout}" method="post" class="d-inline">
-                <button class="btn btn-outline-light btn-sm" type="submit">
-                    <i class="bi bi-box-arrow-right me-1"></i>Logout
-                </button>
-            </form>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/dashboard}">
+                        <i class="bi bi-speedometer2 me-1"></i>
+                        <span th:text="#{admin.dashboard.nav_dashboard}">Admin Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/users}">
+                        <i class="bi bi-people me-1"></i>
+                        <span th:text="#{admin.users.nav_users}">Users</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/admin/courses}">
+                        <i class="bi bi-book me-1"></i>
+                        <span th:text="#{admin.courses.nav_courses}">Courses</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/schedule}">
+                        <i class="bi bi-calendar-week me-1"></i>
+                        <span th:text="#{admin.schedule.nav_schedule}">Schedule</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light btn-sm dropdown-toggle me-2" type="button"
+                                id="languageDropdown" data-bs-toggle="dropdown">
+                            <span th:class="${#locale.language == 'hr'} ? 'fi fi-hr me-1' : 'fi fi-gb me-1'"></span>
+                            <span th:text="${#locale.language == 'hr'} ? 'HR' : 'EN'">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" th:href="@{''(lang='en')}">
+                                <span class="fi fi-gb me-2"></span>English</a></li>
+                            <li><a class="dropdown-item" th:href="@{''(lang='hr')}">
+                                <span class="fi fi-hr me-2"></span>Hrvatski</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                        <button class="btn btn-outline-light btn-sm" type="submit">
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            <span th:text="#{nav.logout}">Logout</span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 <div class="container mt-4 mb-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/admin/dashboard">Admin Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="/admin/courses">Courses</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}" th:text="#{admin.dashboard.nav_dashboard}">Admin Dashboard</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/admin/courses}" th:text="#{admin.courses.nav_courses}">Courses</a></li>
             <li class="breadcrumb-item">
                 <a th:href="@{/admin/courses/{id}(id=${course.id})}" th:text="${course.courseName}">Course</a>
             </li>
             <li class="breadcrumb-item">
-                <a th:href="@{/admin/courses/{courseId}/content(courseId=${course.id})}">Content</a>
+                <a th:href="@{/admin/courses/{courseId}/content(courseId=${course.id})}" th:text="#{admin.course.content.nav_content}">Content</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Content</li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="#{admin.course.content.edit_breadcrumb}">Edit Content</li>
         </ol>
     </nav>
     <div class="row justify-content-center">
@@ -58,7 +93,8 @@
             <div class="card shadow-sm">
                 <div class="card-header bg-warning text-dark">
                     <h4 class="mb-0">
-                        <i class="bi bi-pencil-square me-2"></i>Edit Content
+                        <i class="bi bi-pencil-square me-2"></i>
+                        <span th:text="#{admin.course.content.edit_header}">Edit Content</span>
                     </h4>
                     <small class="mb-0">
                         <i class="bi bi-book me-1"></i>
@@ -78,19 +114,19 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="mb-4">
-                                    <label for="contentTitle" class="form-label required">Title</label>
+                                    <label for="contentTitle" class="form-label required" th:text="#{admin.course.content.form.title}">Title</label>
                                     <input type="text"
                                            class="form-control form-control-lg"
                                            th:classappend="${#fields.hasErrors('contentTitle')} ? 'is-invalid' : ''"
                                            id="contentTitle"
                                            th:field="*{contentTitle}"
-                                           placeholder="e.g., Week 1: Introduction to Programming"
+                                           th:placeholder="#{admin.course.content.form.title.placeholder}"
                                            maxlength="200"
                                            autofocus>
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('contentTitle')}" th:errors="*{contentTitle}"></div>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="contentType" class="form-label required">Content Type</label>
+                                    <label for="contentType" class="form-label required" th:text="#{admin.course.content.form.type}">Content Type</label>
                                     <select class="form-select form-control-lg"
                                             th:classappend="${#fields.hasErrors('contentType')} ? 'is-invalid' : ''"
                                             id="contentType"
@@ -104,25 +140,25 @@
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('contentType')}" th:errors="*{contentType}"></div>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="contentDescription" class="form-label">Short Description</label>
+                                    <label for="contentDescription" class="form-label" th:text="#{admin.course.content.form.description}">Short Description</label>
                                     <textarea class="form-control form-control-lg"
                                               id="contentDescription"
                                               th:field="*{contentDescription}"
                                               rows="3"
-                                              placeholder="Brief summary (shown in list view)"
+                                              th:placeholder="#{admin.course.content.form.description.placeholder}"
                                               maxlength="500"></textarea>
-                                    <small class="form-text text-muted">
+                                    <small class="form-text text-muted" th:text="#{admin.course.content.form.description.help}">
                                         <i class="bi bi-info-circle me-1"></i>Optional: Brief overview visible to students
                                     </small>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="content" class="form-label">Content</label>
+                                    <label for="content" class="form-label" th:text="#{admin.course.content.form.content}">Content</label>
                                     <textarea class="form-control"
                                               id="content"
                                               th:field="*{content}"
                                               rows="10"
-                                              placeholder="Enter detailed content here..."></textarea>
-                                    <small class="form-text text-muted">
+                                              th:placeholder="#{admin.course.content.form.content.placeholder}"></textarea>
+                                    <small class="form-text text-muted" th:text="#{admin.course.content.form.content.help}">
                                         <i class="bi bi-code me-1"></i>Supports basic HTML formatting
                                     </small>
                                 </div>
@@ -130,9 +166,7 @@
                             <div class="col-lg-4">
                                 <!-- Publish Settings -->
                                 <div class="card bg-light mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-cog me-1"></i>Settings
-                                    </div>
+                                    <div class="card-header" th:text="#{admin.course.content.settings.title}">Settings</div>
                                     <div class="card-body">
                                         <div class="mb-3">
                                             <div class="form-check form-switch">
@@ -140,61 +174,58 @@
                                                        type="checkbox"
                                                        id="isPublished"
                                                        th:field="*{isPublished}">
-                                                <label class="form-check-label fw-semibold" for="isPublished">
+                                                <label class="form-check-label fw-semibold" for="isPublished" th:text="#{admin.course.content.settings.publish_label}">
                                                     Publish Now
                                                 </label>
                                             </div>
-                                            <small class="text-muted">
+                                            <small class="text-muted" th:text="#{admin.course.content.settings.publish_help}">
                                                 Students can see published content immediately
                                             </small>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="dueDate" class="form-label">
+                                            <label for="dueDate" class="form-label" th:text="#{admin.course.content.settings.due_label}">
                                                 <i class="bi bi-calendar-event me-1"></i>Due Date
                                             </label>
                                             <input type="datetime-local"
                                                    class="form-control"
                                                    id="dueDate"
                                                    th:field="*{dueDate}">
-                                            <small class="form-text text-muted">For assignments & exams</small>
+                                            <small class="form-text text-muted" th:text="#{admin.course.content.settings.due_help}">For assignments & exams</small>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card bg-light mb-4">
-                                    <div class="card-header">
-                                        <i class="bi bi-link-45deg me-1"></i>Attachment
-                                    </div>
+                                    <div class="card-header" th:text="#{admin.course.content.attachment.title}">Attachment</div>
                                     <div class="card-body">
                                         <div class="mb-3">
-                                            <label for="fileUrl" class="form-label">File URL</label>
+                                            <label for="fileUrl" class="form-label" th:text="#{admin.course.content.attachment.url_label}">File URL</label>
                                             <input type="url"
                                                    class="form-control"
                                                    id="fileUrl"
                                                    th:field="*{fileUrl}"
-                                                   placeholder="https://drive.google.com/file.pdf">
-                                            <small class="form-text text-muted">Link to external resource</small>
+                                                   th:placeholder="#{admin.course.content.attachment.url.placeholder}">
+                                            <small class="form-text text-muted" th:text="#{admin.course.content.attachment.url.help}">Link to external resource</small>
                                         </div>
                                         <div class="mb-0">
-                                            <label for="fileName" class="form-label">Display Name</label>
+                                            <label for="fileName" class="form-label" th:text="#{admin.course.content.attachment.name_label}">Display Name</label>
                                             <input type="text"
                                                    class="form-control"
                                                    id="fileName"
                                                    th:field="*{fileName}"
-                                                   placeholder="lecture-notes.pdf">
-                                            <small class="form-text text-muted">Friendly filename for students</small>
+                                                   th:placeholder="#{admin.course.content.attachment.name.placeholder}">
+                                            <small class="form-text text-muted" th:text="#{admin.course.content.attachment.name.help}">Friendly filename for students</small>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card bg-light">
-                                    <div class="card-header">
-                                        <i class="bi bi-info-circle me-1"></i>Current Info
-                                    </div>
+                                    <div class="card-header" th:text="#{admin.course.content.info.title}">Current Info</div>
                                     <div class="card-body">
                                         <small class="text-muted">
-                                            <strong>ID:</strong> <span th:text="${courseContent.id}">123</span><br>
-                                            <strong>Created:</strong>
+                                            <strong th:text="#{admin.course.content.info.id_label}">ID:</strong>
+                                            <span th:text="${courseContent.id}">123</span><br>
+                                            <strong th:text="#{admin.course.content.info.created_label}">Created:</strong>
                                             <span th:text="${#temporals.format(courseContent.createdAt, 'MMM dd, yyyy HH:mm')}">Dec 30, 2025 19:14</span><br>
-                                            <strong>Last Updated:</strong>
+                                            <strong th:text="#{admin.course.content.info.updated_label}">Last Updated:</strong>
                                             <span th:text="${#temporals.format(courseContent.updatedAt, 'MMM dd, yyyy HH:mm')}">Dec 30, 2025 19:14</span>
                                         </small>
                                     </div>
@@ -206,12 +237,14 @@
                             <div>
                                 <a th:href="@{/admin/courses/{courseId}/content(courseId=${course.id})}"
                                    class="btn btn-outline-secondary btn-lg">
-                                    <i class="bi bi-arrow-left me-2"></i>Back to Content
+                                    <i class="bi bi-arrow-left me-2"></i>
+                                    <span th:text="#{admin.course.content.back_btn}">Cancel</span>
                                 </a>
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-lg btn-primary">
-                                    <i class="bi bi-check-circle me-2"></i>Update Content
+                                <button type="submit" class="btn btn-lg btn-warning">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    <span th:text="#{admin.course.content.update_btn}">Save Changes</span>
                                 </button>
                             </div>
                         </div>
