@@ -109,7 +109,7 @@
                         <td th:text="${course.credits}"></td>
                         <td th:text="${course.semester != null ? course.semester.displayName : 'N/A'}"></td>
                         <td th:text="${course.professor != null ? course.professor.fullName : 'Not assigned'}"></td>
-                        <td class="d-flex justify-content-center">
+                        <td class="d-flex text-center">
                             <form th:action="@{/student/courses/enroll/{id}(id=${course.id})}" method="post" class="d-inline">
                                 <button type="submit" class="btn btn-sm btn-success" th:text="#{courses.enroll}">
                                     Enroll

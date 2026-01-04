@@ -74,16 +74,22 @@
 <div class="container mt-4">
     <div class="row mb-3">
         <div class="col">
-            <h2><i class="bi bi-calendar-week"></i>Schedule Management</h2>
+            <h2>
+                <i class="bi bi-calendar-week"></i>
+                <span th:text="#{admin.schedule.title}">Schedule Management</span>
+            </h2>
         </div>
         <div class="col text-end">
-            <a href="/admin/schedule/create" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Add Schedule Entry
+            <a th:href="@{/admin/schedule/create}"
+               class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i>
+                <span th:text="#{admin.schedule.add_new}">Add New Schedule Entry</span>
             </a>
         </div>
     </div>
     <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle"></i> <span th:text="${successMessage}"></span>
+        <i class="bi bi-check-circle"></i>
+        <span th:text="${successMessage}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     <div class="card">
@@ -92,12 +98,12 @@
                 <table class="table table-hover align-middle">
                     <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
-                        <th>Course</th>
-                        <th>Day</th>
-                        <th>Time</th>
-                        <th>Room</th>
-                        <th>Actions</th>
+                        <th th:text="#{admin.schedule.table.id}">ID</th>
+                        <th th:text="#{admin.schedule.table.course}">Course</th>
+                        <th th:text="#{admin.schedule.table.day}">Day</th>
+                        <th th:text="#{admin.schedule.table.time}">Time</th>
+                        <th th:text="#{admin.schedule.table.room}">Room</th>
+                        <th class="text-center" th:text="#{admin.schedule.table.actions}">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -107,22 +113,27 @@
                         <td th:text="${entry.dayOfWeek}"></td>
                         <td th:text="${entry.startTime + ' - ' + entry.endTime}"></td>
                         <td th:text="${entry.room}"></td>
-                        <td>
+                        <td class="text-center">
                             <a th:href="@{/admin/schedule/edit/{id}(id=${entry.id})}"
-                               class="btn btn-sm btn-warning">
-                                <i class="bi bi-pencil"></i> Edit
+                               class="btn btn-sm btn-warning"
+                               th:attr="title=#{admin.schedule.edit}">
+                                <i class="bi bi-pencil"></i>
+                                <span th:text="#{admin.schedule.edit_btn}">Edit</span>
                             </a>
                             <form th:action="@{/admin/schedule/delete/{id}(id=${entry.id})}"
                                   method="post" class="d-inline"
                                   onsubmit="return confirm('Delete this schedule entry?');">
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    <i class="bi bi-trash"></i> Delete
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger"
+                                        th:attr="title=#{admin.schedule.delete}">
+                                    <i class="bi bi-trash"></i>
+                                    <span th:text="#{admin.schedule.delete_btn}">Delete</span>
                                 </button>
                             </form>
                         </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(scheduleEntries)}">
-                        <td colspan="6" class="text-center text-muted">
+                        <td colspan="6" class="text-center text-muted" th:text="#{admin.schedule.no_entries}">
                             No schedule entries defined.
                         </td>
                     </tr>
