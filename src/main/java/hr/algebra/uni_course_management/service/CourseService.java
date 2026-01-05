@@ -30,14 +30,15 @@ public class CourseService {
         return courseRepository.findByProfessorIdAndIsActiveTrue(professorId);
     }
 
-    public void createCourse(Course course) {
+    public Course createCourse(Course course) {
         if (courseRepository.existsByCourseCode(course.getCourseCode())) {
             throw new IllegalArgumentException("Course with code " + course.getCourseCode() + " already exists.");
         }
         courseRepository.save(course);
+        return course;
     }
 
-    public void updateCourse(Long id, Course updatedCourse) {
+    public Course updateCourse(Long id, Course updatedCourse) {
         Course existingCourse = getCourseById(id);
         existingCourse.setCourseName(updatedCourse.getCourseName());
         existingCourse.setDescription(updatedCourse.getDescription());
@@ -47,7 +48,9 @@ public class CourseService {
         existingCourse.setAcademicYear(updatedCourse.getAcademicYear());
         existingCourse.setIsActive(updatedCourse.getIsActive());
         existingCourse.setProfessor(updatedCourse.getProfessor());
+
         courseRepository.save(existingCourse);
+        return existingCourse;
     }
 
     public void deleteCourse(Long id) {

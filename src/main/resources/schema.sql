@@ -74,3 +74,13 @@ CREATE TABLE IF NOT EXISTS course_content (
     CONSTRAINT fk_content_course FOREIGN KEY (course_id)
     REFERENCES course(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS refresh_token (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    user_id BIGINT NOT NULL,
+    expiry_date TIMESTAMP NOT NULL,
+    created_date TIMESTAMP NOT NULL,
+    revoked BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (user_id) REFERENCES app_user(id) ON DELETE CASCADE
+);

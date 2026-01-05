@@ -27,7 +27,7 @@ public class EnrollmentService {
     private static final String STUDENT_NOT_FOUND = "Student not found";
     private static final String COURSE_NOT_FOUND = "Course not found";
 
-    public void enrollStudent(Long studentId, Long courseId) {
+    public Enrollment enrollStudent(Long studentId, Long courseId) {
         User student = this.userRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
         Course course = this.courseRepository.findById(courseId)
@@ -50,12 +50,24 @@ public class EnrollmentService {
             enrollment.setStudent(student);
             enrollment.setCourse(course);
         }
+
         enrollment.setStatus(EnrollmentStatus.ENROLLED);
         this.enrollmentRepository.save(enrollment);
+        return enrollment;
     }
 
     public List<Enrollment> getEnrollmentsForStudent(Long studentId) {
         User student = userRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
+        List<Enrollment> enrollments = enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED);
+        enrollments.forEach(enrollment -> gradeRepository.findByEnrollmentId(enrollment.getId())
+                .ifPresent(enrollment::setTempGrade));
+
+        return enrollments;
+    }
+
+    public List<Enrollment> findByStudentUsername(String username) {
+        User student = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
         List<Enrollment> enrollments = enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED);
         enrollments.forEach(enrollment -> gradeRepository.findByEnrollmentId(enrollment.getId())
