@@ -36,7 +36,7 @@ public class CourseContentService {
                 .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
     }
 
-    public void createContent(Long courseId, CourseContent content) {
+    public CourseContent createContent(Long courseId, CourseContent content) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found with id: " + courseId));
         content.setCourse(course);
@@ -45,9 +45,10 @@ public class CourseContentService {
             content.setPublishDate(LocalDateTime.now());
         }
         courseContentRepository.save(content);
+        return content;
     }
 
-    public void updateContent(Long contentId, CourseContent updatedContent) {
+    public CourseContent updateContent(Long contentId, CourseContent updatedContent) {
         CourseContent existingContent = courseContentRepository.findById(contentId)
                 .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
 
@@ -66,6 +67,7 @@ public class CourseContentService {
 
         existingContent.setIsPublished(updatedContent.getIsPublished());
         courseContentRepository.save(existingContent);
+        return existingContent;
     }
 
     public void deleteContent(Long contentId) {
