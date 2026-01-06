@@ -28,14 +28,15 @@ public class AdminScheduleService {
                 .orElseThrow(() -> new IllegalArgumentException("Schedule entry with ID " + id + NOT_FOUND));
     }
 
-    public void createScheduleEntry(Long courseId, ScheduleEntry scheduleEntry) {
+    public ScheduleEntry createScheduleEntry(Long courseId, ScheduleEntry scheduleEntry) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Course with ID " + courseId + NOT_FOUND));
         scheduleEntry.setCourse(course);
         scheduleEntryRepository.save(scheduleEntry);
+        return scheduleEntry;
     }
 
-    public void updateScheduleEntry(Long id, Long courseId, ScheduleEntry updatedEntry) {
+    public ScheduleEntry updateScheduleEntry(Long id, Long courseId, ScheduleEntry updatedEntry) {
         ScheduleEntry existingEntry = getScheduleEntryById(id);
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Course with ID " + courseId + NOT_FOUND));
@@ -47,6 +48,7 @@ public class AdminScheduleService {
         existingEntry.setRoom(updatedEntry.getRoom());
 
         scheduleEntryRepository.save(existingEntry);
+        return existingEntry;
     }
 
     public void deleteScheduleEntry(Long id) {

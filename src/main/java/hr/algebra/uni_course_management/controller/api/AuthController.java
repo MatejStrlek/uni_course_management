@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
@@ -139,5 +140,13 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(false, "An error occurred: " + e.getMessage(), null));
         }
+    }
+
+    @GetMapping("/test-roles")
+    public ResponseEntity<?> testRoles(Authentication authentication) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("principal", authentication.getName());
+        response.put("authorities", authentication.getAuthorities());
+        return ResponseEntity.ok(response);
     }
 }
