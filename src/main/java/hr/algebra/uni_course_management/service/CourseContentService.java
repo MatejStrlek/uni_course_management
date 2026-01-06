@@ -27,10 +27,6 @@ public class CourseContentService {
         return courseContentRepository.findByCourseIdAndIsPublishedTrue(courseId);
     }
 
-    public List<CourseContent> getContentsByType(Long courseId, ContentType type) {
-        return courseContentRepository.findByCourseIdAndContentType(courseId, type);
-    }
-
     public CourseContent getContentById(Long contentId) {
         return courseContentRepository.findById(contentId)
                 .orElseThrow(() -> new RuntimeException("Content not found with id: " + contentId));
@@ -88,13 +84,5 @@ public class CourseContentService {
         }
 
         return courseContentRepository.save(content);
-    }
-
-    public List<CourseContent> getUpcomingAssignments(Long courseId) {
-        return courseContentRepository.findUpcomingAssignments(courseId, LocalDateTime.now());
-    }
-
-    public Long getContentCount(Long courseId) {
-        return courseContentRepository.countByCourseId(courseId);
     }
 }

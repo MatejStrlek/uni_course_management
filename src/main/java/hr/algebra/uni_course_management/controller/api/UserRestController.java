@@ -127,7 +127,7 @@ public class UserRestController {
         try {
             userService.updateUser(id, username, firstName, lastName, email,
                     role != null ? UserRole.valueOf(role.toUpperCase()) : null,
-                    password, isActive != null ? isActive : null);
+                    password, isActive);
 
             User updatedUser = userService.getUserById(id);
 

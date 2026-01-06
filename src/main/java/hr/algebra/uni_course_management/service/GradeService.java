@@ -1,6 +1,5 @@
 package hr.algebra.uni_course_management.service;
 
-import hr.algebra.uni_course_management.exception.ResourceNotFoundException;
 import hr.algebra.uni_course_management.model.Enrollment;
 import hr.algebra.uni_course_management.model.Grade;
 import hr.algebra.uni_course_management.repository.EnrollmentRepository;
