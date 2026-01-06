@@ -1,5 +1,7 @@
 package hr.algebra.uni_course_management.service;
 
+import hr.algebra.uni_course_management.exception.ResourceNotFoundException;
+import hr.algebra.uni_course_management.model.Enrollment;
 import hr.algebra.uni_course_management.model.Grade;
 import hr.algebra.uni_course_management.repository.EnrollmentRepository;
 import hr.algebra.uni_course_management.repository.GradeRepository;
@@ -9,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,7 +21,7 @@ public class GradeService {
     private final EnrollmentRepository enrollmentRepository;
     private final EmailService emailService;
 
-    public void assignGrade(Long enrollmentId, Integer gradeValue) {
+    public Grade assignGrade(Long enrollmentId, Integer gradeValue) {
         var enrollment = enrollmentRepository.findById(enrollmentId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid enrollment ID: " + enrollmentId));
 
@@ -38,10 +41,27 @@ public class GradeService {
 
         gradeRepository.save(grade);
         emailService.sendGradeNotification(enrollment.getStudent(), grade);
+        return grade;
     }
 
     public Grade getGradeForEnrollment(Long enrollmentId) {
         return gradeRepository.findByEnrollmentId(enrollmentId)
                 .orElse(null);
+    }
+
+    public List<Grade> getGradesByCourse(Long courseId) {
+        List<Enrollment> enrollments = enrollmentRepository.findByCourseId(courseId);
+        return gradeRepository.findAll().stream()
+                .filter(grade -> enrollments.stream()
+                        .anyMatch(enrollment -> enrollment.getId().equals(grade.getEnrollment().getId())))
+                .toList();
+    }
+
+    public List<Grade> getGradesByStudent(Long studentId) {
+        List<Enrollment> enrollments = enrollmentRepository.findByStudentId(studentId);
+        return gradeRepository.findAll().stream()
+                .filter(grade -> enrollments.stream()
+                        .anyMatch(enrollment -> enrollment.getId().equals(grade.getEnrollment().getId())))
+                .toList();
     }
 }
