@@ -24,18 +24,21 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(String username, String password, String firstName, String lastName, String email, UserRole role) {
+    public User registerUser(String username, String password, String firstName, String lastName, String email, UserRole role) {
         if (userRepository.findByUsername(username).isPresent()) {
             throw new IllegalArgumentException("Username already exists: " + username);
         }
-
         if (userRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email already exists: " + email);
+        }
+        if (password.length() < 6) {
+            throw new IllegalArgumentException("Password must be at least 6 characters long");
         }
 
         String encodedPassword = passwordEncoder.encode(password);
         User user = new User(username, encodedPassword, firstName, lastName, email, role);
         userRepository.save(user);
+        return user;
     }
 
     public User getCurrentUser(String username) {
