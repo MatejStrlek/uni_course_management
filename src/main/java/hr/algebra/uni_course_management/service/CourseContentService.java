@@ -1,6 +1,5 @@
 package hr.algebra.uni_course_management.service;
 
-import hr.algebra.uni_course_management.model.ContentType;
 import hr.algebra.uni_course_management.model.Course;
 import hr.algebra.uni_course_management.model.CourseContent;
 import hr.algebra.uni_course_management.repository.CourseContentRepository;
