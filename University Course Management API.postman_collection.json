@@ -1,0 +1,1207 @@
+{
+	"info": {
+		"_postman_id": "36068818-d332-49ff-a2c4-23353db0e062",
+		"name": "University Course Management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26076660"
+	},
+	"item": [
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "GET courses",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiU1RVREVOVCIsInN1YiI6Im1nYWxpYyIsImlhdCI6MTc2NzcwOTE4OSwiZXhwIjoxNzY3NzEwMDg5fQ.6fum3bbkJIj79SQ5SM70Ot2KAEkzHmDXPJqOZ9oUTzJz3ovl5Uyr0UhV_7Q2ZASJ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzYzOTQwMCwiZXhwIjoxNzY3NjQwMzAwfQ.2b788cWu6_taWHyMgroHc90FRRSFBfzI6OuYvbuRljwkYwt6IS8US7jE_e1qZFbvZGsIPF6tauiG1BZuKYJnQA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/courses/16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzYzOTQwMCwiZXhwIjoxNzY3NjQwMzAwfQ.2b788cWu6_taWHyMgroHc90FRRSFBfzI6OuYvbuRljwkYwt6IS8US7jE_e1qZFbvZGsIPF6tauiG1BZuKYJnQA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/courses/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzYzOTQwMCwiZXhwIjoxNzY3NjQwMzAwfQ.2b788cWu6_taWHyMgroHc90FRRSFBfzI6OuYvbuRljwkYwt6IS8US7jE_e1qZFbvZGsIPF6tauiG1BZuKYJnQA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"courseCode\": \"CS20134\",\r\n  \"courseName\": \"Data Structures and Algorithms\",\r\n  \"description\": \"Advanced data structures and algorithms\",\r\n  \"credits\": 6,\r\n  \"semester\": \"WINTER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzYzOTQwMCwiZXhwIjoxNzY3NjQwMzAwfQ.2b788cWu6_taWHyMgroHc90FRRSFBfzI6OuYvbuRljwkYwt6IS8US7jE_e1qZFbvZGsIPF6tauiG1BZuKYJnQA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"courseCode\": \"CS101asd11\",\r\n  \"courseName\": \"Advanced Data Structures\",\r\n  \"description\": \"Advanced data structures and algorithms with practical implementations\",\r\n  \"credits\": 7,\r\n  \"semester\": \"WINTER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/courses/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzYzOTE2NCwiZXhwIjoxNzY3NjQwMDY0fQ.TbuDfdY79GrW57m_h0jLzWLMThf0NKQTu0GbJycavbAdjev7EXg35ePCJN-hMUxJSwW_b3zuM0RrysBtW8IPrw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/auth/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"07cfe383-a7e1-4dcb-a6c7-4dd43a9edc32\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzY0MTQ4OCwiZXhwIjoxNzY3NjQyMzg4fQ.Wo01AoukoHwi9skW1tvGNLPXIS9PVljSaknbSgqtGlYikU3GnzhzjTuDjwUKBxcTTgc89b3xr_cbXqIbZLzdxA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enrollments",
+			"item": [
+				{
+					"name": "GET enrollments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiU1RVREVOVCIsInN1YiI6Im1nYWxpYyIsImlhdCI6MTc2NzY0MTUyMywiZXhwIjoxNzY3NjQyNDIzfQ.GVfHobEcLC10LktfPBfODWrfq208_BxqGpULRcoaOT8W5Xh8dbh1irVUrQQdjUPekzh_5fDMgjmXZv9N6Joi_A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/enrollments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"enrollments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DROP course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiU1RVREVOVCIsInN1YiI6Im1nYWxpYyIsImlhdCI6MTc2NzY0MTUyMywiZXhwIjoxNzY3NjQyNDIzfQ.GVfHobEcLC10LktfPBfODWrfq208_BxqGpULRcoaOT8W5Xh8dbh1irVUrQQdjUPekzh_5fDMgjmXZv9N6Joi_A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/enrollments/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"enrollments",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enroll course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiU1RVREVOVCIsInN1YiI6Im1nYWxpYyIsImlhdCI6MTc2NzY0MTUyMywiZXhwIjoxNzY3NjQyNDIzfQ.GVfHobEcLC10LktfPBfODWrfq208_BxqGpULRcoaOT8W5Xh8dbh1irVUrQQdjUPekzh_5fDMgjmXZv9N6Joi_A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/enrollments/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"enrollments",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Grades",
+			"item": [
+				{
+					"name": "Assign Grade",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiUFJPRkVTU09SIiwic3ViIjoibWtybXBvdGljIiwiaWF0IjoxNzY3NzA3MDY2LCJleHAiOjE3Njc3MDc5NjZ9.iO3LCELtBwiDH_ulbpvkSdckvao3NNjhJHmjgOUsNpN_g8yYMJ4rPxr-D-mKL7lY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/grades?enrollmentId=7&gradeValue=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"grades"
+							],
+							"query": [
+								{
+									"key": "enrollmentId",
+									"value": "7"
+								},
+								{
+									"key": "gradeValue",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET grades by course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiUFJPRkVTU09SIiwic3ViIjoibWtybXBvdGljIiwiaWF0IjoxNzY3NzA3MDY2LCJleHAiOjE3Njc3MDc5NjZ9.iO3LCELtBwiDH_ulbpvkSdckvao3NNjhJHmjgOUsNpN_g8yYMJ4rPxr-D-mKL7lY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/grades?courseId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"grades"
+							],
+							"query": [
+								{
+									"key": "courseId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schedules",
+			"item": [
+				{
+					"name": "Create schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiUFJPRkVTU09SIiwic3ViIjoibWtybXBvdGljIiwiaWF0IjoxNzY3NzA4Njc1LCJleHAiOjE3Njc3MDk1NzV9.AYtd6Cduyj4HPDfmmSSM2gl9Masm33ji01BShR8FrPAuP7iNosiPhtfeaqISR4G4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/schedules?courseId=1&dayOfWeek=MONDAY&startTime=09:00&endTime=10:30&room=ALGEBRA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"schedules"
+							],
+							"query": [
+								{
+									"key": "courseId",
+									"value": "1"
+								},
+								{
+									"key": "dayOfWeek",
+									"value": "MONDAY"
+								},
+								{
+									"key": "startTime",
+									"value": "09:00"
+								},
+								{
+									"key": "endTime",
+									"value": "10:30"
+								},
+								{
+									"key": "room",
+									"value": "ALGEBRA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET course schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiUFJPRkVTU09SIiwic3ViIjoibWtybXBvdGljIiwiaWF0IjoxNzY3NzA4Njc1LCJleHAiOjE3Njc3MDk1NzV9.AYtd6Cduyj4HPDfmmSSM2gl9Masm33ji01BShR8FrPAuP7iNosiPhtfeaqISR4G4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/courses/1/schedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses",
+								"1",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all schedules",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcwODkyNSwiZXhwIjoxNzY3NzA5ODI1fQ.kVDVGOel2brGNnxieNvlThXf7Wo72IJnVAkZZhmneKc3IcULzTqtNarNmHslk-6F",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/schedules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"schedules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiU1RVREVOVCIsInN1YiI6Im1nYWxpYyIsImlhdCI6MTc2NzcwOTA0NSwiZXhwIjoxNzY3NzA5OTQ1fQ.PD42rwvNn0ntYagbRd1sPHUvsqPlg3RJD5YVtDXpHLrpAuP9Q4FtNDVTIFg8TTYo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/schedules/1?courseId=1&dayOfWeek=TUESDAY&startTime=14:00&endTime=15:30&room=B202343",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"schedules",
+								"1"
+							],
+							"query": [
+								{
+									"key": "courseId",
+									"value": "1"
+								},
+								{
+									"key": "dayOfWeek",
+									"value": "TUESDAY"
+								},
+								{
+									"key": "startTime",
+									"value": "14:00"
+								},
+								{
+									"key": "endTime",
+									"value": "15:30"
+								},
+								{
+									"key": "room",
+									"value": "B202343"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcwOTA5MSwiZXhwIjoxNzY3NzA5OTkxfQ.8N4UbKU8YTtswEWhMJnNFsAKOjZ3rFr7xksgTG21_X0TUhVFU2ovxzsj2fV0wEsv",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/schedules/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"schedules",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "CREATE user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcwOTU5MywiZXhwIjoxNzY3NzEwNDkzfQ.HEeGhTk7JIiU8kdiE1UV1s4kC2Cpx0_Qe6y5_oAbpk4ez-8Tz6sMRJFcAlgB3KuD",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/users?username=newstudent2&password=pass&firstName=John&lastName=Doe&email=john@example.commm&role=STUDENT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "newstudent2"
+								},
+								{
+									"key": "password",
+									"value": "pass"
+								},
+								{
+									"key": "firstName",
+									"value": "John"
+								},
+								{
+									"key": "lastName",
+									"value": "Doe"
+								},
+								{
+									"key": "email",
+									"value": "john@example.commm"
+								},
+								{
+									"key": "role",
+									"value": "STUDENT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcwOTU5MywiZXhwIjoxNzY3NzEwNDkzfQ.HEeGhTk7JIiU8kdiE1UV1s4kC2Cpx0_Qe6y5_oAbpk4ez-8Tz6sMRJFcAlgB3KuD",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/users?role=STUDENT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "STUDENT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcwOTU5MywiZXhwIjoxNzY3NzEwNDkzfQ.HEeGhTk7JIiU8kdiE1UV1s4kC2Cpx0_Qe6y5_oAbpk4ez-8Tz6sMRJFcAlgB3KuD",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/users/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcwOTU5MywiZXhwIjoxNzY3NzEwNDkzfQ.HEeGhTk7JIiU8kdiE1UV1s4kC2Cpx0_Qe6y5_oAbpk4ez-8Tz6sMRJFcAlgB3KuD",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/users/7?username=john.updated&firstName=Johnny&lastName=Doe&email=john.updated@example.com&role=STUDENT&isActive=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users",
+								"7"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "john.updated"
+								},
+								{
+									"key": "firstName",
+									"value": "Johnny"
+								},
+								{
+									"key": "lastName",
+									"value": "Doe"
+								},
+								{
+									"key": "email",
+									"value": "john.updated@example.com"
+								},
+								{
+									"key": "role",
+									"value": "STUDENT"
+								},
+								{
+									"key": "isActive",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcwOTU5MywiZXhwIjoxNzY3NzEwNDkzfQ.HEeGhTk7JIiU8kdiE1UV1s4kC2Cpx0_Qe6y5_oAbpk4ez-8Tz6sMRJFcAlgB3KuD",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/users/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course content",
+			"item": [
+				{
+					"name": "CREATE Content",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcxMDY5NCwiZXhwIjoxNzY3NzExNTk0fQ.l6XVZKTLz9c4kU1GLgvWpwlvcPBz7-xB2lFrXLCr9jK_A8q_g78p7wzf4pQuZ3ZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/courses/1/content?title=Week1_Lecture&content=Introduction to Java&contentType=LECTURE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses",
+								"1",
+								"content"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Week1_Lecture"
+								},
+								{
+									"key": "content",
+									"value": "Introduction to Java"
+								},
+								{
+									"key": "contentType",
+									"value": "LECTURE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET content",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcxMDY5NCwiZXhwIjoxNzY3NzExNTk0fQ.l6XVZKTLz9c4kU1GLgvWpwlvcPBz7-xB2lFrXLCr9jK_A8q_g78p7wzf4pQuZ3ZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/courses/1/content",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses",
+								"1",
+								"content"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE content",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcxMDY5NCwiZXhwIjoxNzY3NzExNTk0fQ.l6XVZKTLz9c4kU1GLgvWpwlvcPBz7-xB2lFrXLCr9jK_A8q_g78p7wzf4pQuZ3ZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/courses/1/content/1?title=Week1_Updated&content=Java Basics&contentType=LECTURE&isPublished=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses",
+								"1",
+								"content",
+								"1"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Week1_Updated"
+								},
+								{
+									"key": "content",
+									"value": "Java Basics"
+								},
+								{
+									"key": "contentType",
+									"value": "LECTURE"
+								},
+								{
+									"key": "isPublished",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TOGGLE Publish",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcxMDY5NCwiZXhwIjoxNzY3NzExNTk0fQ.l6XVZKTLz9c4kU1GLgvWpwlvcPBz7-xB2lFrXLCr9jK_A8q_g78p7wzf4pQuZ3ZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/courses/1/content/1/publish",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses",
+								"1",
+								"content",
+								"1",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE content",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcxMDY5NCwiZXhwIjoxNzY3NzExNTk0fQ.l6XVZKTLz9c4kU1GLgvWpwlvcPBz7-xB2lFrXLCr9jK_A8q_g78p7wzf4pQuZ3ZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/courses/1/content/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"courses",
+								"1",
+								"content",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TESTROLES",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NzcwODY1NiwiZXhwIjoxNzY3NzA5NTU2fQ.4A7xGn61j7XOsm-GH-Ejp0nAVTYEyuYpKFGRN1ESZxxOZOsyttqWFSH-8fmJZ-S_",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"password\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/auth/test-roles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"test-roles"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
