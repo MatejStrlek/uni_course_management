@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS course (
     professor_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (professor_id) REFERENCES app_user(id)
+    FOREIGN KEY (professor_id) REFERENCES app_user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS enrollment (
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS enrollment (
     course_id INT NOT NULL,
     enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     status VARCHAR(20) NOT NULL,
-    CONSTRAINT fk_enr_student FOREIGN KEY (student_id) REFERENCES app_user(id),
+    CONSTRAINT fk_enr_student FOREIGN KEY (student_id) REFERENCES app_user(id) ON DELETE CASCADE,
     CONSTRAINT fk_enr_course FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE,
     CONSTRAINT uq_enr_student_course UNIQUE (student_id, course_id)
 );
