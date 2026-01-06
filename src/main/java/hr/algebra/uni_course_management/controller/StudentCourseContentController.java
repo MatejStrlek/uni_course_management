@@ -4,7 +4,6 @@ import hr.algebra.uni_course_management.model.Course;
 import hr.algebra.uni_course_management.model.CourseContent;
 import hr.algebra.uni_course_management.service.CourseContentService;
 import hr.algebra.uni_course_management.service.CourseService;
-import hr.algebra.uni_course_management.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
