@@ -59,7 +59,10 @@ public class EnrollmentService {
     public List<Enrollment> getEnrollmentsForStudent(Long studentId) {
         User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
-        List<Enrollment> enrollments = enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED);
+        List<Enrollment> enrollments = enrollmentRepository
+                .findByStudentAndStatusIn(
+                        student,
+                        List.of(EnrollmentStatus.ENROLLED, EnrollmentStatus.COMPLETED));
         enrollments.forEach(enrollment -> gradeRepository.findByEnrollmentId(enrollment.getId())
                 .ifPresent(enrollment::setTempGrade));
 
@@ -69,7 +72,10 @@ public class EnrollmentService {
     public List<Enrollment> findByStudentUsername(String username) {
         User student = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException(STUDENT_NOT_FOUND));
-        List<Enrollment> enrollments = enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED);
+        List<Enrollment> enrollments = enrollmentRepository
+                .findByStudentAndStatusIn(
+                        student,
+                        List.of(EnrollmentStatus.ENROLLED, EnrollmentStatus.COMPLETED));
         enrollments.forEach(enrollment -> gradeRepository.findByEnrollmentId(enrollment.getId())
                 .ifPresent(enrollment::setTempGrade));
 

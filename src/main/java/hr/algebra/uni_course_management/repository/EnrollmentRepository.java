@@ -18,7 +18,7 @@ public interface EnrollmentRepository extends CrudRepository<Enrollment, Long> {
 
     Optional<Enrollment> findByStudentAndCourseAndStatus(User student, Course course, EnrollmentStatus status);
 
-    List<Enrollment> findByStudentAndStatus(User student, EnrollmentStatus status);
+    List<Enrollment> findByStudentAndStatusIn(User student, List<EnrollmentStatus> statuses);
 
     List<Enrollment> findByCourseId(Long courseId);
 

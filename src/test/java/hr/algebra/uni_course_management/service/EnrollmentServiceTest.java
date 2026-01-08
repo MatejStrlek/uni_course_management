@@ -145,7 +145,7 @@ class EnrollmentServiceTest {
         Enrollment e2 = new Enrollment();
         e2.setId(101L);
 
-        when(enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED))
+        when(enrollmentRepository.findByStudentAndStatusIn(student, List.of(EnrollmentStatus.ENROLLED, EnrollmentStatus.COMPLETED)))
                 .thenReturn(List.of(e1, e2));
 
         Grade g1 = new Grade(); g1.setGradeValue(5);
@@ -176,7 +176,7 @@ class EnrollmentServiceTest {
 
         Enrollment e1 = new Enrollment();
         e1.setId(200L);
-        when(enrollmentRepository.findByStudentAndStatus(student, EnrollmentStatus.ENROLLED))
+        when(enrollmentRepository.findByStudentAndStatusIn(student, List.of(EnrollmentStatus.ENROLLED, EnrollmentStatus.COMPLETED)))
                 .thenReturn(List.of(e1));
 
         Grade g = new Grade(); g.setGradeValue(4);

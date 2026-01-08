@@ -1,6 +1,7 @@
 package hr.algebra.uni_course_management.service;
 
 import hr.algebra.uni_course_management.model.Enrollment;
+import hr.algebra.uni_course_management.model.EnrollmentStatus;
 import hr.algebra.uni_course_management.model.Grade;
 import hr.algebra.uni_course_management.repository.EnrollmentRepository;
 import hr.algebra.uni_course_management.repository.GradeRepository;
@@ -40,6 +41,7 @@ public class GradeService {
 
         gradeRepository.save(grade);
         emailService.sendGradeNotification(enrollment.getStudent(), grade);
+        enrollment.setStatus(EnrollmentStatus.COMPLETED);
         return grade;
     }
 
