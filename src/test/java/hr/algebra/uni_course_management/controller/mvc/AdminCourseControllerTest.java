@@ -1,7 +1,6 @@
-package hr.algebra.uni_course_management.controller;
+package hr.algebra.uni_course_management.controller.mvc;
 
 import hr.algebra.uni_course_management.model.Course;
-import hr.algebra.uni_course_management.model.Semester;
 import hr.algebra.uni_course_management.model.User;
 import hr.algebra.uni_course_management.model.UserRole;
 import hr.algebra.uni_course_management.repository.UserRepository;

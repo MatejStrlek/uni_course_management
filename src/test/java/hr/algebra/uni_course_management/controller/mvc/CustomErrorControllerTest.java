@@ -1,4 +1,4 @@
-package hr.algebra.uni_course_management.controller;
+package hr.algebra.uni_course_management.controller.mvc;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;

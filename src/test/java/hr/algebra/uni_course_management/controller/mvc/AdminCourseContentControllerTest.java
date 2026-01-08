@@ -1,4 +1,4 @@
-package hr.algebra.uni_course_management.controller;
+package hr.algebra.uni_course_management.controller.mvc;
 
 import hr.algebra.uni_course_management.model.ContentType;
 import hr.algebra.uni_course_management.model.Course;

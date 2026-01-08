@@ -1,4 +1,4 @@
-package hr.algebra.uni_course_management.controller;
+package hr.algebra.uni_course_management.controller.mvc;
 
 import hr.algebra.uni_course_management.dto.ScheduleRow;
 import hr.algebra.uni_course_management.model.User;

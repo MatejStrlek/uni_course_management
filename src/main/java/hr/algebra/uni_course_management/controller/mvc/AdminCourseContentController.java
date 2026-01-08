@@ -1,4 +1,4 @@
-package hr.algebra.uni_course_management.controller;
+package hr.algebra.uni_course_management.controller.mvc;
 
 import hr.algebra.uni_course_management.model.ContentType;
 import hr.algebra.uni_course_management.model.Course;
@@ -17,21 +17,27 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/professor/courses")
-public class ProfessorCourseContentController {
+@RequestMapping("/admin/courses")
+public class AdminCourseContentController {
     private final CourseService courseService;
     private final CourseContentService courseContentService;
 
     @GetMapping("/{courseId}/content")
     public String viewCourseContent(@PathVariable Long courseId,
                                     Model model) {
-        List<CourseContent> courseContent = courseContentService.getAllCourseContents(courseId);
+        List<CourseContent> contents = courseContentService.getAllCourseContents(courseId);
         Course course = courseService.getCourseById(courseId);
 
-        model.addAttribute("courseContent", courseContent);
+        long publishedCount = contents.stream().filter(CourseContent::getIsPublished).count();
+        long draftCount = contents.size() - publishedCount;
+
+        model.addAttribute("contents", contents);
         model.addAttribute("course", course);
         model.addAttribute("contentTypes", ContentType.values());
-        return "professor/content/list";
+        model.addAttribute("publishedCount", publishedCount);
+        model.addAttribute("draftCount", draftCount);
+
+        return "admin/content/list";
     }
 
     @GetMapping("/{courseId}/content/create")
@@ -43,7 +49,7 @@ public class ProfessorCourseContentController {
         model.addAttribute("course", course);
         model.addAttribute("contentTypes", ContentType.values());
 
-        return "professor/content/create";
+        return "admin/content/create";
     }
 
     @PostMapping("/{courseId}/content/create")
@@ -56,13 +62,12 @@ public class ProfessorCourseContentController {
             Course course = courseService.getCourseById(courseId);
             model.addAttribute("course", course);
             model.addAttribute("contentTypes", ContentType.values());
-
-            return "professor/content/create";
+            return "admin/content/create";
         }
         courseContentService.createContent(courseId, courseContent);
 
         redirectAttributes.addFlashAttribute("successMessage", "Content created successfully!");
-        return "redirect:/professor/courses/" + courseId + "/content";
+        return "redirect:/admin/courses/" + courseId + "/content";
     }
 
     @GetMapping("/{courseId}/content/{contentId}/edit")
@@ -76,7 +81,7 @@ public class ProfessorCourseContentController {
         model.addAttribute("course", course);
         model.addAttribute("contentTypes", ContentType.values());
 
-        return "professor/content/edit";
+        return "admin/content/edit";
     }
 
     @PostMapping("/{courseId}/content/{contentId}/update")
@@ -91,12 +96,12 @@ public class ProfessorCourseContentController {
             model.addAttribute("course", course);
             model.addAttribute("contentTypes", ContentType.values());
 
-            return "professor/content/edit";
+            return "admin/content/edit";
         }
         courseContentService.updateContent(contentId, courseContent);
 
         redirectAttributes.addFlashAttribute("successMessage", "Content updated successfully!");
-        return "redirect:/professor/courses/" + courseId + "/content";
+        return "redirect:/admin/courses/" + courseId + "/content";
     }
 
     @PostMapping("/{courseId}/content/{contentId}/delete")
@@ -106,10 +111,10 @@ public class ProfessorCourseContentController {
         courseContentService.deleteContent(contentId);
 
         redirectAttributes.addFlashAttribute("successMessage", "Content deleted successfully!");
-        return "redirect:/professor/courses/" + courseId + "/content";
+        return "redirect:/admin/courses/" + courseId + "/content";
     }
 
-    @PostMapping("/{courseId}/content/{contentId}/toggle-publish")
+    @PostMapping("/{courseId}/content/{contentId}/toggle")
     public String togglePublishStatus(@PathVariable Long courseId,
                                       @PathVariable Long contentId,
                                       RedirectAttributes redirectAttributes) {
@@ -119,6 +124,6 @@ public class ProfessorCourseContentController {
                 : "Content unpublished successfully!";
 
         redirectAttributes.addFlashAttribute("successMessage", message);
-        return "redirect:/professor/courses/" + courseId + "/content";
+        return "redirect:/admin/courses/" + courseId + "/content";
     }
 }
