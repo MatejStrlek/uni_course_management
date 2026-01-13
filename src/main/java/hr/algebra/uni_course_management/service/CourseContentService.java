@@ -52,6 +52,9 @@ public class CourseContentService {
         existingContent.setContent(updatedContent.getContent());
         existingContent.setContentType(updatedContent.getContentType());
         existingContent.setDueDate(updatedContent.getDueDate());
+        existingContent.setContent(updatedContent.getContent());
+        existingContent.setFileUrl(updatedContent.getFileUrl());
+        existingContent.setFileName(updatedContent.getFileName());
 
         boolean wasPublished = Boolean.TRUE.equals(existingContent.getIsPublished());
         boolean willBePublished = Boolean.TRUE.equals(updatedContent.getIsPublished());
