@@ -2,6 +2,7 @@ package hr.algebra.uni_course_management.config;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.context.MessageSource;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -18,7 +19,8 @@ class LocaleConfigTest {
         LocaleResolver resolver = localeConfig.localeResolver();
 
         assertThat(resolver).isInstanceOf(SessionLocaleResolver.class);
-        assertThat(((SessionLocaleResolver) resolver).getDefaultLocale()).isEqualTo(Locale.ENGLISH);
+        assertThat(((SessionLocaleResolver) resolver).resolveLocale(new MockHttpServletRequest()))
+                .isEqualTo(Locale.ENGLISH);
     }
 
     @Test
