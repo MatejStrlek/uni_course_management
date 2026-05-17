@@ -40,7 +40,7 @@ public class RefreshTokenService {
     public RefreshToken verifyExpiration(RefreshToken token) {
         if (token.isExpired()) {
             refreshTokenRepository.delete(token);
-            throw new RuntimeException("Refresh token expired. User must log in again.");
+            throw new RuntimeException("Refresh token expired. Please sign in again.");
         }
         return token;
     }
