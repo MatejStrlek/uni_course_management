@@ -1,0 +1,11 @@
+services:
+  uni-course-management:
+    image: ghcr.io/matejstrlek/uni_course_management:latest
+    container_name: uni-course-management
+    ports:
+      - "8081:8081"
+    environment:
+      MAIL_USERNAME: ${MAIL_USERNAME:-ci-test@example.com}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-ci-test-password}
+      JWT_SECRET: ${JWT_SECRET:-CiTestSecretKeyThatIsAtLeast256BitsLongForHS256AlgorithmOk}
+    restart: unless-stopped
