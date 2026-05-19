@@ -114,12 +114,12 @@ jobs:
           $status = docker inspect -f '{{.State.Running}}' uni-course-management
           if ($status -ne 'true') { throw "Container is not running" }
           echo "Deployment successful — container is running"
-        shell: pwsh
+        shell: powershell
 
       - name: Collect and upload deployment logs
         if: always()
         run: docker compose logs --tail=100 | Out-File -FilePath deployment-logs.txt -Encoding utf8
-        shell: pwsh
+        shell: powershell
 
       - name: Upload deployment logs
         if: always()
