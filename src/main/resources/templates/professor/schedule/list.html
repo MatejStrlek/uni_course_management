@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,14 +36,16 @@
                     <div class="dropdown">
                         <button class="btn btn-outline-light btn-sm dropdown-toggle me-2" type="button"
                                 id="languageDropdown" data-bs-toggle="dropdown">
-                            <span th:class="${#locale.language == 'hr'} ? 'fi fi-hr me-1' : 'fi fi-gb me-1'"></span>
-                            <span th:text="${#locale.language == 'hr'} ? 'HR' : 'EN'">EN</span>
+                            <span th:class="${#locale.language == 'hr'} ? 'fi fi-hr me-1' : (${#locale.language == 'de'} ? 'fi fi-de me-1' : 'fi fi-gb me-1')"></span>
+                            <span th:text="${#locale.language == 'hr'} ? 'HR' : (${#locale.language == 'de'} ? 'DE' : 'EN')">EN</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" th:href="@{''(lang='en')}">
                                 <span class="fi fi-gb me-2"></span>English</a></li>
                             <li><a class="dropdown-item" th:href="@{''(lang='hr')}">
                                 <span class="fi fi-hr me-2"></span>Hrvatski</a></li>
+                            <li><a class="dropdown-item" th:href="@{''(lang='de')}">
+                                <span class="fi fi-de me-2"></span>Deutsch</a></li>
                         </ul>
                     </div>
                 </li>
