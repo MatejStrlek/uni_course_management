@@ -6,12 +6,19 @@ on:
   pull_request:
     branches: [ master, main ]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build-test-package:
     name: Build, Test & Package
     runs-on: self-hosted
 
     steps:
+      - name: Fix tar PATH on Windows
+        shell: powershell
+        run: Add-Content -Path $env:GITHUB_PATH -Value "C:\Windows\System32"
+
       - name: Checkout source
         uses: actions/checkout@v4
 
@@ -61,6 +68,10 @@ jobs:
       packages: write
 
     steps:
+      - name: Fix tar PATH on Windows
+        shell: powershell
+        run: Add-Content -Path $env:GITHUB_PATH -Value "C:\Windows\System32"
+
       - name: Checkout source
         uses: actions/checkout@v4
 
