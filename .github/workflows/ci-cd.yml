@@ -43,6 +43,15 @@ jobs:
           path: target/surefire-reports/
           retention-days: 7
 
+      - name: Upload Playwright screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-screenshots
+          path: target/playwright-screenshots/
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Package
         run: ./mvnw --batch-mode package -DskipTests
 
