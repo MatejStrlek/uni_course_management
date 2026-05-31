@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @EnableAsync
+@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
 public class UniCourseManagementApplication {
     public static void main(String[] args) {
         SpringApplication.run(UniCourseManagementApplication.class, args);
